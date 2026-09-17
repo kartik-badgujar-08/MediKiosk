@@ -203,7 +203,9 @@ class ClinicalStateService:
         fact.id = fact_id
 
         # Categorize fact into appropriate state section
-        if fact.category == "medication":
+        if fact.name.lower() in ("chief complaint", "primary concern") or fact.category in ("chief_complaint", "cc"):
+            state.chief_complaint = fact
+        elif fact.category == "medication":
             state.medications.append(fact)
         elif fact.category == "allergy":
             state.allergies.append(fact)
