@@ -83,6 +83,10 @@ export const TRANSLATIONS: Record<LanguageCode, Record<string, string>> = {
     'kiosk.backBtn': 'Back',
     'kiosk.submitBtn': 'Submit to Doctor Queue',
     'kiosk.emergencyNotice': 'In case of severe difficulty breathing, chest pain, or trauma, contact hospital staff immediately.',
+    'kiosk.selectedOption': 'Selected',
+    'kiosk.painSeverityPrefix': 'Pain severity',
+    'kiosk.audioGuidance': 'Voice Guidance',
+    'kiosk.replayQuestion': 'Listen to question again',
 
     // Audio Guide Prompts
     'audio.consentSpeech': 'Under the Ayushman Bharat Digital Mission, please provide your consent to share your clinical intake history for physician review and digital health record linking. Consent is mandatory to proceed.',
@@ -156,6 +160,10 @@ export const TRANSLATIONS: Record<LanguageCode, Record<string, string>> = {
     'kiosk.backBtn': 'पीछे जाएं',
     'kiosk.submitBtn': 'डॉक्टर को सबमिट करें',
     'kiosk.emergencyNotice': 'यदि सांस लेने में गंभीर कठिनाई, सीने में तेज दर्द या दुर्घटना हो, तो तुरंत अस्पताल कर्मियों से संपर्क करें।',
+    'kiosk.selectedOption': 'चुना गया',
+    'kiosk.painSeverityPrefix': 'दर्द की तीव्रता',
+    'kiosk.audioGuidance': 'ध्वनि सहायता',
+    'kiosk.replayQuestion': 'प्रश्न पुनः सुनें',
 
     // Audio Guide Prompts
     'audio.consentSpeech': 'आयुष्मान भारत डिजिटल मिशन के तहत, कृपया अपने स्वास्थ्य डेटा को डॉक्टर के साथ साझा करने की सहमति दें। सहमति के बिना आप आगे नहीं बढ़ सकते।',
@@ -229,6 +237,10 @@ export const TRANSLATIONS: Record<LanguageCode, Record<string, string>> = {
     'kiosk.backBtn': 'मागे या',
     'kiosk.submitBtn': 'डॉक्टरांकडे पाठवा',
     'kiosk.emergencyNotice': 'श्वास घेण्यास तीव्र त्रास, छातीत तीव्र वेदना किंवा अपघात असल्यास त्वरित रुग्णालयातील कर्मचाऱ्यांशी संपर्क साधा.',
+    'kiosk.selectedOption': 'निवडले',
+    'kiosk.painSeverityPrefix': 'वेदनेची तीव्रता',
+    'kiosk.audioGuidance': 'ध्वनी मार्गदर्शन',
+    'kiosk.replayQuestion': 'प्रश्न पुन्हा ऐका',
 
     // Audio Guide Prompts
     'audio.consentSpeech': 'आयुष्मान भारत डिजिटल मिशन अंतर्गत, कृपया आपल्या आरोग्य माहिती डॉक्टरांसोबत सामायिक करण्यास संमती द्या. संमतीशिवाय आपण पुढे जाऊ शकत नाही.',
@@ -255,16 +267,16 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       const saved = localStorage.getItem(LANGUAGE_STORAGE_KEY) as LanguageCode;
       if (saved && ['en', 'hi', 'mr'].includes(saved)) return saved;
     }
-    return 'en';
+    return 'hi'; // Default Hindi for accessible clinical kiosk
   });
 
-  const [isSpeaking, setIsSpeaking] = useState<boolean>(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
 
-  const setLanguage = (newLang: LanguageCode) => {
-    setLanguageState(newLang);
+  const setLanguage = (lang: LanguageCode) => {
+    setLanguageState(lang);
     if (typeof window !== 'undefined') {
-      localStorage.setItem(LANGUAGE_STORAGE_KEY, newLang);
-      // Cancel any current speech when switching language
+      localStorage.setItem(LANGUAGE_STORAGE_KEY, lang);
+      // Cancel any ongoing speech when language switches
       if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
         setIsSpeaking(false);
@@ -292,6 +304,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       utterance.lang = currentOpt ? currentOpt.speechLocale : 'en-IN';
       utterance.rate = 0.95; // Clear and accessible cadence
       utterance.pitch = 1.0;
+      utterance.volume = 1.0; // Maximum loudness for kiosk environment
 
       utterance.onstart = () => setIsSpeaking(true);
       utterance.onend = () => setIsSpeaking(false);

@@ -147,3 +147,84 @@ async def test_socrates_pain_and_red_flag_detection():
         )
         red_flags = a_res.json()["red_flags"]
         assert any("chest discomfort with respiratory compromise" in rf.lower() for rf in red_flags)
+
+
+@pytest.mark.asyncio
+async def test_full_socrates_workflow_and_ai_analysis():
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
+        # 1. Test AI clinical complaint analysis
+        ai_res = await client.post(
+            "/api/v1/interview/ai-analyze",
+            json={
+                "text": "I have sudden severe burning pain in my chest that radiates to my left arm with cold sweating, rated 9/10",
+                "language": "en",
+            },
+        )
+        assert ai_res.status_code == 200
+        data = ai_res.json()
+        assert data["chief_complaint"] == "Pain"
+        assert data["extracted_slots"]["site"] == "Chest"
+        assert data["extracted_slots"]["character"] == "Burning"
+        assert data["extracted_slots"]["radiation"] == "Left arm / jaw"
+        assert "Cold sweating" in data["extracted_slots"]["associated"]
+        assert data["extracted_slots"]["severity"] == 9
+        assert len(data["detected_red_flags"]) >= 1
+
+        # 2. Test Hindi speech parsing
+        hi_res = await client.post(
+            "/api/v1/interview/ai-analyze",
+            json={
+                "text": "छाती में बहुत तेज जलन हो रही है और सांस फूल रही है",
+                "language": "hi",
+            },
+        )
+        assert hi_res.status_code == 200
+        hi_data = hi_res.json()
+        assert hi_data["extracted_slots"]["site"] == "Chest"
+        assert hi_data["extracted_slots"]["character"] == "Burning"
+        assert "Shortness of breath" in hi_data["extracted_slots"]["associated"]
+
+        # 3. Test Full 8-Letter SOCRATES Sequence
+        enc_id = "test-socrates-encounter-001"
+        start_res = await client.post(f"/api/v1/interview/start?encounter_id={enc_id}&language=en")
+        assert start_res.status_code == 200
+
+        # CC -> Pain
+        res = await client.post(f"/api/v1/interview/{enc_id}/answer", json={"question_id": "CC_PRIMARY", "answer_value": "Pain"})
+        assert res.json()["current_question"]["id"] == "SOCRATES_SITE"
+
+        # S -> Chest
+        res = await client.post(f"/api/v1/interview/{enc_id}/answer", json={"question_id": "SOCRATES_SITE", "answer_value": "Chest"})
+        assert res.json()["current_question"]["id"] == "SOCRATES_ONSET"
+
+        # O -> Sudden acute
+        res = await client.post(f"/api/v1/interview/{enc_id}/answer", json={"question_id": "SOCRATES_ONSET", "answer_value": "Sudden acute"})
+        assert res.json()["current_question"]["id"] == "SOCRATES_CHARACTER"
+
+        # C -> Burning
+        res = await client.post(f"/api/v1/interview/{enc_id}/answer", json={"question_id": "SOCRATES_CHARACTER", "answer_value": "Burning"})
+        assert res.json()["current_question"]["id"] == "SOCRATES_RADIATION"
+
+        # R -> Left arm / jaw
+        res = await client.post(f"/api/v1/interview/{enc_id}/answer", json={"question_id": "SOCRATES_RADIATION", "answer_value": "Left arm / jaw"})
+        assert res.json()["current_question"]["id"] == "SOCRATES_ASSOCIATED"
+
+        # A -> Cold sweating
+        res = await client.post(f"/api/v1/interview/{enc_id}/answer", json={"question_id": "SOCRATES_ASSOCIATED", "answer_value": ["Cold sweating"]})
+        assert res.json()["current_question"]["id"] == "SOCRATES_TIMING"
+
+        # T -> Continuous
+        res = await client.post(f"/api/v1/interview/{enc_id}/answer", json={"question_id": "SOCRATES_TIMING", "answer_value": "Continuous"})
+        assert res.json()["current_question"]["id"] == "SOCRATES_EXACERBATING"
+
+        # E -> Worse with exertion
+        res = await client.post(f"/api/v1/interview/{enc_id}/answer", json={"question_id": "SOCRATES_EXACERBATING", "answer_value": "Worse with exertion"})
+        assert res.json()["current_question"]["id"] == "SOCRATES_SEVERITY"
+
+        # S -> Severity 9
+        res = await client.post(f"/api/v1/interview/{enc_id}/answer", json={"question_id": "SOCRATES_SEVERITY", "answer_value": 9})
+        assert res.json()["current_question"]["id"] == "PMH_CONDITIONS"
+
+        # Verify red flags captured
+        assert len(res.json()["red_flags"]) >= 2
+

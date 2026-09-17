@@ -128,6 +128,13 @@ export class ApiClient {
     });
   }
 
+  async analyzeComplaintAI(text: string, language: string = 'en'): Promise<any> {
+    return this.request<any>('/api/v1/interview/ai-analyze', {
+      method: 'POST',
+      body: JSON.stringify({ text, language }),
+    });
+  }
+
   // Clinical State
   async getClinicalState(encounterId: string): Promise<any> {
     return this.request<any>(`/api/v1/clinical-state/${encounterId}`);
