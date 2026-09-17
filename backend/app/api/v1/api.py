@@ -5,6 +5,7 @@ from app.api.v1.endpoints import (
     clinical_state,
     documents,
     encounters,
+    fhir,
     health,
     interview,
     patients,
@@ -27,3 +28,4 @@ api_router.include_router(asr.router, prefix="/asr", tags=["Multilingual ASR"])
 api_router.include_router(summaries.router, prefix="/summaries", tags=["Physician Summary"])
 api_router.include_router(verification.router, prefix="/verification", tags=["Verification"])
 api_router.include_router(timeline.router, prefix="/timeline", tags=["Patient Timeline"])
+api_router.include_router(fhir.router, prefix="/fhir", tags=["FHIR R4"])
