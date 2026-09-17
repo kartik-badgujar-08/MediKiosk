@@ -5,12 +5,19 @@ from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
+from contextlib import asynccontextmanager
 from app.core.config import settings
 from app.core.logging import logger, setup_logging
 from app.api.v1.api import api_router
+from app.repositories.database import db_manager
 
 # Initialize structured logger
 setup_logging(debug=settings.DEBUG)
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    await db_manager.connect()
+    yield
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
@@ -19,6 +26,7 @@ app = FastAPI(
     docs_url="/docs",
     redoc_url="/redoc",
     openapi_url="/openapi.json",
+    lifespan=lifespan,
 )
 
 # Configure CORS Middleware
@@ -90,6 +98,14 @@ def root():
         "health_check": "/health",
         "api_v1": settings.API_V1_PREFIX,
     }
+
+
+@app.get("/system/db-status", tags=["System"])
+def get_db_status():
+    """
+    Direct system endpoint reporting live database storage engine, file path, and collection record counts.
+    """
+    return db_manager.get_stats()
 
 
 # Include API v1 Router

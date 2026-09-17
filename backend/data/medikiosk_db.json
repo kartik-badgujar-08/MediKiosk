@@ -1,0 +1,1721 @@
+{
+  "users": {
+    "c19353c7-55bf-494d-8ea8-2ef92a9568e1": {
+      "id": "c19353c7-55bf-494d-8ea8-2ef92a9568e1",
+      "email": "dr.sharma@example.com",
+      "full_name": "Dr. Ramesh Sharma",
+      "role": "doctor",
+      "is_active": true,
+      "hashed_password": "$2b$12$JTeeNrDpKZke7mSpgZ8eWehtxcMdre/sZkiprJ0JtwVkuJVRRp5va",
+      "created_at": "2026-09-17T20:36:08.782954+00:00",
+      "updated_at": "2026-09-17T20:36:08.782954+00:00"
+    },
+    "a4ff491d-214b-40ad-b2ab-fc57d84590f5": {
+      "id": "a4ff491d-214b-40ad-b2ab-fc57d84590f5",
+      "email": "dr.anita.desai@medikiosk.gov.in",
+      "full_name": "Dr. Anita Desai",
+      "role": "doctor",
+      "is_active": true,
+      "hashed_password": "$2b$12$/J85YNqEatx7tuts7irAzuUkNPizk2IIDC3AaZRWizr0r/GkdjTC6",
+      "metadata": {
+        "hpr_id": "dr.anita.desai@hpr",
+        "registration_number": "MMC-2018-09281",
+        "state_medical_council": "Maharashtra Medical Council",
+        "degrees": "MBBS, MD (General Medicine)",
+        "specialization": "Internal Medicine & Critical Care",
+        "hospital_affiliation": "King Edward Memorial (KEM) Hospital, Mumbai",
+        "nmc_verified": true,
+        "gov_id_source": "HPR_NMC"
+      },
+      "created_at": "2026-09-17T20:36:09.740898+00:00",
+      "updated_at": "2026-09-17T20:36:09.740898+00:00"
+    }
+  },
+  "patients": {
+    "pat-rahul-sharma-001": {
+      "id": "pat-rahul-sharma-001",
+      "name": "Rahul Sharma",
+      "age": 35,
+      "gender": "Male",
+      "phone": "+91-9876543210",
+      "uhid": "UHID-2026-092811",
+      "abha_id": "91-2834-5829-1029",
+      "abha_number": "91-2834-5829-1029",
+      "abha_address": "rahul.sharma@abdm",
+      "preferred_language": "hi",
+      "created_at": "2026-09-17T10:00:00Z",
+      "updated_at": "2026-09-17T10:00:00Z"
+    },
+    "pat-sunita-patil-002": {
+      "id": "pat-sunita-patil-002",
+      "name": "Sunita Patil",
+      "age": 52,
+      "gender": "Female",
+      "phone": "+91-9812345678",
+      "uhid": "UHID-2026-081244",
+      "abha_id": "91-9482-1049-3821",
+      "abha_number": "91-9482-1049-3821",
+      "abha_address": "sunita.patil@abdm",
+      "preferred_language": "mr",
+      "created_at": "2026-09-17T11:00:00Z",
+      "updated_at": "2026-09-17T11:00:00Z"
+    },
+    "8e018d26-4659-4070-a45d-fd11de1d0b3e": {
+      "id": "8e018d26-4659-4070-a45d-fd11de1d0b3e",
+      "name": "Rahul Sharma",
+      "age": 35,
+      "gender": "Male",
+      "phone": "+919876543210",
+      "uhid": "UHID-2026-7337B1",
+      "abha_id": null,
+      "preferred_language": "hi",
+      "metadata": {},
+      "created_at": "2026-09-17T20:36:09.241406+00:00",
+      "updated_at": "2026-09-17T20:36:09.241406+00:00"
+    },
+    "539dea95-e583-4b17-8dc3-a1d06ed95b23": {
+      "id": "539dea95-e583-4b17-8dc3-a1d06ed95b23",
+      "name": "Rahul Sharma",
+      "age": 35,
+      "gender": "Male",
+      "phone": null,
+      "uhid": "UHID-2026-D86585",
+      "abha_id": null,
+      "preferred_language": "en",
+      "metadata": {},
+      "created_at": "2026-09-17T20:36:09.287636+00:00",
+      "updated_at": "2026-09-17T20:36:09.287636+00:00"
+    },
+    "4b1011d1-fdc7-49f1-b673-e5b18d1055ef": {
+      "id": "4b1011d1-fdc7-49f1-b673-e5b18d1055ef",
+      "name": "Rahul Sharma",
+      "age": 35,
+      "gender": "Male",
+      "phone": "+919876543210",
+      "uhid": "UHID-2026-8941",
+      "abha_id": "rahul.sharma@abdm",
+      "preferred_language": "hi",
+      "metadata": {},
+      "created_at": "2026-09-17T20:36:09.386222+00:00",
+      "updated_at": "2026-09-17T20:36:09.386222+00:00"
+    },
+    "0b356c32-9cac-45cd-b964-1e2b4d5e7fb9": {
+      "id": "0b356c32-9cac-45cd-b964-1e2b4d5e7fb9",
+      "name": "Sunita Patil",
+      "age": 28,
+      "gender": "Female",
+      "phone": "+919876543299",
+      "uhid": "UHID-2026-8942",
+      "abha_id": "sunita.patil@abdm",
+      "preferred_language": "mr",
+      "metadata": {},
+      "created_at": "2026-09-17T20:36:09.393888+00:00",
+      "updated_at": "2026-09-17T20:36:09.393888+00:00"
+    },
+    "f58f0403-4ddd-47cd-a02e-11f41a909b2d": {
+      "id": "f58f0403-4ddd-47cd-a02e-11f41a909b2d",
+      "name": "Rahul Sharma",
+      "age": 35,
+      "gender": "Male",
+      "phone": null,
+      "uhid": "UHID-2026-13A009",
+      "abha_id": null,
+      "preferred_language": "en",
+      "metadata": {},
+      "created_at": "2026-09-17T20:36:09.502638+00:00",
+      "updated_at": "2026-09-17T20:36:09.502638+00:00"
+    },
+    "7344b1e8-c887-4317-80dd-1eabde7facf3": {
+      "id": "7344b1e8-c887-4317-80dd-1eabde7facf3",
+      "name": "Rahul Sharma",
+      "age": 35,
+      "gender": "Male",
+      "phone": null,
+      "uhid": "UHID-2026-9999",
+      "abha_id": null,
+      "preferred_language": "en",
+      "metadata": {},
+      "created_at": "2026-09-17T20:36:09.634340+00:00",
+      "updated_at": "2026-09-17T20:36:09.634340+00:00"
+    },
+    "67f02c1d-b657-49c7-a3a6-b4fc8104e9d0": {
+      "id": "67f02c1d-b657-49c7-a3a6-b4fc8104e9d0",
+      "name": "Rahul Sharma",
+      "age": 28,
+      "gender": "M",
+      "phone": "+91 98765 43210",
+      "uhid": "UHID-2026-429BEA",
+      "abha_id": "91-4820-1928-3819",
+      "preferred_language": "en",
+      "metadata": {
+        "abdm_linked": true,
+        "abha_address": "rahul.sharma@abdm",
+        "district": "Central Delhi",
+        "state": "Delhi",
+        "pincode": "110001",
+        "verified_via": "ABDM_M1_OTP"
+      },
+      "created_at": "2026-09-17T20:36:09.711478+00:00",
+      "updated_at": "2026-09-17T20:36:09.711478+00:00"
+    },
+    "cd1a816f-c4bf-449e-8639-536cc2fb2440": {
+      "id": "cd1a816f-c4bf-449e-8639-536cc2fb2440",
+      "name": "Sunita Patil",
+      "age": 28,
+      "gender": "F",
+      "phone": "+91 98765 43210",
+      "uhid": "UHID-2026-2E213E",
+      "abha_id": "91-8841-2091-5821",
+      "preferred_language": "en",
+      "metadata": {
+        "abdm_linked": true,
+        "abha_address": "rahul.sharma@abdm",
+        "verified_via": "ABDM_QR_SCAN"
+      },
+      "created_at": "2026-09-17T20:36:10.366783+00:00",
+      "updated_at": "2026-09-17T20:36:10.366783+00:00"
+    },
+    "d18c680a-54a9-4b9e-9dcd-eed6810ada1b": {
+      "id": "d18c680a-54a9-4b9e-9dcd-eed6810ada1b",
+      "name": "Rahul Sharma",
+      "age": 35,
+      "gender": "Male",
+      "phone": null,
+      "uhid": "UHID-2026-296F1A",
+      "abha_id": "rahul.sharma@abdm",
+      "preferred_language": "en",
+      "metadata": {},
+      "created_at": "2026-09-17T20:36:10.469140+00:00",
+      "updated_at": "2026-09-17T20:36:10.469140+00:00"
+    },
+    "2ada3cdf-ffb3-4ca5-9e9e-5b4cc27a9d02": {
+      "id": "2ada3cdf-ffb3-4ca5-9e9e-5b4cc27a9d02",
+      "name": "Rahul Sharma",
+      "age": 35,
+      "gender": "Male",
+      "phone": null,
+      "uhid": "UHID-2026-5DF8F3",
+      "abha_id": null,
+      "preferred_language": "hi",
+      "metadata": {},
+      "created_at": "2026-09-17T20:36:10.568091+00:00",
+      "updated_at": "2026-09-17T20:36:10.568091+00:00"
+    },
+    "b92df446-c937-4380-b6db-c5c608f75832": {
+      "id": "b92df446-c937-4380-b6db-c5c608f75832",
+      "name": "Emergency Patient",
+      "age": 58,
+      "gender": "Male",
+      "phone": null,
+      "uhid": "UHID-2026-3F5A63",
+      "abha_id": null,
+      "preferred_language": "en",
+      "metadata": {},
+      "created_at": "2026-09-17T20:36:10.645845+00:00",
+      "updated_at": "2026-09-17T20:36:10.645845+00:00"
+    },
+    "33eb9dc9-1971-48fc-9375-73fcc0bddef3": {
+      "id": "33eb9dc9-1971-48fc-9375-73fcc0bddef3",
+      "name": "Rahul Sharma",
+      "age": 35,
+      "gender": "Male",
+      "phone": null,
+      "uhid": "UHID-2026-5A4FCB",
+      "abha_id": null,
+      "preferred_language": "en",
+      "metadata": {},
+      "created_at": "2026-09-17T20:36:10.838499+00:00",
+      "updated_at": "2026-09-17T20:36:10.838499+00:00"
+    },
+    "03b11b70-a94f-4f83-82ea-e03e3f3cd1e3": {
+      "id": "03b11b70-a94f-4f83-82ea-e03e3f3cd1e3",
+      "name": "Rahul Sharma",
+      "age": 35,
+      "gender": "Male",
+      "phone": null,
+      "uhid": "UHID-2026-FB1103",
+      "abha_id": null,
+      "preferred_language": "en",
+      "metadata": {},
+      "created_at": "2026-09-17T20:36:10.959179+00:00",
+      "updated_at": "2026-09-17T20:36:10.959179+00:00"
+    },
+    "12baf71b-8406-488e-8a2b-c7d0631a539f": {
+      "id": "12baf71b-8406-488e-8a2b-c7d0631a539f",
+      "name": "Rahul Sharma",
+      "age": 35,
+      "gender": "Male",
+      "phone": null,
+      "uhid": "UHID-2026-BEFBA8",
+      "abha_id": null,
+      "preferred_language": "en",
+      "metadata": {},
+      "created_at": "2026-09-17T20:36:10.996359+00:00",
+      "updated_at": "2026-09-17T20:36:10.996359+00:00"
+    }
+  },
+  "encounters": {
+    "enc-demo-fever-001": {
+      "id": "enc-demo-fever-001",
+      "patient_id": "pat-rahul-sharma-001",
+      "doctor_id": "doc-anita-desai-001",
+      "chief_complaint": "Fever with severe body ache and chills",
+      "status": "PENDING_REVIEW",
+      "intake_channel": "voice",
+      "language": "hi",
+      "consent_given": true,
+      "created_at": "2026-09-17T10:15:00Z",
+      "updated_at": "2026-09-17T10:25:00Z"
+    },
+    "enc-demo-chest-002": {
+      "id": "enc-demo-chest-002",
+      "patient_id": "pat-sunita-patil-002",
+      "doctor_id": "doc-anita-desai-001",
+      "chief_complaint": "Acute chest tightness radiating to left arm with cold sweat",
+      "status": "PENDING_REVIEW",
+      "intake_channel": "touch",
+      "language": "mr",
+      "consent_given": true,
+      "created_at": "2026-09-17T11:30:00Z",
+      "updated_at": "2026-09-17T11:45:00Z"
+    },
+    "85110542-54a4-43a4-b31a-1c0e49da4438": {
+      "id": "85110542-54a4-43a4-b31a-1c0e49da4438",
+      "patient_id": "8e018d26-4659-4070-a45d-fd11de1d0b3e",
+      "status": "PENDING_REVIEW",
+      "chief_complaint": "Fever for 3 days",
+      "intake_channel": "voice",
+      "language": "hi",
+      "consent_given": true,
+      "consent_timestamp": "2026-09-17T20:36:09.254077+00:00",
+      "created_at": "2026-09-17T20:36:09.254077+00:00",
+      "updated_at": "2026-09-17T20:36:09.261101+00:00"
+    },
+    "7d1cd818-9dc2-49c4-9ca9-b31d7a0d67b7": {
+      "id": "7d1cd818-9dc2-49c4-9ca9-b31d7a0d67b7",
+      "patient_id": "539dea95-e583-4b17-8dc3-a1d06ed95b23",
+      "status": "IN_PROGRESS",
+      "chief_complaint": null,
+      "intake_channel": "voice",
+      "language": "en",
+      "consent_given": true,
+      "consent_timestamp": "2026-09-17T20:36:09.295547+00:00",
+      "created_at": "2026-09-17T20:36:09.295547+00:00",
+      "updated_at": "2026-09-17T20:36:09.295547+00:00"
+    },
+    "efba8d26-f080-49eb-8914-af928b33e2c5": {
+      "id": "efba8d26-f080-49eb-8914-af928b33e2c5",
+      "patient_id": "4b1011d1-fdc7-49f1-b673-e5b18d1055ef",
+      "status": "PENDING_REVIEW",
+      "chief_complaint": "Fever (3 days) + Headache",
+      "intake_channel": "voice",
+      "language": "hi",
+      "consent_given": true,
+      "consent_timestamp": "2026-09-17T20:36:09.387832+00:00",
+      "created_at": "2026-09-17T20:36:09.387832+00:00",
+      "updated_at": "2026-09-17T20:36:09.389240+00:00"
+    },
+    "99ce7a4e-19ac-45ca-9c72-d4e13c768830": {
+      "id": "99ce7a4e-19ac-45ca-9c72-d4e13c768830",
+      "patient_id": "0b356c32-9cac-45cd-b964-1e2b4d5e7fb9",
+      "status": "PENDING_REVIEW",
+      "chief_complaint": "Acute Abdominal Pain (ISL Sign Intake)",
+      "intake_channel": "sign",
+      "language": "mr",
+      "consent_given": true,
+      "consent_timestamp": "2026-09-17T20:36:09.396126+00:00",
+      "created_at": "2026-09-17T20:36:09.396126+00:00",
+      "updated_at": "2026-09-17T20:36:09.398776+00:00"
+    },
+    "c9724dcb-90ba-49c2-b55e-ee515b934b4f": {
+      "id": "c9724dcb-90ba-49c2-b55e-ee515b934b4f",
+      "patient_id": "f58f0403-4ddd-47cd-a02e-11f41a909b2d",
+      "status": "IN_PROGRESS",
+      "chief_complaint": null,
+      "intake_channel": "document",
+      "language": "en",
+      "consent_given": true,
+      "consent_timestamp": "2026-09-17T20:36:09.511740+00:00",
+      "created_at": "2026-09-17T20:36:09.511740+00:00",
+      "updated_at": "2026-09-17T20:36:09.511740+00:00"
+    },
+    "45ef81c7-520e-44ce-a010-4d479ac39036": {
+      "id": "45ef81c7-520e-44ce-a010-4d479ac39036",
+      "patient_id": "7344b1e8-c887-4317-80dd-1eabde7facf3",
+      "status": "IN_PROGRESS",
+      "chief_complaint": "Acute Fever",
+      "intake_channel": "voice",
+      "language": "en",
+      "consent_given": true,
+      "consent_timestamp": "2026-09-17T20:36:09.642480+00:00",
+      "created_at": "2026-09-17T20:36:09.642480+00:00",
+      "updated_at": "2026-09-17T20:36:09.642480+00:00"
+    },
+    "6b18871c-c033-44b9-97d7-4258bb5b1527": {
+      "id": "6b18871c-c033-44b9-97d7-4258bb5b1527",
+      "patient_id": "d18c680a-54a9-4b9e-9dcd-eed6810ada1b",
+      "status": "IN_PROGRESS",
+      "chief_complaint": "Acute Fever",
+      "intake_channel": "voice",
+      "language": "en",
+      "consent_given": true,
+      "consent_timestamp": "2026-09-17T20:36:10.487523+00:00",
+      "created_at": "2026-09-17T20:36:10.487523+00:00",
+      "updated_at": "2026-09-17T20:36:10.487523+00:00"
+    },
+    "74ddaff6-cc59-41ec-ab52-9afcc78f4c3f": {
+      "id": "74ddaff6-cc59-41ec-ab52-9afcc78f4c3f",
+      "patient_id": "2ada3cdf-ffb3-4ca5-9e9e-5b4cc27a9d02",
+      "status": "PENDING_REVIEW",
+      "chief_complaint": null,
+      "intake_channel": "voice",
+      "language": "hi",
+      "consent_given": true,
+      "consent_timestamp": "2026-09-17T20:36:10.579771+00:00",
+      "created_at": "2026-09-17T20:36:10.579771+00:00",
+      "updated_at": "2026-09-17T20:36:10.632556+00:00"
+    },
+    "bf005554-bed4-48d3-88cf-21ee42f95083": {
+      "id": "bf005554-bed4-48d3-88cf-21ee42f95083",
+      "patient_id": "b92df446-c937-4380-b6db-c5c608f75832",
+      "status": "IN_PROGRESS",
+      "chief_complaint": null,
+      "intake_channel": "touch",
+      "language": "en",
+      "consent_given": true,
+      "consent_timestamp": "2026-09-17T20:36:10.655712+00:00",
+      "created_at": "2026-09-17T20:36:10.655712+00:00",
+      "updated_at": "2026-09-17T20:36:10.655712+00:00"
+    },
+    "2947bcf5-d7f4-482b-be2a-519c59e86545": {
+      "id": "2947bcf5-d7f4-482b-be2a-519c59e86545",
+      "patient_id": "33eb9dc9-1971-48fc-9375-73fcc0bddef3",
+      "status": "IN_PROGRESS",
+      "chief_complaint": null,
+      "intake_channel": "voice",
+      "language": "en",
+      "consent_given": true,
+      "consent_timestamp": "2026-09-17T20:36:10.850105+00:00",
+      "created_at": "2026-09-17T20:36:10.850105+00:00",
+      "updated_at": "2026-09-17T20:36:10.850105+00:00"
+    },
+    "569bc915-a42b-406f-857e-1acf863bcecb": {
+      "id": "569bc915-a42b-406f-857e-1acf863bcecb",
+      "patient_id": "03b11b70-a94f-4f83-82ea-e03e3f3cd1e3",
+      "status": "IN_PROGRESS",
+      "chief_complaint": "Acute Fever (3 days)",
+      "intake_channel": "voice",
+      "language": "en",
+      "consent_given": true,
+      "consent_timestamp": "2026-09-17T20:36:10.972627+00:00",
+      "created_at": "2026-09-17T20:36:10.972627+00:00",
+      "updated_at": "2026-09-17T20:36:10.972627+00:00"
+    },
+    "320e6bd7-60eb-46f5-8b8a-6b6d3e0e57a1": {
+      "id": "320e6bd7-60eb-46f5-8b8a-6b6d3e0e57a1",
+      "patient_id": "12baf71b-8406-488e-8a2b-c7d0631a539f",
+      "status": "VERIFIED",
+      "chief_complaint": null,
+      "intake_channel": "voice",
+      "language": "en",
+      "consent_given": true,
+      "consent_timestamp": "2026-09-17T20:36:11.008493+00:00",
+      "created_at": "2026-09-17T20:36:11.008493+00:00",
+      "updated_at": "2026-09-17T20:36:11.108399+00:00"
+    }
+  },
+  "clinical_states": {
+    "b4cd53c1-31cb-473c-ae4b-520fe179d525": {
+      "id": "b4cd53c1-31cb-473c-ae4b-520fe179d525",
+      "encounter_id": "7d1cd818-9dc2-49c4-9ca9-b31d7a0d67b7",
+      "patient_id": "539dea95-e583-4b17-8dc3-a1d06ed95b23",
+      "version": 7,
+      "chief_complaint": {
+        "id": null,
+        "category": "symptom",
+        "name": "Chief Complaint",
+        "value": "Fever",
+        "unit": null,
+        "source": "patient_touch",
+        "confidence": 0.95,
+        "verification_status": "PENDING",
+        "amended_value": null,
+        "verified_by": null,
+        "verified_at": null,
+        "notes": null,
+        "created_at": "2026-09-17T20:36:09.339763+00:00",
+        "updated_at": "2026-09-17T20:36:09.339771+00:00"
+      },
+      "history_of_present_illness": [],
+      "pain_assessment": null,
+      "associated_symptoms": [
+        {
+          "id": "64c2b728-ad11-4401-91e7-14f4133f0a4a",
+          "category": "symptom",
+          "name": "Bleeding / Petechiae",
+          "value": true,
+          "unit": null,
+          "source": "patient_voice",
+          "confidence": 0.96,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": null,
+          "created_at": "2026-09-17T20:36:09.321067+00:00",
+          "updated_at": "2026-09-17T20:36:09.321089+00:00"
+        }
+      ],
+      "past_medical_history": [],
+      "past_surgical_history": [],
+      "medications": [
+        {
+          "id": "f2d0191e-31e4-4542-88ce-7aac16ea662b",
+          "category": "medication",
+          "name": "Paracetamol 650mg",
+          "value": "1 tab TDS PRN",
+          "unit": null,
+          "source": "ocr",
+          "confidence": 0.94,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": null,
+          "created_at": "2026-09-17T20:36:09.311711+00:00",
+          "updated_at": "2026-09-17T20:36:09.311732+00:00"
+        }
+      ],
+      "allergies": [],
+      "family_history": [],
+      "personal_history": [],
+      "review_of_systems": [],
+      "ayush_history": [],
+      "vital_signs": [],
+      "investigations": [],
+      "document_ids": [],
+      "extracted_entities": [],
+      "red_flags": [
+        {
+          "rule_id": "RF-HEM-001",
+          "severity": "CRITICAL",
+          "title": "Febrile Syndrome with Bleeding Manifestations",
+          "description": "Potential clinical red flag detected — requires immediate clinician review.",
+          "clinical_rationale": "Fever accompanied by petechiae or mucosal bleeding requires immediate complete blood count (platelets, hematocrit) and hemodynamic monitoring.",
+          "triggered_facts": [
+            "Chief Complaint: Fever",
+            "Symptom: Bleeding / Petechiae"
+          ],
+          "detected_at": "2026-09-17T20:36:09.339851+00:00"
+        }
+      ],
+      "provenance_log": [
+        {
+          "fact_id": "f2d0191e-31e4-4542-88ce-7aac16ea662b",
+          "fact_name": "Paracetamol 650mg",
+          "source": "ocr",
+          "confidence": 0.94,
+          "verification_status": "PENDING",
+          "timestamp": "2026-09-17T20:36:09.313485+00:00"
+        },
+        {
+          "fact_id": "64c2b728-ad11-4401-91e7-14f4133f0a4a",
+          "fact_name": "Bleeding / Petechiae",
+          "source": "patient_voice",
+          "confidence": 0.96,
+          "verification_status": "PENDING",
+          "timestamp": "2026-09-17T20:36:09.322909+00:00"
+        }
+      ],
+      "overall_verification_status": "PENDING",
+      "created_at": "2026-09-17T20:36:09.301667+00:00",
+      "updated_at": "2026-09-17T20:36:09.339957+00:00"
+    },
+    "6c097775-2184-4e29-9d41-e4e08d98309b": {
+      "id": "6c097775-2184-4e29-9d41-e4e08d98309b",
+      "encounter_id": "efba8d26-f080-49eb-8914-af928b33e2c5",
+      "patient_id": "4b1011d1-fdc7-49f1-b673-e5b18d1055ef",
+      "version": 4,
+      "chief_complaint": {
+        "id": null,
+        "category": "symptom",
+        "name": "Chief Complaint",
+        "value": "Fever",
+        "unit": null,
+        "source": "patient_voice",
+        "confidence": 0.96,
+        "verification_status": "PATIENT_CONFIRMED",
+        "amended_value": null,
+        "verified_by": null,
+        "verified_at": null,
+        "notes": null,
+        "created_at": "2026-09-17T20:36:09.390739+00:00",
+        "updated_at": "2026-09-17T20:36:09.390756+00:00"
+      },
+      "history_of_present_illness": [
+        {
+          "id": null,
+          "category": "symptom",
+          "name": "Fever Duration",
+          "value": "3 days",
+          "unit": null,
+          "source": "patient_voice",
+          "confidence": 0.95,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": null,
+          "created_at": "2026-09-17T20:36:09.390790+00:00",
+          "updated_at": "2026-09-17T20:36:09.390796+00:00"
+        },
+        {
+          "id": null,
+          "category": "symptom",
+          "name": "Fever Grade",
+          "value": "High grade with chills",
+          "unit": null,
+          "source": "patient_voice",
+          "confidence": 0.94,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": null,
+          "created_at": "2026-09-17T20:36:09.390809+00:00",
+          "updated_at": "2026-09-17T20:36:09.390813+00:00"
+        }
+      ],
+      "pain_assessment": null,
+      "associated_symptoms": [
+        {
+          "id": null,
+          "category": "symptom",
+          "name": "Headache",
+          "value": "Severe frontal throbbing",
+          "unit": null,
+          "source": "patient_voice",
+          "confidence": 0.95,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": null,
+          "created_at": "2026-09-17T20:36:09.390825+00:00",
+          "updated_at": "2026-09-17T20:36:09.390829+00:00"
+        },
+        {
+          "id": null,
+          "category": "symptom",
+          "name": "Body ache",
+          "value": "Generalized myalgia",
+          "unit": null,
+          "source": "patient_voice",
+          "confidence": 0.94,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": null,
+          "created_at": "2026-09-17T20:36:09.390840+00:00",
+          "updated_at": "2026-09-17T20:36:09.390845+00:00"
+        },
+        {
+          "id": null,
+          "category": "symptom",
+          "name": "Mosquito exposure",
+          "value": "Significant bites in neighborhood",
+          "unit": null,
+          "source": "patient_voice",
+          "confidence": 0.98,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": null,
+          "created_at": "2026-09-17T20:36:09.390855+00:00",
+          "updated_at": "2026-09-17T20:36:09.390860+00:00"
+        }
+      ],
+      "past_medical_history": [],
+      "past_surgical_history": [],
+      "medications": [
+        {
+          "id": null,
+          "category": "medication",
+          "name": "Paracetamol 650mg",
+          "value": "1 tab TDS",
+          "unit": null,
+          "source": "ocr",
+          "confidence": 0.94,
+          "verification_status": "PATIENT_CONFIRMED",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": "Extracted from uploaded OPD prescription via PaddleOCR",
+          "created_at": "2026-09-17T20:36:09.390872+00:00",
+          "updated_at": "2026-09-17T20:36:09.390877+00:00"
+        }
+      ],
+      "allergies": [
+        {
+          "id": null,
+          "category": "allergy",
+          "name": "No Known Drug Allergies (NKDA)",
+          "value": false,
+          "unit": null,
+          "source": "patient_touch",
+          "confidence": 0.99,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": null,
+          "created_at": "2026-09-17T20:36:09.390889+00:00",
+          "updated_at": "2026-09-17T20:36:09.390893+00:00"
+        }
+      ],
+      "family_history": [],
+      "personal_history": [],
+      "review_of_systems": [],
+      "ayush_history": [
+        {
+          "id": null,
+          "category": "ayush",
+          "name": "Herbal kadha",
+          "value": "Giloy & Tulsi decoction twice daily",
+          "unit": null,
+          "source": "patient_voice",
+          "confidence": 0.9,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": null,
+          "created_at": "2026-09-17T20:36:09.390904+00:00",
+          "updated_at": "2026-09-17T20:36:09.390909+00:00"
+        }
+      ],
+      "vital_signs": [],
+      "investigations": [
+        {
+          "id": null,
+          "category": "investigation",
+          "name": "Platelet Count",
+          "value": "130,000",
+          "unit": "/uL",
+          "source": "ocr",
+          "confidence": 0.96,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": "Mild thrombocytopenia detected in uploaded CBC report",
+          "created_at": "2026-09-17T20:36:09.390931+00:00",
+          "updated_at": "2026-09-17T20:36:09.390936+00:00"
+        },
+        {
+          "id": null,
+          "category": "investigation",
+          "name": "Hemoglobin",
+          "value": "13.8",
+          "unit": "g/dL",
+          "source": "ocr",
+          "confidence": 0.97,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": null,
+          "created_at": "2026-09-17T20:36:09.390949+00:00",
+          "updated_at": "2026-09-17T20:36:09.390954+00:00"
+        }
+      ],
+      "document_ids": [],
+      "extracted_entities": [],
+      "red_flags": [
+        {
+          "rule_id": "RF-VEC-001",
+          "severity": "MEDIUM",
+          "title": "Acute Febrile Illness with Vector Exposure",
+          "description": "Potential clinical consideration detected — requires clinician review.",
+          "clinical_rationale": "Fever with retro-orbital headache and local mosquito vector exposure warrants viral vector serology and platelet monitoring.",
+          "triggered_facts": [
+            "Fever for 3 days",
+            "Headache",
+            "Mosquito exposure"
+          ],
+          "detected_at": "2026-09-17T20:36:09.471666+00:00"
+        }
+      ],
+      "provenance_log": [],
+      "overall_verification_status": "PENDING",
+      "created_at": "2026-09-17T20:36:09.391181+00:00",
+      "updated_at": "2026-09-17T20:36:09.471810+00:00"
+    },
+    "45fa5bf7-bfa6-4ccb-8933-82485845ead6": {
+      "id": "45fa5bf7-bfa6-4ccb-8933-82485845ead6",
+      "encounter_id": "99ce7a4e-19ac-45ca-9c72-d4e13c768830",
+      "patient_id": "0b356c32-9cac-45cd-b964-1e2b4d5e7fb9",
+      "version": 2,
+      "chief_complaint": {
+        "id": null,
+        "category": "symptom",
+        "name": "Chief Complaint",
+        "value": "Abdominal Pain",
+        "unit": null,
+        "source": "sign_language",
+        "confidence": 0.94,
+        "verification_status": "PATIENT_CONFIRMED",
+        "amended_value": null,
+        "verified_by": null,
+        "verified_at": null,
+        "notes": "Captured via Indian Sign Language gesture (ISLRTC-MED-0341: PAIN_STOMACH)",
+        "created_at": "2026-09-17T20:36:09.401244+00:00",
+        "updated_at": "2026-09-17T20:36:09.401261+00:00"
+      },
+      "history_of_present_illness": [],
+      "pain_assessment": {
+        "site": {
+          "id": null,
+          "category": "symptom",
+          "name": "Pain Site",
+          "value": "Abdomen Upper",
+          "unit": null,
+          "source": "sign_language",
+          "confidence": 0.95,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": null,
+          "created_at": "2026-09-17T20:36:09.401283+00:00",
+          "updated_at": "2026-09-17T20:36:09.401287+00:00"
+        },
+        "onset": {
+          "id": null,
+          "category": "symptom",
+          "name": "Pain Onset",
+          "value": "Sudden acute",
+          "unit": null,
+          "source": "patient_touch",
+          "confidence": 1.0,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": null,
+          "created_at": "2026-09-17T20:36:09.401299+00:00",
+          "updated_at": "2026-09-17T20:36:09.401303+00:00"
+        },
+        "character": {
+          "id": null,
+          "category": "symptom",
+          "name": "Pain Character",
+          "value": "Colicky cramping",
+          "unit": null,
+          "source": "patient_touch",
+          "confidence": 1.0,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": null,
+          "created_at": "2026-09-17T20:36:09.401313+00:00",
+          "updated_at": "2026-09-17T20:36:09.401317+00:00"
+        },
+        "radiation": null,
+        "associated_symptoms": [],
+        "timing": null,
+        "exacerbating_relieving": null,
+        "severity": {
+          "id": null,
+          "category": "symptom",
+          "name": "Pain Severity",
+          "value": 6,
+          "unit": null,
+          "source": "patient_touch",
+          "confidence": 1.0,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": null,
+          "created_at": "2026-09-17T20:36:09.401326+00:00",
+          "updated_at": "2026-09-17T20:36:09.401329+00:00"
+        }
+      },
+      "associated_symptoms": [],
+      "past_medical_history": [],
+      "past_surgical_history": [],
+      "medications": [],
+      "allergies": [],
+      "family_history": [],
+      "personal_history": [],
+      "review_of_systems": [],
+      "ayush_history": [],
+      "vital_signs": [],
+      "investigations": [],
+      "document_ids": [],
+      "extracted_entities": [],
+      "red_flags": [],
+      "provenance_log": [],
+      "overall_verification_status": "PENDING",
+      "created_at": "2026-09-17T20:36:09.401478+00:00",
+      "updated_at": "2026-09-17T20:36:09.486041+00:00"
+    },
+    "a4df179c-ff09-4add-bd68-a17b63ff0841": {
+      "id": "a4df179c-ff09-4add-bd68-a17b63ff0841",
+      "encounter_id": "c9724dcb-90ba-49c2-b55e-ee515b934b4f",
+      "patient_id": "f58f0403-4ddd-47cd-a02e-11f41a909b2d",
+      "version": 10,
+      "chief_complaint": null,
+      "history_of_present_illness": [],
+      "pain_assessment": null,
+      "associated_symptoms": [
+        {
+          "id": "86214ce0-7194-407b-a8d8-c3bbfd0f005b",
+          "category": "symptom",
+          "name": "Fever",
+          "value": true,
+          "unit": null,
+          "source": "ocr",
+          "confidence": 0.91,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": "Extracted from uploaded document 'prescription_opd_01.pdf' via Rule-based Clinical NER",
+          "created_at": "2026-09-17T20:36:09.605255+00:00",
+          "updated_at": "2026-09-17T20:36:09.605286+00:00"
+        }
+      ],
+      "past_medical_history": [],
+      "past_surgical_history": [],
+      "medications": [
+        {
+          "id": "298d1a21-9609-4824-99d9-54163620f3a0",
+          "category": "medication",
+          "name": "Paracetamol",
+          "value": "Paracetamol 650 Mg",
+          "unit": null,
+          "source": "ocr",
+          "confidence": 0.94,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": "Extracted from uploaded document 'prescription_opd_01.pdf' via Rule-based Clinical NER",
+          "created_at": "2026-09-17T20:36:09.564207+00:00",
+          "updated_at": "2026-09-17T20:36:09.564238+00:00"
+        },
+        {
+          "id": "54789aef-257f-469a-aa93-a0aea8efec8c",
+          "category": "medication",
+          "name": "Pantoprazole",
+          "value": "Pantoprazole 40 Mg",
+          "unit": null,
+          "source": "ocr",
+          "confidence": 0.94,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": "Extracted from uploaded document 'prescription_opd_01.pdf' via Rule-based Clinical NER",
+          "created_at": "2026-09-17T20:36:09.585019+00:00",
+          "updated_at": "2026-09-17T20:36:09.585046+00:00"
+        },
+        {
+          "id": "e9b90219-8e51-4475-94a8-e53efe37d92f",
+          "category": "medication",
+          "name": "ORS (Oral Rehydration Salts)",
+          "value": "Oral Rehydration Salts",
+          "unit": null,
+          "source": "ocr",
+          "confidence": 0.94,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": "Extracted from uploaded document 'prescription_opd_01.pdf' via Rule-based Clinical NER",
+          "created_at": "2026-09-17T20:36:09.594748+00:00",
+          "updated_at": "2026-09-17T20:36:09.594767+00:00"
+        }
+      ],
+      "allergies": [],
+      "family_history": [],
+      "personal_history": [],
+      "review_of_systems": [],
+      "ayush_history": [],
+      "vital_signs": [],
+      "investigations": [],
+      "document_ids": [],
+      "extracted_entities": [],
+      "red_flags": [],
+      "provenance_log": [
+        {
+          "fact_id": "298d1a21-9609-4824-99d9-54163620f3a0",
+          "fact_name": "Paracetamol",
+          "source": "ocr",
+          "confidence": 0.94,
+          "verification_status": "PENDING",
+          "timestamp": "2026-09-17T20:36:09.579746+00:00"
+        },
+        {
+          "fact_id": "54789aef-257f-469a-aa93-a0aea8efec8c",
+          "fact_name": "Pantoprazole",
+          "source": "ocr",
+          "confidence": 0.94,
+          "verification_status": "PENDING",
+          "timestamp": "2026-09-17T20:36:09.590008+00:00"
+        },
+        {
+          "fact_id": "e9b90219-8e51-4475-94a8-e53efe37d92f",
+          "fact_name": "ORS (Oral Rehydration Salts)",
+          "source": "ocr",
+          "confidence": 0.94,
+          "verification_status": "PENDING",
+          "timestamp": "2026-09-17T20:36:09.600138+00:00"
+        },
+        {
+          "fact_id": "86214ce0-7194-407b-a8d8-c3bbfd0f005b",
+          "fact_name": "Fever",
+          "source": "ocr",
+          "confidence": 0.91,
+          "verification_status": "PENDING",
+          "timestamp": "2026-09-17T20:36:09.610416+00:00"
+        }
+      ],
+      "overall_verification_status": "PENDING",
+      "created_at": "2026-09-17T20:36:09.564429+00:00",
+      "updated_at": "2026-09-17T20:36:09.619030+00:00"
+    },
+    "5b537a7d-f2c0-4044-bf64-3d09809b6de8": {
+      "id": "5b537a7d-f2c0-4044-bf64-3d09809b6de8",
+      "encounter_id": "45ef81c7-520e-44ce-a010-4d479ac39036",
+      "patient_id": "7344b1e8-c887-4317-80dd-1eabde7facf3",
+      "version": 7,
+      "chief_complaint": null,
+      "history_of_present_illness": [],
+      "pain_assessment": null,
+      "associated_symptoms": [],
+      "past_medical_history": [],
+      "past_surgical_history": [],
+      "medications": [
+        {
+          "id": "ff03e5a8-c42c-44a1-99f9-7162fad7b21b",
+          "category": "medication",
+          "name": "Paracetamol 650mg",
+          "value": "1 tab TDS",
+          "unit": null,
+          "source": "ocr",
+          "confidence": 0.95,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": null,
+          "created_at": "2026-09-17T20:36:09.651553+00:00",
+          "updated_at": "2026-09-17T20:36:09.651569+00:00"
+        }
+      ],
+      "allergies": [
+        {
+          "id": "6bc0c4f4-09f7-4047-8eec-392473add259",
+          "category": "allergy",
+          "name": "Penicillin",
+          "value": "Severe anaphylaxis",
+          "unit": null,
+          "source": "patient_voice",
+          "confidence": 0.98,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": null,
+          "created_at": "2026-09-17T20:36:09.668000+00:00",
+          "updated_at": "2026-09-17T20:36:09.668016+00:00"
+        }
+      ],
+      "family_history": [],
+      "personal_history": [],
+      "review_of_systems": [],
+      "ayush_history": [],
+      "vital_signs": [],
+      "investigations": [],
+      "document_ids": [],
+      "extracted_entities": [],
+      "red_flags": [],
+      "provenance_log": [
+        {
+          "fact_id": "ff03e5a8-c42c-44a1-99f9-7162fad7b21b",
+          "fact_name": "Paracetamol 650mg",
+          "source": "ocr",
+          "confidence": 0.95,
+          "verification_status": "PENDING",
+          "timestamp": "2026-09-17T20:36:09.659578+00:00"
+        },
+        {
+          "fact_id": "6bc0c4f4-09f7-4047-8eec-392473add259",
+          "fact_name": "Penicillin",
+          "source": "patient_voice",
+          "confidence": 0.98,
+          "verification_status": "PENDING",
+          "timestamp": "2026-09-17T20:36:09.672334+00:00"
+        }
+      ],
+      "overall_verification_status": "PENDING",
+      "created_at": "2026-09-17T20:36:09.651662+00:00",
+      "updated_at": "2026-09-17T20:36:09.687797+00:00"
+    },
+    "d5c11e66-bbaa-4f59-a0a0-1fc21c8e11a5": {
+      "id": "d5c11e66-bbaa-4f59-a0a0-1fc21c8e11a5",
+      "encounter_id": "6b18871c-c033-44b9-97d7-4258bb5b1527",
+      "patient_id": "d18c680a-54a9-4b9e-9dcd-eed6810ada1b",
+      "version": 3,
+      "chief_complaint": null,
+      "history_of_present_illness": [],
+      "pain_assessment": null,
+      "associated_symptoms": [],
+      "past_medical_history": [],
+      "past_surgical_history": [],
+      "medications": [],
+      "allergies": [],
+      "family_history": [],
+      "personal_history": [],
+      "review_of_systems": [],
+      "ayush_history": [],
+      "vital_signs": [],
+      "investigations": [],
+      "document_ids": [],
+      "extracted_entities": [],
+      "red_flags": [],
+      "provenance_log": [],
+      "overall_verification_status": "PENDING",
+      "created_at": "2026-09-17T20:36:10.518940+00:00",
+      "updated_at": "2026-09-17T20:36:10.548870+00:00"
+    },
+    "7e8901f9-9e63-4380-89c5-83ade4ba61a7": {
+      "id": "7e8901f9-9e63-4380-89c5-83ade4ba61a7",
+      "encounter_id": "2947bcf5-d7f4-482b-be2a-519c59e86545",
+      "patient_id": "33eb9dc9-1971-48fc-9375-73fcc0bddef3",
+      "version": 6,
+      "chief_complaint": {
+        "id": "c8d17f4a-621d-4790-bb4d-6609d20be144",
+        "category": "symptom",
+        "name": "Chief Complaint",
+        "value": "Fever",
+        "unit": null,
+        "source": "patient_voice",
+        "confidence": 0.95,
+        "verification_status": "PENDING",
+        "amended_value": null,
+        "verified_by": null,
+        "verified_at": null,
+        "notes": null,
+        "created_at": "2026-09-17T20:36:10.861508+00:00",
+        "updated_at": "2026-09-17T20:36:10.861528+00:00"
+      },
+      "history_of_present_illness": [],
+      "pain_assessment": null,
+      "associated_symptoms": [],
+      "past_medical_history": [],
+      "past_surgical_history": [],
+      "medications": [
+        {
+          "id": "cd110ac8-81eb-4de8-8c4f-290287107efa",
+          "category": "medication",
+          "name": "Paracetamol 650mg",
+          "value": "1 tab TDS PRN",
+          "unit": null,
+          "source": "ocr",
+          "confidence": 0.93,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": null,
+          "created_at": "2026-09-17T20:36:10.887854+00:00",
+          "updated_at": "2026-09-17T20:36:10.887875+00:00"
+        }
+      ],
+      "allergies": [],
+      "family_history": [],
+      "personal_history": [],
+      "review_of_systems": [],
+      "ayush_history": [],
+      "vital_signs": [],
+      "investigations": [],
+      "document_ids": [],
+      "extracted_entities": [],
+      "red_flags": [],
+      "provenance_log": [
+        {
+          "fact_id": "c8d17f4a-621d-4790-bb4d-6609d20be144",
+          "fact_name": "Chief Complaint",
+          "source": "patient_voice",
+          "confidence": 0.95,
+          "verification_status": "PENDING",
+          "timestamp": "2026-09-17T20:36:10.874280+00:00"
+        },
+        {
+          "fact_id": "cd110ac8-81eb-4de8-8c4f-290287107efa",
+          "fact_name": "Paracetamol 650mg",
+          "source": "ocr",
+          "confidence": 0.93,
+          "verification_status": "PENDING",
+          "timestamp": "2026-09-17T20:36:10.894237+00:00"
+        }
+      ],
+      "overall_verification_status": "PENDING",
+      "created_at": "2026-09-17T20:36:10.861650+00:00",
+      "updated_at": "2026-09-17T20:36:10.928586+00:00"
+    },
+    "a0da3d30-6981-4f57-bec5-21cd5d6c83c8": {
+      "id": "a0da3d30-6981-4f57-bec5-21cd5d6c83c8",
+      "encounter_id": "320e6bd7-60eb-46f5-8b8a-6b6d3e0e57a1",
+      "patient_id": "12baf71b-8406-488e-8a2b-c7d0631a539f",
+      "version": 9,
+      "chief_complaint": null,
+      "history_of_present_illness": [],
+      "pain_assessment": null,
+      "associated_symptoms": [],
+      "past_medical_history": [],
+      "past_surgical_history": [],
+      "medications": [
+        {
+          "id": "5b8abc3a-b484-4957-818c-cfdc7d1bccd2",
+          "category": "medication",
+          "name": "Paracetmol 650mg",
+          "value": "Paracetamol 650mg TDS",
+          "unit": null,
+          "source": "ocr",
+          "confidence": 0.91,
+          "verification_status": "VERIFIED",
+          "amended_value": null,
+          "verified_by": "dr_sharma (Dr. Ramesh Sharma)",
+          "verified_at": "2026-09-17T20:36:11.108285+00:00",
+          "notes": "Confirmed patient is taking Paracetamol TDS.",
+          "created_at": "2026-09-17T20:36:11.020972+00:00",
+          "updated_at": "2026-09-17T20:36:11.056927+00:00"
+        }
+      ],
+      "allergies": [],
+      "family_history": [],
+      "personal_history": [],
+      "review_of_systems": [],
+      "ayush_history": [],
+      "vital_signs": [],
+      "investigations": [],
+      "document_ids": [],
+      "extracted_entities": [],
+      "red_flags": [],
+      "provenance_log": [
+        {
+          "fact_id": "5b8abc3a-b484-4957-818c-cfdc7d1bccd2",
+          "fact_name": "Paracetmol 650mg",
+          "source": "ocr",
+          "confidence": 0.91,
+          "verification_status": "PENDING",
+          "timestamp": "2026-09-17T20:36:11.035291+00:00"
+        }
+      ],
+      "overall_verification_status": "VERIFIED",
+      "created_at": "2026-09-17T20:36:11.021120+00:00",
+      "updated_at": "2026-09-17T20:36:11.134937+00:00"
+    }
+  },
+  "documents": {
+    "7e61381c-02a1-466f-a1ef-7ab51a4eb5ad": {
+      "id": "7e61381c-02a1-466f-a1ef-7ab51a4eb5ad",
+      "encounter_id": "c9724dcb-90ba-49c2-b55e-ee515b934b4f",
+      "patient_id": "f58f0403-4ddd-47cd-a02e-11f41a909b2d",
+      "filename": "prescription_opd_01.pdf",
+      "content_type": "application/pdf",
+      "size_bytes": 51,
+      "storage_path": "F:\\New folder\\Project\\uploads\\ee9991f9-96ff-416f-81c5-e4bcafaa4d36_prescription_opd_01.pdf",
+      "status": "PROCESSED",
+      "created_at": "2026-09-17T20:36:09.529376+00:00",
+      "updated_at": "2026-09-17T20:36:09.556791+00:00"
+    }
+  },
+  "document_extractions": {
+    "d8abe958-b9d8-4edf-b670-e4c523bfad28": {
+      "document_id": "7e61381c-02a1-466f-a1ef-7ab51a4eb5ad",
+      "raw_text": "METROPOLITAN CLINIC & OPD CARE\nDr. V. Rao, MBBS, MD (Internal Medicine)\nRx:\n1. Tab. Paracetamol 650 mg - 1 tab thrice daily after meals x 3 days\n2. Tab. Pantoprazole 40 mg - 1 tab once daily before breakfast x 5 days\n3. Oral Rehydration Salts (ORS) - 1 sachet in 1L water sips as needed\nAdvice: Adequate fluid hydration, rest, review if fever persists > 3 days.",
+      "layout_blocks": [
+        {
+          "type": "header",
+          "text": "METROPOLITAN CLINIC & OPD CARE",
+          "bbox": [
+            40,
+            20,
+            480,
+            70
+          ]
+        },
+        {
+          "type": "body",
+          "text": "Rx: Paracetamol 650mg, Pantoprazole 40mg, ORS",
+          "bbox": [
+            40,
+            120,
+            500,
+            300
+          ]
+        },
+        {
+          "type": "footer",
+          "text": "Dr. V. Rao Signature",
+          "bbox": [
+            350,
+            320,
+            500,
+            360
+          ]
+        }
+      ],
+      "tables": [],
+      "extracted_entities": [
+        {
+          "name": "Paracetamol",
+          "category": "medication",
+          "value": "Paracetamol 650 Mg",
+          "unit": null,
+          "confidence": 0.94,
+          "source": "doc:prescription_opd_01.pdf",
+          "extraction_method": "Rule-based Clinical NER",
+          "verified": false
+        },
+        {
+          "name": "Pantoprazole",
+          "category": "medication",
+          "value": "Pantoprazole 40 Mg",
+          "unit": null,
+          "confidence": 0.94,
+          "source": "doc:prescription_opd_01.pdf",
+          "extraction_method": "Rule-based Clinical NER",
+          "verified": false
+        },
+        {
+          "name": "ORS (Oral Rehydration Salts)",
+          "category": "medication",
+          "value": "Oral Rehydration Salts",
+          "unit": null,
+          "confidence": 0.94,
+          "source": "doc:prescription_opd_01.pdf",
+          "extraction_method": "Rule-based Clinical NER",
+          "verified": false
+        },
+        {
+          "name": "Fever",
+          "category": "symptom",
+          "value": true,
+          "unit": null,
+          "confidence": 0.91,
+          "source": "doc:prescription_opd_01.pdf",
+          "extraction_method": "Rule-based Clinical NER",
+          "verified": false
+        }
+      ],
+      "confidence": 0.96,
+      "processing_time_ms": 0.02,
+      "ocr_engine": "mock-paddleocr-v3",
+      "created_at": "2026-09-17T20:36:09.548862+00:00",
+      "id": "d8abe958-b9d8-4edf-b670-e4c523bfad28"
+    }
+  },
+  "summaries": {
+    "8fe84bc3-50e6-4b4b-be46-6b0d0e3a8b13": {
+      "id": "8fe84bc3-50e6-4b4b-be46-6b0d0e3a8b13",
+      "encounter_id": "efba8d26-f080-49eb-8914-af928b33e2c5",
+      "patient_id": "4b1011d1-fdc7-49f1-b673-e5b18d1055ef",
+      "patient_demographics": {
+        "id": "4b1011d1-fdc7-49f1-b673-e5b18d1055ef",
+        "name": "Rahul Sharma",
+        "age": 35,
+        "gender": "Male",
+        "phone": "+919876543210",
+        "uhid": "UHID-2026-8941",
+        "abha_id": "rahul.sharma@abdm",
+        "preferred_language": "hi",
+        "metadata": {},
+        "created_at": "2026-09-17T20:36:09.386222+00:00",
+        "updated_at": "2026-09-17T20:36:09.386222+00:00"
+      },
+      "chief_complaint": "Fever",
+      "hpi_narrative": "A 35-year-old Male presents for clinical intake reporting chief concern of fever. Progression details: Fever Duration: 3 days, Fever Grade: High grade with chills. Accompanying clinical features include: Headache, Body ache, Mosquito exposure.",
+      "sections": {
+        "chief_complaint": {
+          "title": "Chief Complaint",
+          "content": "Fever",
+          "facts": [
+            {
+              "id": null,
+              "category": "symptom",
+              "name": "Chief Complaint",
+              "value": "Fever",
+              "unit": null,
+              "source": "patient_voice",
+              "confidence": 0.96,
+              "verification_status": "PATIENT_CONFIRMED",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": null,
+              "created_at": "2026-09-17T20:36:09.390739+00:00",
+              "updated_at": "2026-09-17T20:36:09.390756+00:00"
+            }
+          ],
+          "confidence": 0.95
+        },
+        "hpi": {
+          "title": "History of Present Illness",
+          "content": "A 35-year-old Male presents for clinical intake reporting chief concern of fever. Progression details: Fever Duration: 3 days, Fever Grade: High grade with chills. Accompanying clinical features include: Headache, Body ache, Mosquito exposure.",
+          "facts": [
+            {
+              "id": null,
+              "category": "symptom",
+              "name": "Fever Duration",
+              "value": "3 days",
+              "unit": null,
+              "source": "patient_voice",
+              "confidence": 0.95,
+              "verification_status": "PENDING",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": null,
+              "created_at": "2026-09-17T20:36:09.390790+00:00",
+              "updated_at": "2026-09-17T20:36:09.390796+00:00"
+            },
+            {
+              "id": null,
+              "category": "symptom",
+              "name": "Fever Grade",
+              "value": "High grade with chills",
+              "unit": null,
+              "source": "patient_voice",
+              "confidence": 0.94,
+              "verification_status": "PENDING",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": null,
+              "created_at": "2026-09-17T20:36:09.390809+00:00",
+              "updated_at": "2026-09-17T20:36:09.390813+00:00"
+            }
+          ],
+          "confidence": 0.95
+        },
+        "medications": {
+          "title": "Medications & Interventions",
+          "content": "Paracetamol 650mg (1 tab TDS)",
+          "facts": [
+            {
+              "id": null,
+              "category": "medication",
+              "name": "Paracetamol 650mg",
+              "value": "1 tab TDS",
+              "unit": null,
+              "source": "ocr",
+              "confidence": 0.94,
+              "verification_status": "PATIENT_CONFIRMED",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": "Extracted from uploaded OPD prescription via PaddleOCR",
+              "created_at": "2026-09-17T20:36:09.390872+00:00",
+              "updated_at": "2026-09-17T20:36:09.390877+00:00"
+            }
+          ],
+          "confidence": 0.95
+        },
+        "allergies": {
+          "title": "Allergies & Adverse Reactions",
+          "content": "No Known Drug Allergies (NKDA) (False)",
+          "facts": [
+            {
+              "id": null,
+              "category": "allergy",
+              "name": "No Known Drug Allergies (NKDA)",
+              "value": false,
+              "unit": null,
+              "source": "patient_touch",
+              "confidence": 0.99,
+              "verification_status": "PENDING",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": null,
+              "created_at": "2026-09-17T20:36:09.390889+00:00",
+              "updated_at": "2026-09-17T20:36:09.390893+00:00"
+            }
+          ],
+          "confidence": 0.95
+        },
+        "ayush": {
+          "title": "AYUSH & Traditional Home Remedies",
+          "content": "Herbal kadha (Giloy & Tulsi decoction twice daily)",
+          "facts": [
+            {
+              "id": null,
+              "category": "ayush",
+              "name": "Herbal kadha",
+              "value": "Giloy & Tulsi decoction twice daily",
+              "unit": null,
+              "source": "patient_voice",
+              "confidence": 0.9,
+              "verification_status": "PENDING",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": null,
+              "created_at": "2026-09-17T20:36:09.390904+00:00",
+              "updated_at": "2026-09-17T20:36:09.390909+00:00"
+            }
+          ],
+          "confidence": 0.95
+        },
+        "investigations": {
+          "title": "Laboratory & Diagnostic Reports",
+          "content": "Platelet Count: 130,000 /uL; Hemoglobin: 13.8 g/dL",
+          "facts": [
+            {
+              "id": null,
+              "category": "investigation",
+              "name": "Platelet Count",
+              "value": "130,000",
+              "unit": "/uL",
+              "source": "ocr",
+              "confidence": 0.96,
+              "verification_status": "PENDING",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": "Mild thrombocytopenia detected in uploaded CBC report",
+              "created_at": "2026-09-17T20:36:09.390931+00:00",
+              "updated_at": "2026-09-17T20:36:09.390936+00:00"
+            },
+            {
+              "id": null,
+              "category": "investigation",
+              "name": "Hemoglobin",
+              "value": "13.8",
+              "unit": "g/dL",
+              "source": "ocr",
+              "confidence": 0.97,
+              "verification_status": "PENDING",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": null,
+              "created_at": "2026-09-17T20:36:09.390949+00:00",
+              "updated_at": "2026-09-17T20:36:09.390954+00:00"
+            }
+          ],
+          "confidence": 0.95
+        }
+      },
+      "red_flags": [
+        "Acute Febrile Illness with Vector Exposure — Potential clinical consideration detected — requires clinician review."
+      ],
+      "missing_fields": [
+        "Prior chronic illness history"
+      ],
+      "ai_model_used": "mock-qwen-clinical-adapter",
+      "disclaimer": "CONFIDENTIAL MEDICAL SUMMARY (DRAFT) — Generated automatically by MediKiosk AI intake assistance from patient multi-channel inputs and digitized documents. Does NOT constitute a clinical diagnosis. Attending physician verification is mandatory.",
+      "is_verified_by_doctor": false,
+      "verified_by": null,
+      "verified_at": null,
+      "created_at": "2026-09-17T20:36:09.461196+00:00",
+      "updated_at": "2026-09-17T20:36:09.461196+00:00"
+    },
+    "05cbb5a2-7614-432b-b2d4-54b39cf1dd21": {
+      "id": "05cbb5a2-7614-432b-b2d4-54b39cf1dd21",
+      "encounter_id": "2947bcf5-d7f4-482b-be2a-519c59e86545",
+      "patient_id": "33eb9dc9-1971-48fc-9375-73fcc0bddef3",
+      "patient_demographics": {
+        "id": "33eb9dc9-1971-48fc-9375-73fcc0bddef3",
+        "name": "Rahul Sharma",
+        "age": 35,
+        "gender": "Male",
+        "phone": null,
+        "uhid": "UHID-2026-5A4FCB",
+        "abha_id": null,
+        "preferred_language": "en",
+        "metadata": {},
+        "created_at": "2026-09-17T20:36:10.838499+00:00",
+        "updated_at": "2026-09-17T20:36:10.838499+00:00"
+      },
+      "chief_complaint": "Fever",
+      "hpi_narrative": "A 35-year-old Male presents for clinical intake reporting chief concern of fever. No secondary systemic symptoms volunteered.",
+      "sections": {
+        "chief_complaint": {
+          "title": "Chief Complaint",
+          "content": "Fever",
+          "facts": [
+            {
+              "id": "c8d17f4a-621d-4790-bb4d-6609d20be144",
+              "category": "symptom",
+              "name": "Chief Complaint",
+              "value": "Fever",
+              "unit": null,
+              "source": "patient_voice",
+              "confidence": 0.95,
+              "verification_status": "PENDING",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": null,
+              "created_at": "2026-09-17T20:36:10.861508+00:00",
+              "updated_at": "2026-09-17T20:36:10.861528+00:00"
+            }
+          ],
+          "confidence": 0.95
+        },
+        "hpi": {
+          "title": "History of Present Illness",
+          "content": "A 35-year-old Male presents for clinical intake reporting chief concern of fever. No secondary systemic symptoms volunteered.",
+          "facts": [],
+          "confidence": 0.95
+        },
+        "medications": {
+          "title": "Medications & Interventions",
+          "content": "Paracetamol 650mg (1 tab TDS PRN)",
+          "facts": [
+            {
+              "id": "cd110ac8-81eb-4de8-8c4f-290287107efa",
+              "category": "medication",
+              "name": "Paracetamol 650mg",
+              "value": "1 tab TDS PRN",
+              "unit": null,
+              "source": "ocr",
+              "confidence": 0.93,
+              "verification_status": "PENDING",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": null,
+              "created_at": "2026-09-17T20:36:10.887854+00:00",
+              "updated_at": "2026-09-17T20:36:10.887875+00:00"
+            }
+          ],
+          "confidence": 0.95
+        },
+        "allergies": {
+          "title": "Allergies & Adverse Reactions",
+          "content": "No known drug allergies (NKDA) recorded.",
+          "facts": [],
+          "confidence": 0.95
+        },
+        "ayush": {
+          "title": "AYUSH & Traditional Home Remedies",
+          "content": "No traditional or Ayurvedic herbal remedies reported.",
+          "facts": [],
+          "confidence": 0.95
+        },
+        "investigations": {
+          "title": "Laboratory & Diagnostic Reports",
+          "content": "No external diagnostic reports uploaded for this encounter.",
+          "facts": [],
+          "confidence": 0.95
+        }
+      },
+      "red_flags": [],
+      "missing_fields": [
+        "Drug allergy confirmation",
+        "Prior chronic illness history"
+      ],
+      "ai_model_used": "mock-qwen-clinical-adapter",
+      "disclaimer": "CONFIDENTIAL MEDICAL SUMMARY (DRAFT) — Generated automatically by MediKiosk AI intake assistance from patient multi-channel inputs and digitized documents. Does NOT constitute a clinical diagnosis. Attending physician verification is mandatory.",
+      "is_verified_by_doctor": false,
+      "verified_by": null,
+      "verified_at": null,
+      "created_at": "2026-09-17T20:36:10.935750+00:00",
+      "updated_at": "2026-09-17T20:36:10.935750+00:00"
+    }
+  },
+  "verification_events": {
+    "ef104544-2862-4f3e-9aba-733a72955cf0": {
+      "id": "ef104544-2862-4f3e-9aba-733a72955cf0",
+      "encounter_id": "320e6bd7-60eb-46f5-8b8a-6b6d3e0e57a1",
+      "actor_type": "patient",
+      "actor_id": "12baf71b-8406-488e-8a2b-c7d0631a539f",
+      "action_type": "PATIENT_CONFIRMATION",
+      "details": {
+        "corrections": [
+          {
+            "fact_id": "5b8abc3a-b484-4957-818c-cfdc7d1bccd2",
+            "field": "medication",
+            "old_value": "Paracetmol",
+            "new_value": "Paracetamol 650mg TDS"
+          }
+        ],
+        "confirmed": true
+      },
+      "timestamp": "2026-09-17T20:36:11.071553+00:00"
+    },
+    "c8ed70ca-d42a-4b5c-bb16-f9260db6c18b": {
+      "id": "c8ed70ca-d42a-4b5c-bb16-f9260db6c18b",
+      "encounter_id": "320e6bd7-60eb-46f5-8b8a-6b6d3e0e57a1",
+      "actor_type": "doctor",
+      "actor_id": "dr_sharma",
+      "action_type": "DOCTOR_VERIFICATION",
+      "details": {
+        "doctor_name": "Dr. Ramesh Sharma",
+        "actions": [
+          {
+            "fact_id": "5b8abc3a-b484-4957-818c-cfdc7d1bccd2",
+            "fact_name": "Paracetmol 650mg",
+            "action": "ACCEPT",
+            "amended_value": null
+          }
+        ],
+        "overall_assessment": "Clinically stable acute febrile illness. Prescribing paracetamol, hydration.",
+        "finalized": true
+      },
+      "timestamp": "2026-09-17T20:36:11.123257+00:00"
+    }
+  },
+  "audit_logs": {
+    "b2748252-59cb-4987-b213-03ab810ac187": {
+      "id": "b2748252-59cb-4987-b213-03ab810ac187",
+      "event_type": "VERIFICATION_PATIENT_CONFIRMATION",
+      "encounter_id": "320e6bd7-60eb-46f5-8b8a-6b6d3e0e57a1",
+      "actor": "patient:12baf71b-8406-488e-8a2b-c7d0631a539f",
+      "details": {
+        "corrections": [
+          {
+            "fact_id": "5b8abc3a-b484-4957-818c-cfdc7d1bccd2",
+            "field": "medication",
+            "old_value": "Paracetmol",
+            "new_value": "Paracetamol 650mg TDS"
+          }
+        ],
+        "confirmed": true
+      },
+      "timestamp": "2026-09-17T20:36:11.071553+00:00"
+    },
+    "218f4f1e-baf4-4901-b33e-357b72db22e0": {
+      "id": "218f4f1e-baf4-4901-b33e-357b72db22e0",
+      "event_type": "VERIFICATION_DOCTOR_VERIFICATION",
+      "encounter_id": "320e6bd7-60eb-46f5-8b8a-6b6d3e0e57a1",
+      "actor": "doctor:dr_sharma",
+      "details": {
+        "doctor_name": "Dr. Ramesh Sharma",
+        "actions": [
+          {
+            "fact_id": "5b8abc3a-b484-4957-818c-cfdc7d1bccd2",
+            "fact_name": "Paracetmol 650mg",
+            "action": "ACCEPT",
+            "amended_value": null
+          }
+        ],
+        "overall_assessment": "Clinically stable acute febrile illness. Prescribing paracetamol, hydration.",
+        "finalized": true
+      },
+      "timestamp": "2026-09-17T20:36:11.123257+00:00"
+    }
+  }
+}

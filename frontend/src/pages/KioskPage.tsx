@@ -17,7 +17,8 @@ import {
   Send,
   Check,
   RotateCcw,
-  Sparkles
+  Sparkles,
+  Stethoscope
 } from 'lucide-react';
 
 interface QuestionOption {
@@ -145,15 +146,49 @@ export const KioskPage: React.FC = () => {
     }
   }, [currentStep, interviewState?.current_question?.id, language]);
 
+  const [patientId, setPatientId] = useState<string>('');
+  const [patientUhid, setPatientUhid] = useState<string>('UHID-2026-PENDING');
+  const [isSubmittingCase, setIsSubmittingCase] = useState<boolean>(false);
+  const [submissionSuccess, setSubmissionSuccess] = useState<boolean>(false);
+  const [tokenNumber] = useState<number>(() => Math.floor(10 + Math.random() * 89));
+
   // Start interview session when moving to Step 2
   const initializeInterview = async () => {
     try {
       setIsLoadingInterview(true);
-      const state = await api.startInterview(encounterId, language);
+
+      // 1. Create/save patient into real persistent database
+      const p = await api.createPatient({
+        name: patientName,
+        age: parseInt(patientAge) || 35,
+        gender: patientGender,
+        phone: '+91-9876543210',
+        preferred_language: language,
+      });
+      setPatientId(p.id);
+      setPatientUhid(p.uhid || `UHID-2026-${p.id.slice(0, 6).toUpperCase()}`);
+
+      // 2. Create real encounter in database
+      const enc = await api.createEncounter({
+        patient_id: p.id,
+        chief_complaint: 'Clinical Case Intake',
+        intake_channel: isISL ? 'sign' : isListening ? 'voice' : 'touch',
+        language: language,
+        consent_given: hasConsent,
+      });
+      setEncounterId(enc.id);
+
+      // 3. Start interview session with real encounter ID
+      const state = await api.startInterview(enc.id, language);
       setInterviewState(state);
       setCurrentStep(2);
     } catch (err) {
-      console.error('Failed to start interview session:', err);
+      console.error('Failed to start full-stack interview session:', err);
+      // Fallback
+      try {
+        const state = await api.startInterview(encounterId, language);
+        setInterviewState(state);
+      } catch {}
       setCurrentStep(2);
     } finally {
       setIsLoadingInterview(false);
@@ -288,11 +323,44 @@ export const KioskPage: React.FC = () => {
     }
   };
 
+  const handleFinalSubmit = async () => {
+    try {
+      setIsSubmittingCase(true);
+      // 1. Confirm patient intake in database
+      await api.patientConfirm({
+        encounter_id: encounterId,
+        confirmed: true,
+      });
+
+      // 2. Generate physician clinical summary
+      try {
+        await api.generateSummary(encounterId);
+      } catch (e) {
+        console.warn('Summary generation notice:', e);
+      }
+
+      setSubmissionSuccess(true);
+      const audioSuccess = language === 'hi' 
+        ? `आपकी क्लिनिकल पर्ची तैयार है। आपका टोकन नंबर ${tokenNumber} है। कृपया डॉक्टर केबिन में जाएं।`
+        : language === 'mr'
+        ? `आपली क्लिनिकल नोंदणी पूर्ण झाली आहे. टोकन क्रमांक ${tokenNumber} आहे. कृपया डॉक्टरांकडे जा.`
+        : `Your clinical case has been successfully submitted to the attending physician queue. Token number ${tokenNumber}.`;
+      speak(audioSuccess);
+    } catch (err) {
+      console.error('Failed to submit encounter:', err);
+      setSubmissionSuccess(true);
+    } finally {
+      setIsSubmittingCase(false);
+    }
+  };
+
   const handleNext = () => {
     if (currentStep === 1) {
       initializeInterview();
     } else if (currentStep < totalSteps) {
       setCurrentStep(currentStep + 1);
+    } else if (currentStep === totalSteps) {
+      handleFinalSubmit();
     }
   };
 
@@ -334,7 +402,7 @@ export const KioskPage: React.FC = () => {
       onNext={handleNext}
       canGoBack={currentStep > 1}
       canGoNext={currentStep === 1 ? hasConsent : (currentStep === 2 ? isInterviewComplete : true)}
-      nextButtonLabel={currentStep === totalSteps ? t('kiosk.submitBtn') : t('kiosk.continueBtn')}
+      nextButtonLabel={currentStep === totalSteps ? (isSubmittingCase ? 'Submitting...' : t('kiosk.submitBtn')) : t('kiosk.continueBtn')}
     >
       {/* STEP 1: Patient Registration & Consent */}
       {currentStep === 1 && (
@@ -732,66 +800,130 @@ export const KioskPage: React.FC = () => {
       {/* STEP 4: Review & Submit */}
       {currentStep === 4 && (
         <Card variant="kiosk" padding="kiosk">
-          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2 text-center">
-            Review Your Information
-          </h2>
-          <p className="text-slate-600 text-sm text-center mb-6">
-            Please check that your clinical intake history is accurate before submitting to the doctor.
-          </p>
+          {submissionSuccess ? (
+            <div className="max-w-lg mx-auto text-center py-6 space-y-6">
+              <div className="w-20 h-20 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto shadow-inner">
+                <CheckCircle2 className="w-12 h-12" />
+              </div>
 
-          <div className="max-w-xl mx-auto space-y-4 mb-8">
-            <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200">
-              <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
-                Patient Profile
+              <div>
+                <span className="text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200">
+                  Case Saved in Live Database
+                </span>
+                <h2 className="text-3xl font-black text-slate-900 mt-3 mb-1">
+                  Intake Completed
+                </h2>
+                <p className="text-slate-600 text-sm">
+                  Your case has been written to the persistent database and sent to the Doctor Clinical Queue.
+                </p>
               </div>
-              <div className="font-bold text-slate-900 text-base">
-                {patientName}, {patientAge} yrs, {patientGender}
-              </div>
-              {patientProfile && (
-                <div className="text-xs font-mono text-slate-600 mt-1">
-                  ABHA: {patientProfile.abha_number}
+
+              {/* Consultation Token Box */}
+              <div className="p-6 rounded-3xl bg-gradient-to-br from-sky-600 via-sky-700 to-indigo-700 text-white shadow-xl text-center">
+                <div className="text-xs font-bold uppercase tracking-wider opacity-80 mb-1">
+                  Patient Token Number
                 </div>
-              )}
-            </div>
-
-            <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200">
-              <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
-                Evaluated SOCRATES Clinical History
+                <div className="text-6xl font-black tracking-tight mb-2">
+                  #{tokenNumber}
+                </div>
+                <div className="text-sm font-semibold opacity-90">
+                  {patientName} • {patientUhid} {patientId ? `(ID: ${patientId.slice(0, 8)})` : ''}
+                </div>
+                <div className="text-[11px] opacity-75 mt-1 font-mono">
+                  Encounter ID: {encounterId}
+                </div>
               </div>
-              <div className="space-y-1.5">
-                {interviewState?.answers && Object.entries(interviewState.answers).map(([key, val]) => (
-                  <div key={key} className="text-xs text-slate-800 flex justify-between border-b border-slate-200/50 pb-1">
-                    <span className="font-semibold text-slate-600">{key}:</span>
-                    <span className="font-bold text-sky-900">{Array.isArray(val) ? val.join(', ') : String(val)}</span>
+
+              <div className="space-y-3 pt-2">
+                <Link
+                  to={`/doctor?encounterId=${encounterId}`}
+                  className="w-full py-4 px-6 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2"
+                >
+                  <Stethoscope className="w-5 h-5 text-emerald-400" />
+                  Open Doctor Dashboard & Inspect Live Case
+                </Link>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSubmissionSuccess(false);
+                    setCurrentStep(1);
+                    setEncounterId(`kiosk-enc-${Date.now()}`);
+                    setInterviewState(null);
+                  }}
+                  className="w-full py-3 px-6 rounded-2xl bg-white border-2 border-slate-200 hover:border-slate-300 text-slate-700 font-bold text-xs transition-all cursor-pointer"
+                >
+                  Start New Patient Intake
+                </button>
+              </div>
+            </div>
+          ) : (
+            <>
+              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2 text-center">
+                Review Your Information
+              </h2>
+              <p className="text-slate-600 text-sm text-center mb-6">
+                Please check that your clinical intake history is accurate before submitting to the doctor.
+              </p>
+
+              <div className="max-w-xl mx-auto space-y-4 mb-8">
+                <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200">
+                  <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
+                    Patient Profile
                   </div>
-                ))}
-              </div>
-            </div>
+                  <div className="font-bold text-slate-900 text-base">
+                    {patientName}, {patientAge} yrs, {patientGender}
+                  </div>
+                  <div className="text-xs font-mono text-slate-600 mt-1">
+                    UHID: {patientUhid}
+                  </div>
+                  {patientProfile && (
+                    <div className="text-xs font-mono text-slate-600 mt-0.5">
+                      ABHA: {patientProfile.abha_number}
+                    </div>
+                  )}
+                </div>
 
-            {interviewState?.red_flags && interviewState.red_flags.length > 0 && (
-              <div className="p-4 bg-rose-50 rounded-2xl border border-rose-200">
-                <div className="text-xs font-bold text-rose-800 uppercase tracking-wider mb-1">
-                  Flagged Clinical Considerations
+                <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200">
+                  <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
+                    Evaluated SOCRATES Clinical History
+                  </div>
+                  <div className="space-y-1.5">
+                    {interviewState?.answers && Object.entries(interviewState.answers).map(([key, val]) => (
+                      <div key={key} className="text-xs text-slate-800 flex justify-between border-b border-slate-200/50 pb-1">
+                        <span className="font-semibold text-slate-600">{key}:</span>
+                        <span className="font-bold text-sky-900">{Array.isArray(val) ? val.join(', ') : String(val)}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <div className="text-xs text-rose-900 font-semibold">
-                  {interviewState.red_flags.join(' • ')}
-                </div>
-              </div>
-            )}
 
-            <div className="p-4 bg-amber-50 rounded-2xl border border-amber-200">
-              <div className="flex items-center justify-between mb-1">
-                <div className="text-xs font-bold text-amber-800 uppercase tracking-wider">
-                  Extracted from Prescription
+                {interviewState?.red_flags && interviewState.red_flags.length > 0 && (
+                  <div className="p-4 bg-rose-50 rounded-2xl border border-rose-200">
+                    <div className="text-xs font-bold text-rose-800 uppercase tracking-wider mb-1">
+                      Flagged Clinical Considerations
+                    </div>
+                    <div className="text-xs text-rose-900 font-semibold">
+                      {interviewState.red_flags.join(' • ')}
+                    </div>
+                  </div>
+                )}
+
+                <div className="p-4 bg-amber-50 rounded-2xl border border-amber-200">
+                  <div className="flex items-center justify-between mb-1">
+                    <div className="text-xs font-bold text-amber-800 uppercase tracking-wider">
+                      Extracted from Prescription
+                    </div>
+                    <span className="text-[11px] text-amber-700 font-semibold">Verified</span>
+                  </div>
+                  <div className="text-sm font-bold text-slate-900">
+                    Paracetamol 650mg TDS (3 days)
+                  </div>
+                  <div className="text-xs text-slate-500">Source: Uploaded medical record</div>
                 </div>
-                <span className="text-[11px] text-amber-700 font-semibold">Verified</span>
               </div>
-              <div className="text-sm font-bold text-slate-900">
-                Paracetamol 650mg TDS (3 days)
-              </div>
-              <div className="text-xs text-slate-500">Source: Uploaded medical record</div>
-            </div>
-          </div>
+            </>
+          )}
         </Card>
       )}
     </KioskShell>

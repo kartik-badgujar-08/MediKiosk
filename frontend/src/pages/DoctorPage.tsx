@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { DoctorShell, type PatientEncounterSummary } from '../components/doctor/DoctorShell';
 import { Card } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
@@ -23,8 +23,10 @@ import { api } from '../services/api';
 
 export const DoctorPage: React.FC = () => {
   const { doctorProfile } = useAuth();
+  const [searchParams] = useSearchParams();
+  const paramEncounterId = searchParams.get('encounterId');
   const [encounters, setEncounters] = useState<PatientEncounterSummary[]>([]);
-  const [selectedEncounterId, setSelectedEncounterId] = useState<string | null>(null);
+  const [selectedEncounterId, setSelectedEncounterId] = useState<string | null>(paramEncounterId);
   const [activeTab, setActiveTab] = useState('summary');
   const [isLoading, setIsLoading] = useState(true);
 
@@ -92,7 +94,9 @@ export const DoctorPage: React.FC = () => {
       );
 
       setEncounters(mapped);
-      if (mapped.length > 0 && !selectedEncounterId) {
+      if (paramEncounterId && mapped.some((e) => e.id === paramEncounterId)) {
+        setSelectedEncounterId(paramEncounterId);
+      } else if (mapped.length > 0 && !selectedEncounterId) {
         setSelectedEncounterId(mapped[0].id);
       }
     } catch (err) {
