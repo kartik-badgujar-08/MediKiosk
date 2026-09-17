@@ -9,6 +9,7 @@ from app.api.v1.endpoints import (
     interview,
     patients,
     summaries,
+    verification,
 )
 
 api_router = APIRouter()
@@ -23,3 +24,4 @@ api_router.include_router(clinical_state.router, prefix="/clinical-state", tags=
 api_router.include_router(documents.router, prefix="/documents", tags=["Documents & OCR"])
 api_router.include_router(asr.router, prefix="/asr", tags=["Multilingual ASR"])
 api_router.include_router(summaries.router, prefix="/summaries", tags=["Physician Summary"])
+api_router.include_router(verification.router, prefix="/verification", tags=["Verification"])
