@@ -1,0 +1,23 @@
+{
+  "name": "medikiosk-root",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SIH26047 - Patient Case-Taking Software (MediKiosk)",
+  "scripts": {
+    "frontend:dev": "npm --prefix frontend run dev",
+    "frontend:build": "npm --prefix frontend run build",
+    "frontend:lint": "npm --prefix frontend run lint",
+    "backend:test": "backend\\venv\\Scripts\\python.exe -m pytest backend/tests",
+    "backend:dev": "backend\\venv\\Scripts\\uvicorn app.main:app --app-dir backend --host 0.0.0.0 --port 8000 --reload"
+  },
+  "keywords": [
+    "healthtech",
+    "clinical-intake",
+    "fhir-r4",
+    "abdm",
+    "multimodal",
+    "socrates"
+  ],
+  "author": "MediKiosk Team",
+  "license": "Apache-2.0"
+}
