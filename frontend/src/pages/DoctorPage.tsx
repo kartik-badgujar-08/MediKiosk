@@ -522,7 +522,7 @@ export const DoctorPage: React.FC = () => {
                 <div>
                   <div className="font-bold text-sm text-slate-900">Lab_Report_CBC_Haematology.pdf</div>
                   <div className="text-xs text-slate-500">
-                    PaddleOCR & PP-StructureV3 • Platelet Count (130,000 /uL), Hemoglobin (13.8 g/dL)
+                    Diagnostic Report Extraction • Platelet Count (130,000 /uL), Hemoglobin (13.8 g/dL)
                   </div>
                 </div>
               </div>

@@ -18,7 +18,6 @@ export interface KioskShellProps {
   totalSteps: number;
   stepCategory?: string;
   selectedLanguage: LanguageCode;
-  onLanguageChange: (lang: LanguageCode) => void;
   isISLEnabled: boolean;
   onToggleISL: () => void;
   isListening?: boolean;
@@ -38,7 +37,6 @@ export const KioskShell: React.FC<KioskShellProps> = ({
   totalSteps,
   stepCategory = 'Intake Question',
   selectedLanguage,
-  onLanguageChange,
   isISLEnabled,
   onToggleISL,
   isListening = false,
@@ -54,12 +52,6 @@ export const KioskShell: React.FC<KioskShellProps> = ({
 }) => {
   const [showEmergencyModal, setShowEmergencyModal] = useState(false);
 
-  const languages: { code: LanguageCode; label: string; native: string }[] = [
-    { code: 'en', label: 'English', native: 'English' },
-    { code: 'hi', label: 'Hindi', native: 'हिंदी' },
-    { code: 'mr', label: 'Marathi', native: 'मराठी' },
-  ];
-
   const percentage = Math.min(Math.round((currentStep / Math.max(totalSteps, 1)) * 100), 100);
 
   return (
@@ -67,24 +59,11 @@ export const KioskShell: React.FC<KioskShellProps> = ({
       {/* Kiosk Top Bar */}
       <div className="bg-white border-b border-slate-200 px-4 sm:px-8 py-3 shadow-xs">
         <div className="max-w-5xl mx-auto flex items-center justify-between gap-4">
-          {/* Language Selector */}
-          <div className="flex items-center gap-1.5 sm:gap-2">
-            <Globe2 className="w-5 h-5 text-slate-500 hidden sm:block" />
-            <div className="flex bg-slate-100 p-1 rounded-xl border border-slate-200">
-              {languages.map((lang) => (
-                <button
-                  key={lang.code}
-                  onClick={() => onLanguageChange(lang.code)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                    selectedLanguage === lang.code
-                      ? 'bg-white text-sky-700 shadow-xs'
-                      : 'text-slate-600 hover:text-slate-900'
-                  }`}
-                  aria-label={`Select ${lang.label}`}
-                >
-                  <span className="sm:inline">{lang.native}</span>
-                </button>
-              ))}
+          {/* Active Global Language Indicator */}
+          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 border border-slate-200 text-xs font-bold text-slate-700">
+              <Globe2 className="w-3.5 h-3.5 text-sky-600" />
+              <span>{selectedLanguage === 'hi' ? 'भाषा: हिंदी' : selectedLanguage === 'mr' ? 'भाषा: मराठी' : 'Language: English'}</span>
             </div>
           </div>
 

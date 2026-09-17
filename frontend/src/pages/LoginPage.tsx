@@ -14,21 +14,27 @@ import {
   Building2,
   CreditCard,
   Award,
+  Volume2,
+  VolumeX,
+  FileCheck,
+  Lock,
 } from 'lucide-react';
 import { api, type MedicalCouncilItem, type ABHAProfile, type HPRDoctorProfile } from '../services/api';
 import { useAuth } from '../context/AuthContext';
+import { useLanguage } from '../context/LanguageContext';
 
 export const LoginPage: React.FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { loginPatient, loginDoctor } = useAuth();
+  const { t, language, speak, stopSpeech, isSpeaking } = useLanguage();
 
   // Initial tab based on query param ?role=doctor or ?role=patient
   const initialTab = searchParams.get('role') === 'doctor' ? 'doctor' : 'patient';
   const [activeTab, setActiveTab] = useState<'patient' | 'doctor'>(initialTab);
 
   // -------------------------------------------------------------
-  // Patient State
+  // Patient State & Consent
   // -------------------------------------------------------------
   const [patientMode, setPatientMode] = useState<'abha' | 'qr'>('abha');
   const [abhaInput, setAbhaInput] = useState('91-4820-1928-3819');
@@ -37,6 +43,9 @@ export const LoginPage: React.FC = () => {
   const [patientOtp, setPatientOtp] = useState('');
   const [patientStep, setPatientStep] = useState<'input' | 'otp' | 'verified'>('input');
   const [verifiedPatient, setVerifiedPatient] = useState<ABHAProfile | null>(null);
+  
+  // Mandatory Consent under ABDM & DPDP Act 2023
+  const [patientConsent, setPatientConsent] = useState(false);
 
   // -------------------------------------------------------------
   // Doctor State
@@ -71,10 +80,28 @@ export const LoginPage: React.FC = () => {
     fetchCouncils();
   }, []);
 
+  // When activeTab changes or user enters patient login, speak the audio consent prompt
+  useEffect(() => {
+    if (activeTab === 'patient' && patientStep === 'input') {
+      speak(t('audio.consentSpeech'));
+    } else {
+      stopSpeech();
+    }
+    return () => {
+      stopSpeech();
+    };
+  }, [activeTab, patientStep, language]);
+
   // -------------------------------------------------------------
   // Patient Handlers
   // -------------------------------------------------------------
   const handleInitiatePatient = async (idToUse?: string) => {
+    if (!patientConsent) {
+      setErrorMsg(t('login.consentRequiredWarning'));
+      speak(t('login.consentRequiredWarning'));
+      return;
+    }
+
     setIsLoading(true);
     setErrorMsg(null);
     const targetId = idToUse || abhaInput;
@@ -83,7 +110,7 @@ export const LoginPage: React.FC = () => {
       setPatientTxnId(res.txn_id);
       setPatientMasked(res.masked_recipient);
       setPatientStep('otp');
-      setPatientOtp('123456'); // prefill official sandbox test OTP for frictionless testing
+      setPatientOtp('123456'); // prefill official sandbox test OTP
     } catch (err: any) {
       setErrorMsg(err.message || 'Failed to initiate ABDM authentication');
     } finally {
@@ -111,6 +138,12 @@ export const LoginPage: React.FC = () => {
   };
 
   const handleSimulateQrScan = async (sampleProfile: 'rahul' | 'sunita') => {
+    if (!patientConsent) {
+      setErrorMsg(t('login.consentRequiredWarning'));
+      speak(t('login.consentRequiredWarning'));
+      return;
+    }
+
     setIsLoading(true);
     setErrorMsg(null);
     try {
@@ -160,7 +193,7 @@ export const LoginPage: React.FC = () => {
       setDoctorMasked(res.masked_mobile);
       setDoctorNamePreview(res.doctor_name);
       setDoctorStep('otp');
-      setDoctorOtp('123456'); // prefill sandbox test OTP
+      setDoctorOtp('123456');
     } catch (err: any) {
       setErrorMsg(err.message || 'Healthcare Professionals Registry lookup failed');
     } finally {
@@ -202,12 +235,11 @@ export const LoginPage: React.FC = () => {
           <ShieldCheck className="w-4 h-4 text-sky-600" />
           National Health Authority • Ayushman Bharat Digital Mission (ABDM)
         </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-          Government Digital Health Identity Portal
+        <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          {t('login.title')}
         </h1>
         <p className="mt-2 text-sm sm:text-base text-slate-600 max-w-2xl mx-auto">
-          Secure, verified authentication for Citizens via <strong>ABHA</strong> and Clinicians via{' '}
-          <strong>HPR / National Medical Commission (NMC)</strong>.
+          {t('login.subtitle')}
         </p>
       </div>
 
@@ -218,7 +250,7 @@ export const LoginPage: React.FC = () => {
           <span className="flex-1">{errorMsg}</span>
           <button
             onClick={() => setErrorMsg(null)}
-            className="text-xs font-bold text-red-800 hover:underline"
+            className="text-xs font-bold text-red-800 hover:underline cursor-pointer"
           >
             Dismiss
           </button>
@@ -240,7 +272,7 @@ export const LoginPage: React.FC = () => {
             }`}
           >
             <User className="w-5 h-5 text-sky-500" />
-            <span>Citizen / Patient (ABHA)</span>
+            <span>{t('login.tabPatient')}</span>
           </button>
 
           <button
@@ -255,7 +287,7 @@ export const LoginPage: React.FC = () => {
             }`}
           >
             <Stethoscope className="w-5 h-5 text-teal-600" />
-            <span>Doctor / Clinician (HPR / NMC)</span>
+            <span>{t('login.tabDoctor')}</span>
           </button>
         </div>
 
@@ -266,17 +298,17 @@ export const LoginPage: React.FC = () => {
           <div className="p-6 sm:p-8">
             {patientStep === 'input' && (
               <div className="space-y-6">
-                <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-100 pb-4 gap-3">
                   <div>
                     <h2 className="text-xl font-bold text-slate-900">
-                      Ayushman Bharat Health Account (ABHA) Login
+                      {t('login.abhaHeading')}
                     </h2>
                     <p className="text-xs text-slate-500">
-                      Official Milestone 1 (M1) Citizen Identification
+                      {t('login.abhaSubheading')}
                     </p>
                   </div>
                   {/* Mode switcher */}
-                  <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl text-xs font-semibold">
+                  <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl text-xs font-semibold self-start sm:self-auto">
                     <button
                       onClick={() => setPatientMode('abha')}
                       className={`px-3 py-1.5 rounded-lg transition-all ${
@@ -296,11 +328,102 @@ export const LoginPage: React.FC = () => {
                   </div>
                 </div>
 
+                {/* ========================================================= */}
+                {/* MANDATORY PATIENT CONSENT (ABDM & DPDP ACT 2023) */}
+                {/* ========================================================= */}
+                <div className="p-5 rounded-2xl bg-sky-50/60 border-2 border-sky-200">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-lg bg-sky-600 text-white flex items-center justify-center shrink-0">
+                        <FileCheck className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <h3 className="text-sm font-bold text-slate-900">
+                          {t('login.consentHeading')}
+                        </h3>
+                        <p className="text-xs text-slate-500">
+                          {t('login.consentSub')}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Audio Guidance Speaker Button */}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (isSpeaking) {
+                          stopSpeech();
+                        } else {
+                          speak(t('audio.consentSpeech'));
+                        }
+                      }}
+                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                        isSpeaking
+                          ? 'bg-amber-500 text-white animate-pulse'
+                          : 'bg-white text-sky-700 border border-sky-300 hover:bg-sky-50 shadow-2xs'
+                      }`}
+                      title="Audio guide for patient consent"
+                    >
+                      {isSpeaking ? (
+                        <>
+                          <VolumeX className="w-4 h-4" />
+                          <span>{t('login.audioPlaying')}</span>
+                        </>
+                      ) : (
+                        <>
+                          <Volume2 className="w-4 h-4 text-sky-600" />
+                          <span>{t('login.audioGuideBtn')}</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+
+                  {/* 4 Official Consent Points */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs text-slate-700 mb-4 bg-white/70 p-3.5 rounded-xl border border-sky-100">
+                    <div className="p-2 bg-white rounded-lg border border-slate-100">
+                      <strong className="text-sky-900 block mb-0.5">{t('login.consent1')}</strong>
+                    </div>
+                    <div className="p-2 bg-white rounded-lg border border-slate-100">
+                      <strong className="text-sky-900 block mb-0.5">{t('login.consent2')}</strong>
+                    </div>
+                    <div className="p-2 bg-white rounded-lg border border-slate-100">
+                      <strong className="text-sky-900 block mb-0.5">{t('login.consent3')}</strong>
+                    </div>
+                    <div className="p-2 bg-white rounded-lg border border-slate-100">
+                      <strong className="text-sky-900 block mb-0.5">{t('login.consent4')}</strong>
+                    </div>
+                  </div>
+
+                  {/* Mandatory Checkbox */}
+                  <div className={`p-3.5 rounded-xl border-2 transition-all ${
+                    patientConsent ? 'bg-emerald-50/80 border-emerald-400' : 'bg-white border-amber-300'
+                  }`}>
+                    <label className="flex items-start gap-3 cursor-pointer select-none">
+                      <input
+                        type="checkbox"
+                        checked={patientConsent}
+                        onChange={(e) => setPatientConsent(e.target.checked)}
+                        className="mt-0.5 w-5 h-5 rounded text-sky-600 focus:ring-sky-500 cursor-pointer"
+                      />
+                      <span className="text-xs font-bold text-slate-900 leading-snug">
+                        {t('login.consentCheckbox')}
+                      </span>
+                    </label>
+                  </div>
+
+                  {!patientConsent && (
+                    <div className="mt-2 text-[11px] font-semibold text-amber-700 flex items-center gap-1.5">
+                      <Lock className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+                      <span>{t('login.consentRequiredWarning')}</span>
+                    </div>
+                  )}
+                </div>
+
                 {patientMode === 'abha' ? (
                   <>
                     <div>
                       <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-                        Enter 14-Digit ABHA Number or ABHA Address
+                        {t('login.abhaInputLabel')}
                       </label>
                       <div className="relative">
                         <input
@@ -318,45 +441,49 @@ export const LoginPage: React.FC = () => {
                     <div>
                       <div className="text-xs font-semibold text-slate-500 mb-2 flex items-center gap-1.5">
                         <Sparkles className="w-3.5 h-3.5 text-sky-500" />
-                        Quick Test Identities (ABDM Sandbox Pre-Seeded):
+                        Quick Test Profiles:
                       </div>
                       <div className="flex flex-wrap gap-2">
                         <button
                           type="button"
                           onClick={() => {
                             setAbhaInput('91-4820-1928-3819');
-                            handleInitiatePatient('91-4820-1928-3819');
+                            setPatientConsent(true);
                           }}
                           className="px-3 py-1.5 rounded-lg text-xs font-medium bg-sky-50 hover:bg-sky-100 text-sky-700 border border-sky-200 flex items-center gap-1.5 cursor-pointer"
                         >
                           <User className="w-3.5 h-3.5" />
-                          Rahul Sharma (Fever • 91-4820-1928-3819)
+                          Rahul Sharma (91-4820-1928-3819)
                         </button>
                         <button
                           type="button"
                           onClick={() => {
                             setAbhaInput('91-8841-2091-5821');
-                            handleInitiatePatient('91-8841-2091-5821');
+                            setPatientConsent(true);
                           }}
                           className="px-3 py-1.5 rounded-lg text-xs font-medium bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 flex items-center gap-1.5 cursor-pointer"
                         >
                           <User className="w-3.5 h-3.5" />
-                          Sunita Patil (ISL • 91-8841-2091-5821)
+                          Sunita Patil (91-8841-2091-5821)
                         </button>
                       </div>
                     </div>
 
                     <button
                       onClick={() => handleInitiatePatient()}
-                      disabled={isLoading || !abhaInput.trim()}
-                      className="w-full py-4 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-sm shadow-sm hover:shadow transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                      disabled={isLoading || !patientConsent || !abhaInput.trim()}
+                      className={`w-full py-4 rounded-xl text-white font-bold text-sm shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer ${
+                        patientConsent && abhaInput.trim()
+                          ? 'bg-sky-600 hover:bg-sky-700 hover:shadow'
+                          : 'bg-slate-300 text-slate-500 cursor-not-allowed'
+                      }`}
                     >
                       {isLoading ? (
                         <Loader2 className="w-5 h-5 animate-spin" />
                       ) : (
                         <>
                           <KeyRound className="w-5 h-5" />
-                          <span>Request OTP via ABDM Gateway</span>
+                          <span>{t('login.requestOtpBtn')}</span>
                         </>
                       )}
                     </button>
@@ -370,7 +497,7 @@ export const LoginPage: React.FC = () => {
                         Scan & Share ABHA QR Code
                       </h3>
                       <p className="text-xs text-slate-500 mt-1">
-                        Citizens can present their official ABHA card QR or Aarogya Setu / ABHA app.
+                        Citizens can present their official ABHA card QR from Aarogya Setu or ABHA app.
                       </p>
                     </div>
 
@@ -381,15 +508,23 @@ export const LoginPage: React.FC = () => {
                       <div className="flex items-center justify-center gap-3">
                         <button
                           onClick={() => handleSimulateQrScan('rahul')}
-                          disabled={isLoading}
-                          className="px-4 py-2.5 rounded-xl text-xs font-bold bg-sky-100 hover:bg-sky-200 text-sky-800 border border-sky-300 cursor-pointer"
+                          disabled={isLoading || !patientConsent}
+                          className={`px-4 py-2.5 rounded-xl text-xs font-bold border ${
+                            patientConsent
+                              ? 'bg-sky-100 hover:bg-sky-200 text-sky-800 border-sky-300 cursor-pointer'
+                              : 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed'
+                          }`}
                         >
                           Scan Rahul Sharma's QR
                         </button>
                         <button
                           onClick={() => handleSimulateQrScan('sunita')}
-                          disabled={isLoading}
-                          className="px-4 py-2.5 rounded-xl text-xs font-bold bg-emerald-100 hover:bg-emerald-200 text-emerald-800 border border-emerald-300 cursor-pointer"
+                          disabled={isLoading || !patientConsent}
+                          className={`px-4 py-2.5 rounded-xl text-xs font-bold border ${
+                            patientConsent
+                              ? 'bg-emerald-100 hover:bg-emerald-200 text-emerald-800 border-emerald-300 cursor-pointer'
+                              : 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed'
+                          }`}
                         >
                           Scan Sunita Patil's QR
                         </button>
@@ -407,14 +542,13 @@ export const LoginPage: React.FC = () => {
                   <div className="w-12 h-12 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center mx-auto mb-3">
                     <KeyRound className="w-6 h-6" />
                   </div>
-                  <h2 className="text-xl font-bold text-slate-900">Enter ABDM OTP</h2>
+                  <h2 className="text-xl font-bold text-slate-900">{t('login.otpHeading')}</h2>
                   <p className="text-xs text-slate-500 mt-1">
-                    A 6-digit authentication OTP was sent to mobile linked with{' '}
-                    <strong>{patientMasked}</strong>
+                    {t('login.otpSub')} (<strong>{patientMasked}</strong>)
                   </p>
                   <div className="mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-medium">
                     <Sparkles className="w-3.5 h-3.5" />
-                    ABDM Sandbox Mode: Test OTP is <strong>123456</strong>
+                    {t('login.otpSandboxHint')}
                   </div>
                 </div>
 
@@ -449,7 +583,7 @@ export const LoginPage: React.FC = () => {
                     ) : (
                       <>
                         <CheckCircle2 className="w-4 h-4" />
-                        <span>Verify & Issue ABHA Token</span>
+                        <span>{t('login.verifyOtpBtn')}</span>
                       </>
                     )}
                   </button>
@@ -520,6 +654,7 @@ export const LoginPage: React.FC = () => {
                     onClick={() => {
                       setPatientStep('input');
                       setVerifiedPatient(null);
+                      setPatientConsent(false);
                     }}
                     className="flex-1 py-3.5 rounded-xl border border-slate-300 hover:bg-slate-50 text-slate-700 font-bold text-xs cursor-pointer"
                   >
@@ -548,10 +683,10 @@ export const LoginPage: React.FC = () => {
                 <div className="flex items-center justify-between border-b border-slate-100 pb-4">
                   <div>
                     <h2 className="text-xl font-bold text-slate-900">
-                      Healthcare Professionals Registry (HPR) & NMC Login
+                      {t('login.doctorHeading')}
                     </h2>
                     <p className="text-xs text-slate-500">
-                      Official Doctor Credential Verification & Clinical Authorization
+                      {t('login.doctorSubheading')}
                     </p>
                   </div>
                   {/* Doctor mode switcher */}
@@ -578,7 +713,7 @@ export const LoginPage: React.FC = () => {
                 {docAuthType === 'hpr' ? (
                   <div>
                     <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-                      Healthcare Professional ID (HPR ID)
+                      {t('login.hprInputLabel')}
                     </label>
                     <div className="relative">
                       <input
@@ -595,7 +730,7 @@ export const LoginPage: React.FC = () => {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-                        State Medical Council
+                        {t('login.councilLabel')}
                       </label>
                       <select
                         value={selectedCouncil}
@@ -611,7 +746,7 @@ export const LoginPage: React.FC = () => {
                     </div>
                     <div>
                       <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-                        Council Registration Number
+                        {t('login.regNoLabel')}
                       </label>
                       <input
                         type="text"
@@ -628,7 +763,7 @@ export const LoginPage: React.FC = () => {
                 <div>
                   <div className="text-xs font-semibold text-slate-500 mb-2 flex items-center gap-1.5">
                     <Sparkles className="w-3.5 h-3.5 text-teal-600" />
-                    Quick Test Clinician (HPR Pre-Verified):
+                    Quick Test Clinician Records:
                   </div>
                   <div className="flex flex-wrap gap-2">
                     <button
@@ -668,7 +803,7 @@ export const LoginPage: React.FC = () => {
                   ) : (
                     <>
                       <KeyRound className="w-5 h-5" />
-                      <span>Lookup & Dispatch Registry OTP</span>
+                      <span>{t('login.verifyDoctorBtn')}</span>
                     </>
                   )}
                 </button>
@@ -684,7 +819,7 @@ export const LoginPage: React.FC = () => {
                   </div>
                   <h2 className="text-xl font-bold text-slate-900">Verify Clinician OTP</h2>
                   <p className="text-xs text-slate-500 mt-1">
-                    Matching Record: <strong>{doctorNamePreview}</strong>. OTP sent to mobile linked with{' '}
+                    Practitioner: <strong>{doctorNamePreview}</strong>. OTP sent to mobile linked with{' '}
                     <strong>{doctorMasked}</strong>
                   </p>
                   <div className="mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-medium">
@@ -816,7 +951,7 @@ export const LoginPage: React.FC = () => {
           <div>
             <div className="font-bold text-slate-900">National Health Authority</div>
             <p className="text-[11px] text-slate-500 mt-0.5">
-              100% Free digital health identity framework under ABDM for every Indian citizen.
+              Official digital health identity framework under ABDM for every Indian citizen.
             </p>
           </div>
         </div>
@@ -824,7 +959,7 @@ export const LoginPage: React.FC = () => {
         <div className="p-4 rounded-2xl bg-white border border-slate-200 flex items-start gap-3">
           <ShieldCheck className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
           <div>
-            <div className="font-bold text-slate-900">NMC Registered Doctors</div>
+            <div className="font-bold text-slate-900">NMC Registered Clinicians</div>
             <p className="text-[11px] text-slate-500 mt-0.5">
               Clinical decision verification mapped to state and central council registries.
             </p>
@@ -834,9 +969,9 @@ export const LoginPage: React.FC = () => {
         <div className="p-4 rounded-2xl bg-white border border-slate-200 flex items-start gap-3">
           <Building2 className="w-5 h-5 text-sky-600 shrink-0 mt-0.5" />
           <div>
-            <div className="font-bold text-slate-900">Zero Cost & Legal</div>
+            <div className="font-bold text-slate-900">Patient Privacy Protection</div>
             <p className="text-[11px] text-slate-500 mt-0.5">
-              Built on official ABDM Sandbox APIs conforming to the DPDP Act 2023.
+              Built on official ABDM Consent Framework conforming to the DPDP Act 2023.
             </p>
           </div>
         </div>

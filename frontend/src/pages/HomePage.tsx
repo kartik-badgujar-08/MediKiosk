@@ -6,7 +6,6 @@ import {
   Mic, 
   Hand, 
   FileText, 
-  Sparkles, 
   CheckCircle2, 
   GitBranch,
   Database,
@@ -15,9 +14,11 @@ import {
   ShieldCheck
 } from 'lucide-react';
 import { api } from '../services/api';
+import { useLanguage } from '../context/LanguageContext';
 
 export const HomePage: React.FC = () => {
   const navigate = useNavigate();
+  const { t } = useLanguage();
   const [isSeeding, setIsSeeding] = useState(false);
   const [seedSuccess, setSeedSuccess] = useState(false);
 
@@ -41,16 +42,15 @@ export const HomePage: React.FC = () => {
     <div className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 flex flex-col justify-center">
       {/* Hero Section */}
       <div className="text-center max-w-3xl mx-auto mb-8">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-50 border border-sky-200 text-sky-700 text-xs font-semibold mb-4">
-          <Sparkles className="w-3.5 h-3.5 text-sky-500" />
-          SIH26047 – First-Mile Clinical Intake System
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold mb-4">
+          <ShieldCheck className="w-4 h-4 text-emerald-600" />
+          {t('home.heroBadge')}
         </div>
-        <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
-          Intelligent Clinical Case-Taking with Multimodal Accessibility
+        <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+          {t('home.heroTitle')}
         </h1>
         <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
-          MediKiosk captures patient medical history through Touch, Multilingual Voice, 
-          Indian Sign Language (ISL), and Document OCR into a structured, FHIR-ready Canonical Clinical State.
+          {t('home.heroSubtitle')}
         </p>
 
         {/* Action Buttons */}
@@ -60,27 +60,27 @@ export const HomePage: React.FC = () => {
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs shadow-sm hover:shadow transition-all cursor-pointer"
           >
             <ShieldCheck className="w-4 h-4 text-amber-100" />
-            <span>Govt Identity Login (ABHA / HPR)</span>
+            <span>{t('home.btnGovLogin')}</span>
           </Link>
 
           <button
             onClick={handleSeedDemo}
             disabled={isSeeding || seedSuccess}
-            className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-xl bg-violet-600 hover:bg-violet-700 text-white font-bold text-xs shadow-sm hover:shadow transition-all disabled:opacity-70 cursor-pointer"
+            className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs shadow-sm hover:shadow transition-all disabled:opacity-70 cursor-pointer"
           >
             {isSeeding ? (
               <Loader2 className="w-4 h-4 animate-spin" />
             ) : seedSuccess ? (
-              <Check className="w-4 h-4 text-emerald-300" />
+              <Check className="w-4 h-4 text-emerald-200" />
             ) : (
-              <Database className="w-4 h-4 text-violet-200" />
+              <Database className="w-4 h-4 text-teal-200" />
             )}
             <span>
               {isSeeding
-                ? 'Seeding Scenarios...'
+                ? 'Loading Scenarios...'
                 : seedSuccess
-                ? 'Demo Data Seeded! Redirecting...'
-                : 'Seed Demo Scenarios (Rahul & Sunita ISL)'}
+                ? 'Demo Data Ready! Redirecting...'
+                : t('home.btnSeedDemo')}
             </span>
           </button>
         </div>
@@ -94,27 +94,26 @@ export const HomePage: React.FC = () => {
             <div className="w-14 h-14 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center mb-6 group-hover:scale-105 transition-transform">
               <User className="w-7 h-7" />
             </div>
-            <h2 className="text-2xl font-bold text-slate-900 mb-2">Patient Intake Kiosk</h2>
+            <h2 className="text-2xl font-bold text-slate-900 mb-2">{t('home.kioskCardTitle')}</h2>
             <p className="text-slate-600 text-sm leading-relaxed mb-6">
-              Designed for touchscreens with high accessibility, multilingual voice, SOCRATES pain mapping,
-              Indian Sign Language support, and past document upload.
+              {t('home.kioskCardDesc')}
             </p>
             <ul className="space-y-2.5 text-xs text-slate-700 font-medium mb-8">
               <li className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-sky-500 shrink-0" />
-                English, Hindi & Marathi voice input (IndicConformer)
+                {t('home.voiceFeature')} (English, Hindi, Marathi)
               </li>
               <li className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-sky-500 shrink-0" />
-                Indian Sign Language (ISLRTC vocabulary)
+                {t('home.signFeature')}
               </li>
               <li className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-sky-500 shrink-0" />
-                Prescription & Lab Report digitization (PaddleOCR)
+                {t('home.ocrFeature')}
               </li>
               <li className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-sky-500 shrink-0" />
-                Patient review & correction before submission
+                Audio-Guided Health Data Consent
               </li>
             </ul>
           </div>
@@ -123,7 +122,7 @@ export const HomePage: React.FC = () => {
             className="w-full py-3.5 px-6 rounded-xl bg-sky-500 hover:bg-sky-600 text-white font-bold text-center shadow-sm hover:shadow transition-all flex items-center justify-center gap-2"
           >
             <User className="w-5 h-5" />
-            Launch Patient Kiosk
+            {t('home.kioskCardBtn')}
           </Link>
         </div>
 
@@ -133,15 +132,14 @@ export const HomePage: React.FC = () => {
             <div className="w-14 h-14 rounded-2xl bg-teal-50 text-teal-600 flex items-center justify-center mb-6 group-hover:scale-105 transition-transform">
               <Stethoscope className="w-7 h-7" />
             </div>
-            <h2 className="text-2xl font-bold text-slate-900 mb-2">Doctor Clinical Dashboard</h2>
+            <h2 className="text-2xl font-bold text-slate-900 mb-2">{t('home.doctorCardTitle')}</h2>
             <p className="text-slate-600 text-sm leading-relaxed mb-6">
-              Clinical decision workspace with red-flag detection, field-by-field Accept/Amend/Reject 
-              provenance verification, FHIR R4 export, and ABDM integration.
+              {t('home.doctorCardDesc')}
             </p>
             <ul className="space-y-2.5 text-xs text-slate-700 font-medium mb-8">
               <li className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-teal-500 shrink-0" />
-                Deterministic red flag safety rule alerts
+                Deterministic safety rule alerts & red flags
               </li>
               <li className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-teal-500 shrink-0" />
@@ -149,11 +147,11 @@ export const HomePage: React.FC = () => {
               </li>
               <li className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-teal-500 shrink-0" />
-                Longitudinal patient timeline across encounters
+                Longitudinal patient timeline across past encounters
               </li>
               <li className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-teal-500 shrink-0" />
-                FHIR R4 bundle generation & ABDM/HIS adapter
+                ABDM digital health records integration
               </li>
             </ul>
           </div>
@@ -162,7 +160,7 @@ export const HomePage: React.FC = () => {
             className="w-full py-3.5 px-6 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-center shadow-sm hover:shadow transition-all flex items-center justify-center gap-2"
           >
             <Stethoscope className="w-5 h-5" />
-            Open Doctor Dashboard
+            {t('home.doctorCardBtn')}
           </Link>
         </div>
       </div>
@@ -174,8 +172,8 @@ export const HomePage: React.FC = () => {
             <Mic className="w-5 h-5" />
           </div>
           <div>
-            <div className="text-xs font-bold text-slate-900">Multilingual Voice</div>
-            <div className="text-[11px] text-slate-500">IndicConformer ASR</div>
+            <div className="text-xs font-bold text-slate-900">Voice Dictation</div>
+            <div className="text-[11px] text-slate-500">Speech-to-Text Intake</div>
           </div>
         </div>
 
@@ -184,8 +182,8 @@ export const HomePage: React.FC = () => {
             <Hand className="w-5 h-5" />
           </div>
           <div>
-            <div className="text-xs font-bold text-slate-900">Sign Accessibility</div>
-            <div className="text-[11px] text-slate-500">ISLRTC Dictionary</div>
+            <div className="text-xs font-bold text-slate-900">Sign Language</div>
+            <div className="text-[11px] text-slate-500">Visual Video Assistance</div>
           </div>
         </div>
 
@@ -194,8 +192,8 @@ export const HomePage: React.FC = () => {
             <FileText className="w-5 h-5" />
           </div>
           <div>
-            <div className="text-xs font-bold text-slate-900">Document OCR</div>
-            <div className="text-[11px] text-slate-500">PaddleOCR & Structure</div>
+            <div className="text-xs font-bold text-slate-900">Report Scanning</div>
+            <div className="text-[11px] text-slate-500">Automated Lab Digitization</div>
           </div>
         </div>
 
@@ -204,8 +202,8 @@ export const HomePage: React.FC = () => {
             <GitBranch className="w-5 h-5" />
           </div>
           <div>
-            <div className="text-xs font-bold text-slate-900">Interoperability</div>
-            <div className="text-[11px] text-slate-500">FHIR R4 & ABDM</div>
+            <div className="text-xs font-bold text-slate-900">Digital Health</div>
+            <div className="text-[11px] text-slate-500">ABDM & FHIR Standards</div>
           </div>
         </div>
       </div>
