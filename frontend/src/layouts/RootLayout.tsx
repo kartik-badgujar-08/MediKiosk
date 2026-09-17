@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { Activity, ShieldCheck, Stethoscope, User, AlertTriangle } from 'lucide-react';
+import { Activity, ShieldCheck, Stethoscope, User, AlertTriangle, LogIn, LogOut, CheckCircle2 } from 'lucide-react';
 import { api, type HealthResponse } from '../services/api';
+import { useAuth } from '../context/AuthContext';
 
 export const RootLayout: React.FC = () => {
   const location = useLocation();
@@ -24,6 +25,8 @@ export const RootLayout: React.FC = () => {
     const interval = setInterval(checkConnection, 15000);
     return () => clearInterval(interval);
   }, []);
+
+  const { role, patientProfile, doctorProfile, logout, isAuthenticated } = useAuth();
 
   const isKioskMode = location.pathname.startsWith('/kiosk');
 
@@ -55,7 +58,7 @@ export const RootLayout: React.FC = () => {
           <nav className="flex items-center gap-2 sm:gap-4">
             <Link
               to="/kiosk"
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
+              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all ${
                 isKioskMode
                   ? 'bg-sky-500 text-white shadow-sm'
                   : 'text-slate-600 hover:text-sky-600 hover:bg-sky-50'
@@ -67,7 +70,7 @@ export const RootLayout: React.FC = () => {
 
             <Link
               to="/doctor"
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
+              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all ${
                 location.pathname.startsWith('/doctor')
                   ? 'bg-teal-600 text-white shadow-sm'
                   : 'text-slate-600 hover:text-teal-600 hover:bg-teal-50'
@@ -77,24 +80,60 @@ export const RootLayout: React.FC = () => {
               Doctor Dashboard
             </Link>
 
+            {/* Authenticated Government User Badge or Login Button */}
+            {isAuthenticated ? (
+              <div className="flex items-center gap-2 pl-2 border-l border-slate-200">
+                {role === 'patient' && patientProfile && (
+                  <div className="hidden md:flex items-center gap-2 px-2.5 py-1 rounded-xl bg-sky-50 border border-sky-200 text-sky-900 text-xs">
+                    <span className="w-2 h-2 rounded-full bg-sky-500"></span>
+                    <span className="font-bold">{patientProfile.name}</span>
+                    <span className="font-mono text-[10px] text-sky-700 bg-sky-100 px-1.5 py-0.5 rounded">
+                      ABHA: {patientProfile.abha_number}
+                    </span>
+                  </div>
+                )}
+
+                {role === 'doctor' && doctorProfile && (
+                  <div className="hidden md:flex items-center gap-2 px-2.5 py-1 rounded-xl bg-teal-50 border border-teal-200 text-teal-900 text-xs">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-teal-600" />
+                    <span className="font-bold">{doctorProfile.full_name}</span>
+                    <span className="font-mono text-[10px] text-teal-700 bg-teal-100 px-1.5 py-0.5 rounded">
+                      {doctorProfile.registration_number}
+                    </span>
+                  </div>
+                )}
+
+                <button
+                  onClick={logout}
+                  title="Logout Government Identity Session"
+                  className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all cursor-pointer"
+                >
+                  <LogOut className="w-4 h-4" />
+                </button>
+              </div>
+            ) : (
+              <Link
+                to="/login"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs sm:text-sm font-bold bg-amber-500/10 hover:bg-amber-500/20 text-amber-900 border border-amber-300 transition-all cursor-pointer"
+              >
+                <LogIn className="w-4 h-4 text-amber-600" />
+                <span>Gov ID Login</span>
+              </Link>
+            )}
+
             {/* Backend connectivity badge */}
-            <div className="hidden sm:flex items-center gap-1.5 pl-3 border-l border-slate-200">
+            <div className="hidden sm:flex items-center gap-1.5 pl-2 border-l border-slate-200">
               {isBackendConnected === true ? (
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                  Connected
+                <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                  Live
                 </span>
               ) : isBackendConnected === false ? (
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-amber-50 text-amber-700 border border-amber-200">
-                  <AlertTriangle className="w-3.5 h-3.5 text-amber-500" />
-                  API Disconnected
+                <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-medium bg-amber-50 text-amber-700 border border-amber-200">
+                  <AlertTriangle className="w-3 h-3 text-amber-500" />
+                  Offline
                 </span>
-              ) : (
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-600">
-                  <span className="w-2 h-2 rounded-full bg-slate-400"></span>
-                  Checking...
-                </span>
-              )}
+              ) : null}
             </div>
           </nav>
         </div>

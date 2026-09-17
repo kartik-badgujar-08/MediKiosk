@@ -38,6 +38,11 @@ export class ApiClient {
       ...(options.headers as Record<string, string>),
     };
 
+    const token = typeof window !== 'undefined' ? localStorage.getItem('medikiosk_token') : null;
+    if (token && !headers['Authorization']) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+
     if (!(options.body instanceof FormData)) {
       headers['Content-Type'] = 'application/json';
     }
@@ -217,6 +222,136 @@ export class ApiClient {
       body: formData,
     });
   }
+
+  // ==========================================
+  // Government Identity Auth (ABHA & HPR / NMC)
+  // ==========================================
+
+  async initAbhaAuth(abhaId: string, authMode: string = 'MOBILE_OTP'): Promise<ABHAInitResponse> {
+    return this.request<ABHAInitResponse>('/api/v1/auth/gov/patient/abha/init', {
+      method: 'POST',
+      body: JSON.stringify({ abha_id: abhaId, auth_mode: authMode }),
+    });
+  }
+
+  async verifyAbhaOtp(txnId: string, otp: string): Promise<ABHAProfileResponse> {
+    return this.request<ABHAProfileResponse>('/api/v1/auth/gov/patient/abha/verify-otp', {
+      method: 'POST',
+      body: JSON.stringify({ txn_id: txnId, otp: otp }),
+    });
+  }
+
+  async scanAbhaQr(qrPayload: string): Promise<ABHAProfileResponse> {
+    return this.request<ABHAProfileResponse>('/api/v1/auth/gov/patient/abha/qr-scan', {
+      method: 'POST',
+      body: JSON.stringify({ qr_payload: qrPayload }),
+    });
+  }
+
+  async initHprAuth(params: { hprId?: string; registrationNumber?: string; stateMedicalCouncil?: string }): Promise<HPRInitResponse> {
+    return this.request<HPRInitResponse>('/api/v1/auth/gov/doctor/hpr/init', {
+      method: 'POST',
+      body: JSON.stringify({
+        hpr_id: params.hprId || undefined,
+        registration_number: params.registrationNumber || undefined,
+        state_medical_council: params.stateMedicalCouncil || undefined,
+      }),
+    });
+  }
+
+  async verifyHprOtp(txnId: string, otp: string): Promise<HPRProfileResponse> {
+    return this.request<HPRProfileResponse>('/api/v1/auth/gov/doctor/hpr/verify-otp', {
+      method: 'POST',
+      body: JSON.stringify({ txn_id: txnId, otp: otp }),
+    });
+  }
+
+  async getMedicalCouncils(): Promise<MedicalCouncilItem[]> {
+    return this.request<MedicalCouncilItem[]>('/api/v1/auth/gov/councils');
+  }
+
+  async getGovSession(): Promise<any> {
+    return this.request<any>('/api/v1/auth/gov/me');
+  }
+
+  async logoutGov(): Promise<any> {
+    return this.request<any>('/api/v1/auth/gov/logout', {
+      method: 'POST',
+    });
+  }
+}
+
+export interface ABHAInitResponse {
+  status: string;
+  txn_id: string;
+  auth_mode: string;
+  masked_recipient: string;
+  gateway_mode: string;
+  message: string;
+}
+
+export interface ABHAProfile {
+  abha_number: string;
+  abha_address: string;
+  name: string;
+  gender: string;
+  date_of_birth: string;
+  age: number;
+  mobile: string;
+  address?: string;
+  district_name?: string;
+  state_name?: string;
+  pincode?: string;
+  kyc_verified: boolean;
+  photo_url?: string;
+}
+
+export interface ABHAProfileResponse {
+  status: string;
+  access_token: string;
+  token_type: string;
+  role: string;
+  profile: ABHAProfile;
+  gateway_mode: string;
+}
+
+export interface HPRInitResponse {
+  status: string;
+  txn_id: string;
+  doctor_name: string;
+  council: string;
+  registration_number: string;
+  status_in_registry: string;
+  masked_mobile: string;
+  gateway_mode: string;
+  message: string;
+}
+
+export interface HPRDoctorProfile {
+  hpr_id: string;
+  registration_number: string;
+  state_medical_council: string;
+  full_name: string;
+  degrees: string;
+  specialization: string;
+  registry_status: string;
+  hospital_affiliation?: string;
+  nmc_verified: boolean;
+}
+
+export interface HPRProfileResponse {
+  status: string;
+  access_token: string;
+  token_type: string;
+  role: string;
+  profile: HPRDoctorProfile;
+  gateway_mode: string;
+}
+
+export interface MedicalCouncilItem {
+  code: string;
+  name: string;
+  state: string;
 }
 
 export const api = new ApiClient();

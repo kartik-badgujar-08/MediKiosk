@@ -8,6 +8,7 @@ from app.api.v1.endpoints import (
     documents,
     encounters,
     fhir,
+    government_auth,
     health,
     his,
     interview,
@@ -22,6 +23,7 @@ api_router = APIRouter()
 
 # Core routers under /api/v1
 api_router.include_router(health.router, tags=["Health"])
+api_router.include_router(government_auth.router, prefix="/auth/gov", tags=["Government Identity Auth (ABHA / HPR)"])
 api_router.include_router(auth.router, prefix="/auth", tags=["Authentication"])
 api_router.include_router(patients.router, prefix="/patients", tags=["Patients"])
 api_router.include_router(encounters.router, prefix="/encounters", tags=["Encounters"])

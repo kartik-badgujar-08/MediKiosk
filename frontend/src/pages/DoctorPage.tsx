@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { DoctorShell, type PatientEncounterSummary } from '../components/doctor/DoctorShell';
 import { Card } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
 import { Button } from '../components/ui/Button';
+import { useAuth } from '../context/AuthContext';
 import { 
   Check, 
   Edit3, 
@@ -13,11 +15,14 @@ import {
   CheckCircle2, 
   Layers,
   Sparkles,
-  Loader2
+  Loader2,
+  ShieldCheck,
+  Stethoscope
 } from 'lucide-react';
 import { api } from '../services/api';
 
 export const DoctorPage: React.FC = () => {
+  const { doctorProfile } = useAuth();
   const [encounters, setEncounters] = useState<PatientEncounterSummary[]>([]);
   const [selectedEncounterId, setSelectedEncounterId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState('summary');
@@ -175,18 +180,17 @@ export const DoctorPage: React.FC = () => {
 
       await api.doctorVerify({
         encounter_id: selectedEncounterId,
-        doctor_id: 'dr_ramesh',
-        doctor_name: 'Dr. Ramesh Sharma',
+        doctor_id: doctorProfile ? doctorProfile.hpr_id : 'dr_ramesh',
+        doctor_name: doctorProfile ? doctorProfile.full_name : 'Dr. Ramesh Sharma',
         actions,
         overall_assessment: 'Verified and finalized by attending physician.',
         finalize_encounter: true,
       });
 
       setVerifySuccess(true);
-      setTimeout(() => setVerifySuccess(false), 3000);
       loadEncounters();
     } catch (err) {
-      console.error('Verification failed:', err);
+      console.error('Failed to verify clinical facts:', err);
     } finally {
       setIsVerifying(false);
     }
@@ -222,6 +226,44 @@ export const DoctorPage: React.FC = () => {
       activeTab={activeTab}
       onTabChange={setActiveTab}
     >
+      {/* Clinician Identity Banner */}
+      {doctorProfile ? (
+        <div className="mb-4 p-3.5 rounded-2xl bg-gradient-to-r from-teal-50 to-emerald-50 border border-teal-200 flex items-center justify-between shadow-2xs">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-teal-600 text-white flex items-center justify-center">
+              <Stethoscope className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="text-xs font-bold text-teal-950 flex items-center gap-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5 text-teal-600" />
+                <span>NMC Verified Attending Physician: <strong>{doctorProfile.full_name}</strong></span>
+              </div>
+              <div className="text-[11px] text-slate-600 font-mono">
+                {doctorProfile.degrees} • {doctorProfile.registration_number} ({doctorProfile.state_medical_council})
+              </div>
+            </div>
+          </div>
+          <span className="text-[10px] px-2 py-0.5 rounded-full bg-teal-100 text-teal-800 font-bold border border-teal-200">
+            HPR Authenticated
+          </span>
+        </div>
+      ) : (
+        <div className="mb-4 p-3.5 rounded-2xl bg-amber-50/80 border border-amber-200 flex items-center justify-between">
+          <div className="flex items-center gap-2.5 text-xs text-amber-900">
+            <ShieldCheck className="w-4 h-4 text-amber-600 shrink-0" />
+            <span>
+              <strong>Attending Clinician:</strong> Guest Mode (Dr. Ramesh Sharma). Sign in with HPR to bind NMC digital signature.
+            </span>
+          </div>
+          <Link
+            to="/login?role=doctor"
+            className="px-3 py-1 rounded-xl bg-teal-700 hover:bg-teal-800 text-white text-xs font-bold shadow-2xs"
+          >
+            HPR Sign In
+          </Link>
+        </div>
+      )}
+
       {/* Tab: Clinical Summary */}
       {activeTab === 'summary' && (
         <div className="space-y-6">

@@ -11,7 +11,8 @@ import {
   GitBranch,
   Database,
   Loader2,
-  Check
+  Check,
+  ShieldCheck
 } from 'lucide-react';
 import { api } from '../services/api';
 
@@ -52,8 +53,16 @@ export const HomePage: React.FC = () => {
           Indian Sign Language (ISL), and Document OCR into a structured, FHIR-ready Canonical Clinical State.
         </p>
 
-        {/* 1-Click Seed Demo Button */}
-        <div className="mt-6 flex items-center justify-center">
+        {/* Action Buttons */}
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+          <Link
+            to="/login"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs shadow-sm hover:shadow transition-all cursor-pointer"
+          >
+            <ShieldCheck className="w-4 h-4 text-amber-100" />
+            <span>Govt Identity Login (ABHA / HPR)</span>
+          </Link>
+
           <button
             onClick={handleSeedDemo}
             disabled={isSeeding || seedSuccess}

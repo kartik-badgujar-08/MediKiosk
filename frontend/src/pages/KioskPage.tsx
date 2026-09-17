@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { KioskShell, type LanguageCode } from '../components/kiosk/KioskShell';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
+import { useAuth } from '../context/AuthContext';
 import { 
   CheckCircle2, 
   Sparkles, 
   FileUp, 
-  AlertCircle 
+  AlertCircle,
+  CreditCard
 } from 'lucide-react';
 
 export const KioskPage: React.FC = () => {
@@ -16,11 +19,23 @@ export const KioskPage: React.FC = () => {
   const [isISL, setIsISL] = useState(false);
   const [isListening, setIsListening] = useState(false);
   
+  const { patientProfile } = useAuth();
+  
   // Patient intake state
-  const [patientName, setPatientName] = useState('Rahul Sharma');
-  const [patientAge, setPatientAge] = useState('35');
-  const [patientGender, setPatientGender] = useState('Male');
+  const [patientName, setPatientName] = useState(patientProfile ? patientProfile.name : 'Rahul Sharma');
+  const [patientAge, setPatientAge] = useState(patientProfile ? patientProfile.age.toString() : '35');
+  const [patientGender, setPatientGender] = useState(
+    patientProfile ? (patientProfile.gender === 'M' ? 'Male' : patientProfile.gender === 'F' ? 'Female' : 'Other') : 'Male'
+  );
   const [hasConsent, setHasConsent] = useState(true);
+
+  useEffect(() => {
+    if (patientProfile) {
+      setPatientName(patientProfile.name);
+      setPatientAge(patientProfile.age.toString());
+      setPatientGender(patientProfile.gender === 'M' ? 'Male' : patientProfile.gender === 'F' ? 'Female' : 'Other');
+    }
+  }, [patientProfile]);
 
   // Chief complaint selection
   const [chiefComplaint, setChiefComplaint] = useState<string>('Fever');
@@ -149,6 +164,47 @@ export const KioskPage: React.FC = () => {
           <p className="text-slate-600 text-sm text-center mb-8">
             Please verify patient identification details for this clinical encounter.
           </p>
+          {/* Government ABHA Identity Card or Login prompt */}
+          {patientProfile ? (
+            <div className="max-w-lg mx-auto mb-6 p-4 rounded-2xl bg-gradient-to-r from-sky-50 to-emerald-50 border-2 border-sky-300 shadow-xs flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 rounded-xl bg-sky-600 text-white flex items-center justify-center font-bold text-lg shrink-0">
+                  {patientProfile.name.charAt(0)}
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-sky-950 flex items-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                    ABDM M1 Verified Citizen
+                  </div>
+                  <div className="font-mono text-xs text-slate-700 font-semibold">
+                    ABHA: {patientProfile.abha_number}
+                  </div>
+                  <div className="text-[11px] text-slate-500">
+                    {patientProfile.abha_address} • {patientProfile.district_name}, {patientProfile.state_name}
+                  </div>
+                </div>
+              </div>
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold border border-emerald-200">
+                KYC Active
+              </span>
+            </div>
+          ) : (
+            <div className="max-w-lg mx-auto mb-6 p-4 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <CreditCard className="w-5 h-5 text-amber-600 shrink-0" />
+                <div className="text-xs text-amber-900">
+                  <span className="font-bold">Have an ABHA Health ID?</span>
+                  <div className="text-[11px] text-amber-700">Link with official Government Digital Health Account</div>
+                </div>
+              </div>
+              <Link
+                to="/login?role=patient"
+                className="px-3.5 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs shadow-xs transition-all"
+              >
+                ABHA Login
+              </Link>
+            </div>
+          )}
 
           <div className="space-y-4 max-w-lg mx-auto mb-8">
             <div>
