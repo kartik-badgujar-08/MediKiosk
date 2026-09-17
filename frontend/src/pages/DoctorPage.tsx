@@ -35,6 +35,7 @@ export const DoctorPage: React.FC = () => {
   const [summary, setSummary] = useState<any | null>(null);
   const [fhirBundle, setFhirBundle] = useState<any | null>(null);
   const [timelineEvents, setTimelineEvents] = useState<any[]>([]);
+  const [documents, setDocuments] = useState<any[]>([]);
 
   // Fact action tracking
   const [verificationMap, setVerificationMap] = useState<Record<string, 'ACCEPTED' | 'AMENDED' | 'REJECTED'>>({});
@@ -116,15 +117,17 @@ export const DoctorPage: React.FC = () => {
 
     const loadEncounterDetails = async () => {
       try {
-        const [st, sum, bundle] = await Promise.all([
+        const [st, sum, bundle, docs] = await Promise.all([
           api.getClinicalState(selectedEncounterId).catch(() => null),
           api.getSummary(selectedEncounterId).catch(() => null),
           api.getFHIRBundle(selectedEncounterId).catch(() => null),
+          api.getEncounterDocuments(selectedEncounterId).catch(() => []),
         ]);
 
         setClinicalState(st);
         setSummary(sum);
         setFhirBundle(bundle);
+        setDocuments(docs || []);
 
         // Load timeline if patient_id is available
         const currentEnc = encounters.find((e) => e.id === selectedEncounterId);
@@ -518,21 +521,160 @@ export const DoctorPage: React.FC = () => {
       {/* Tab: Documents & OCR */}
       {activeTab === 'docs' && (
         <Card>
-          <h3 className="text-base font-bold text-slate-900 mb-4">Uploaded Medical Documents & Digitized OCR</h3>
-          <div className="space-y-3">
-            <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <FileText className="w-8 h-8 text-sky-600 shrink-0" />
-                <div>
-                  <div className="font-bold text-sm text-slate-900">Lab_Report_CBC_Haematology.pdf</div>
-                  <div className="text-xs text-slate-500">
-                    Diagnostic Report Extraction • Platelet Count (130,000 /uL), Hemoglobin (13.8 g/dL)
-                  </div>
-                </div>
-              </div>
-              <Badge provenance="ocr">Digitized</Badge>
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h3 className="text-base font-bold text-slate-900">Uploaded Medical Documents & Digitized OCR</h3>
+              <p className="text-xs text-slate-500">
+                Prescriptions digitized via Microsoft TrOCR; laboratory reports parsed into structured diagnostic matrices.
+              </p>
             </div>
+            {selectedEncounterId && (
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={async () => {
+                    try {
+                      await api.attachSampleDocument(selectedEncounterId, 'sample_cbc');
+                      const docs = await api.getEncounterDocuments(selectedEncounterId);
+                      setDocuments(docs || []);
+                      const st = await api.getClinicalState(selectedEncounterId);
+                      setClinicalState(st);
+                    } catch (e) {
+                      console.error('Failed to attach sample CBC:', e);
+                    }
+                  }}
+                  className="px-3 py-1.5 rounded-xl border border-emerald-300 bg-emerald-50 text-emerald-800 text-xs font-bold hover:bg-emerald-100 transition-all cursor-pointer"
+                >
+                  + Attach CBC Report
+                </button>
+                <button
+                  type="button"
+                  onClick={async () => {
+                    try {
+                      await api.attachSampleDocument(selectedEncounterId, 'sample_rx');
+                      const docs = await api.getEncounterDocuments(selectedEncounterId);
+                      setDocuments(docs || []);
+                      const st = await api.getClinicalState(selectedEncounterId);
+                      setClinicalState(st);
+                    } catch (e) {
+                      console.error('Failed to attach sample Rx:', e);
+                    }
+                  }}
+                  className="px-3 py-1.5 rounded-xl border border-sky-300 bg-sky-50 text-sky-800 text-xs font-bold hover:bg-sky-100 transition-all cursor-pointer"
+                >
+                  + Attach Prescription
+                </button>
+              </div>
+            )}
           </div>
+
+          {documents.length > 0 ? (
+            <div className="space-y-6">
+              {documents.map((doc: any) => {
+                const ext = doc.extraction;
+                const table = ext?.tables?.[0];
+                const medications = ext?.extracted_entities?.filter((e: any) => e.category === 'medication') || [];
+
+                return (
+                  <div key={doc.id} className="p-5 bg-slate-50/70 rounded-2xl border-2 border-slate-200 space-y-4">
+                    <div className="flex items-center justify-between pb-3 border-b border-slate-200">
+                      <div className="flex items-center gap-3">
+                        <FileText className="w-8 h-8 text-sky-600 shrink-0" />
+                        <div>
+                          <div className="font-bold text-sm text-slate-900">{doc.filename}</div>
+                          <div className="text-xs text-slate-500">
+                            Size: {Math.round((doc.size_bytes || 0) / 1024)} KB • Uploaded at {doc.created_at?.slice(0, 16) || 'Today'}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        {ext?.ocr_engine && (
+                          <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-indigo-100 text-indigo-800 font-bold">
+                            {ext.ocr_engine}
+                          </span>
+                        )}
+                        <Badge provenance="ocr">Digitized</Badge>
+                      </div>
+                    </div>
+
+                    {/* Extracted Prescription Drugs */}
+                    {medications.length > 0 && (
+                      <div className="space-y-2">
+                        <div className="text-xs font-bold text-slate-700 uppercase tracking-wider">
+                          Extracted Prescription Drugs ({medications.length})
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                          {medications.map((m: any, idx: number) => (
+                            <div key={idx} className="p-3 bg-white rounded-xl border border-slate-200 flex items-center justify-between">
+                              <div>
+                                <span className="font-bold text-sm text-slate-900">{m.name}</span>
+                                <span className="text-xs text-slate-600 ml-2 font-medium">{String(m.value)}</span>
+                              </div>
+                              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-sky-50 text-sky-700 border border-sky-200">
+                                {m.unit || 'Rx'}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Extracted Lab Table */}
+                    {table && table.rows && table.rows.length > 0 && (
+                      <div className="space-y-2">
+                        <div className="text-xs font-bold text-slate-700 uppercase tracking-wider">
+                          Laboratory Diagnostic Matrix
+                        </div>
+                        <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white">
+                          <table className="w-full text-left text-xs">
+                            <thead>
+                              <tr className="bg-slate-100/80 text-slate-700 font-bold border-b border-slate-200">
+                                {table.headers.map((h: string, i: number) => (
+                                  <th key={i} className="p-2.5 text-[11px] uppercase">{h}</th>
+                                ))}
+                              </tr>
+                            </thead>
+                            <tbody className="divide-y divide-slate-100 font-medium">
+                              {table.rows.map((row: string[], rIdx: number) => {
+                                const flag = (row[4] || 'NORMAL').toUpperCase();
+                                const isAbnormal = flag === 'LOW' || flag === 'HIGH' || flag === 'CRITICAL';
+                                return (
+                                  <tr key={rIdx} className={isAbnormal ? 'bg-amber-50/50' : 'hover:bg-slate-50'}>
+                                    <td className="p-2.5 font-semibold text-slate-900">{row[0]}</td>
+                                    <td className={`p-2.5 font-bold font-mono ${isAbnormal ? 'text-rose-900' : 'text-slate-800'}`}>{row[1]}</td>
+                                    <td className="p-2.5 text-slate-500 font-mono">{row[2]}</td>
+                                    <td className="p-2.5 text-slate-600">{row[3]}</td>
+                                    <td className="p-2.5">
+                                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                                        flag === 'CRITICAL' ? 'bg-rose-600 text-white' :
+                                        flag === 'LOW' ? 'bg-amber-100 text-amber-900 border border-amber-300' :
+                                        flag === 'HIGH' ? 'bg-rose-100 text-rose-900 border border-rose-300' :
+                                        'bg-emerald-100 text-emerald-800'
+                                      }`}>
+                                        {flag}
+                                      </span>
+                                    </td>
+                                  </tr>
+                                );
+                              })}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="p-8 text-center bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200 space-y-3">
+              <FileText className="w-10 h-10 text-slate-400 mx-auto" />
+              <div className="text-sm font-bold text-slate-700">No Medical Documents Attached Yet</div>
+              <p className="text-xs text-slate-500 max-w-sm mx-auto">
+                Patient did not attach previous lab reports or prescriptions during intake. You can attach a test sample above to preview the OCR digitization engine.
+              </p>
+            </div>
+          )}
         </Card>
       )}
 

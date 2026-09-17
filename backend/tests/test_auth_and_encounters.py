@@ -1,3 +1,4 @@
+import uuid
 import pytest
 from httpx import ASGITransport, AsyncClient
 from app.main import app
@@ -5,12 +6,13 @@ from app.main import app
 
 @pytest.mark.asyncio
 async def test_auth_workflow():
+    unique_email = f"dr.sharma.{uuid.uuid4().hex[:6]}@example.com"
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
         # Register a doctor
         reg_response = await client.post(
             "/api/v1/auth/register",
             json={
-                "email": "dr.sharma@example.com",
+                "email": unique_email,
                 "full_name": "Dr. Ramesh Sharma",
                 "role": "doctor",
                 "password": "SecurePassword123!",
@@ -18,7 +20,7 @@ async def test_auth_workflow():
         )
         assert reg_response.status_code == 201
         user_data = reg_response.json()
-        assert user_data["email"] == "dr.sharma@example.com"
+        assert user_data["email"] == unique_email
         assert user_data["role"] == "doctor"
         assert "id" in user_data
 
@@ -26,7 +28,7 @@ async def test_auth_workflow():
         login_response = await client.post(
             "/api/v1/auth/login",
             json={
-                "email": "dr.sharma@example.com",
+                "email": unique_email,
                 "password": "SecurePassword123!",
             },
         )
@@ -43,7 +45,7 @@ async def test_auth_workflow():
             headers={"Authorization": f"Bearer {token}"},
         )
         assert me_response.status_code == 200
-        assert me_response.json()["email"] == "dr.sharma@example.com"
+        assert me_response.json()["email"] == unique_email
 
 
 @pytest.mark.asyncio

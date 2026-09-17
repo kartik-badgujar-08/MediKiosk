@@ -157,6 +157,17 @@ export class ApiClient {
     });
   }
 
+  async listSampleDocuments(): Promise<any[]> {
+    return this.request<any[]>('/api/v1/documents/samples/list');
+  }
+
+  async attachSampleDocument(encounterId: string, sampleId: string): Promise<any> {
+    return this.request<any>('/api/v1/documents/sample/attach', {
+      method: 'POST',
+      body: JSON.stringify({ encounter_id: encounterId, sample_id: sampleId }),
+    });
+  }
+
   async getEncounterDocuments(encounterId: string): Promise<any[]> {
     return this.request<any[]>(`/api/v1/documents/encounter/${encounterId}`);
   }

@@ -22,11 +22,17 @@ class RuleBasedClinicalNERAdapter(BaseClinicalExtractionService):
     KNOWN_DRUGS = [
         {"name": "Paracetamol", "dose_pattern": r"paracetamol\s*(\d+\s*mg)?", "category": "medication"},
         {"name": "Pantoprazole", "dose_pattern": r"pantoprazole\s*(\d+\s*mg)?", "category": "medication"},
+        {"name": "Azithromycin", "dose_pattern": r"azithromycin\s*(\d+\s*mg)?", "category": "medication"},
+        {"name": "Amoxicillin-Clavulanate", "dose_pattern": r"amoxicillin|augmentin", "category": "medication"},
         {"name": "ORS (Oral Rehydration Salts)", "dose_pattern": r"oral rehydration salts|ors", "category": "medication"},
         {"name": "Cetirizine", "dose_pattern": r"cetirizine\s*(\d+\s*mg)?", "category": "medication"},
+        {"name": "Levocetirizine", "dose_pattern": r"levocetirizine\s*(\d+\s*mg)?", "category": "medication"},
         {"name": "Metformin", "dose_pattern": r"metformin\s*(\d+\s*mg)?", "category": "medication"},
+        {"name": "Telmisartan", "dose_pattern": r"telmisartan\s*(\d+\s*mg)?", "category": "medication"},
+        {"name": "Atorvastatin", "dose_pattern": r"atorvastatin\s*(\d+\s*mg)?", "category": "medication"},
         {"name": "Amlodipine", "dose_pattern": r"amlodipine\s*(\d+\s*mg)?", "category": "medication"},
-        {"name": "Amoxicillin", "dose_pattern": r"amoxicillin\s*(\d+\s*mg)?", "category": "medication"},
+        {"name": "Montelukast", "dose_pattern": r"montelukast\s*(\d+\s*mg)?", "category": "medication"},
+        {"name": "Ibuprofen", "dose_pattern": r"ibuprofen\s*(\d+\s*mg)?", "category": "medication"},
     ]
 
     KNOWN_LABS = [
@@ -44,14 +50,38 @@ class RuleBasedClinicalNERAdapter(BaseClinicalExtractionService):
         },
         {
             "name": "Total Leukocyte Count (WBC)",
-            "pattern": r"total\s*leukocyte\s*count\s*[:\s]*([\d,]+)\s*(/uL|/cumm)?",
+            "pattern": r"(?:total\s*leukocyte\s*count|tlc|wbc)\s*[:\s]*([\d,]+)\s*(/uL|/cumm)?",
             "unit": "/uL",
             "category": "lab_test",
         },
         {
             "name": "Hematocrit (PCV)",
-            "pattern": r"hematocrit\s*[:\s]*([\d\.]+)\s*(%)?",
+            "pattern": r"(?:hematocrit|pcv)\s*[:\s]*([\d\.]+)\s*(%)?",
             "unit": "%",
+            "category": "lab_test",
+        },
+        {
+            "name": "Fasting Blood Glucose",
+            "pattern": r"(?:fasting\s*blood\s*(?:sugar|glucose)|fbs)\s*[:\s]*([\d\.]+)\s*(mg/dL)?",
+            "unit": "mg/dL",
+            "category": "lab_test",
+        },
+        {
+            "name": "Glycated Hemoglobin (HbA1c)",
+            "pattern": r"(?:hba1c|glycated\s*hemoglobin)\s*[:\s]*([\d\.]+)\s*(%)?",
+            "unit": "%",
+            "category": "lab_test",
+        },
+        {
+            "name": "Serum Creatinine",
+            "pattern": r"(?:serum\s*creatinine|creatinine)\s*[:\s]*([\d\.]+)\s*(mg/dL)?",
+            "unit": "mg/dL",
+            "category": "lab_test",
+        },
+        {
+            "name": "Total Cholesterol",
+            "pattern": r"(?:total\s*cholesterol|cholesterol)\s*[:\s]*([\d\.]+)\s*(mg/dL)?",
+            "unit": "mg/dL",
             "category": "lab_test",
         },
     ]

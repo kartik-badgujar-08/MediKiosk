@@ -5,12 +5,13 @@ import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { SocratesBodyMap } from '../components/kiosk/SocratesBodyMap';
 import { PainSeveritySlider } from '../components/kiosk/PainSeveritySlider';
+import { DocumentScannerModal } from '../components/kiosk/DocumentScannerModal';
+import { OcrResultPreview, type OcrExtractionData } from '../components/kiosk/OcrResultPreview';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
 import { api } from '../services/api';
 import { 
   CheckCircle2, 
-  FileUp, 
   CreditCard,
   Volume2,
   AlertTriangle,
@@ -151,6 +152,10 @@ export const KioskPage: React.FC = () => {
   const [isSubmittingCase, setIsSubmittingCase] = useState<boolean>(false);
   const [submissionSuccess, setSubmissionSuccess] = useState<boolean>(false);
   const [tokenNumber] = useState<number>(() => Math.floor(10 + Math.random() * 89));
+  const [uploadedDocData, setUploadedDocData] = useState<{
+    doc: any;
+    extraction: OcrExtractionData;
+  } | null>(null);
 
   // Start interview session when moving to Step 2
   const initializeInterview = async () => {
@@ -761,39 +766,59 @@ export const KioskPage: React.FC = () => {
       {currentStep === 3 && (
         <Card variant="kiosk" padding="kiosk">
           <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2 text-center">
-            Upload Old Prescriptions or Reports
+            Upload Prior Prescriptions or Lab Reports
           </h2>
-          <p className="text-slate-600 text-sm text-center mb-8">
-            Securely attach prior medical prescriptions, laboratory reports, or discharge slips.
+          <p className="text-slate-600 text-sm text-center mb-8 max-w-xl mx-auto">
+            Digitize previous medical prescriptions (via TrOCR) or diagnostic pathology reports (CBC, Sugar, Lipid) for physician review.
           </p>
 
-          <div className="max-w-md mx-auto border-3 border-dashed border-sky-200 hover:border-sky-400 bg-sky-50/50 rounded-3xl p-8 text-center cursor-pointer transition-all mb-6">
-            <div className="w-16 h-16 rounded-2xl bg-sky-100 text-sky-600 flex items-center justify-center mx-auto mb-4">
-              <FileUp className="w-8 h-8" />
-            </div>
-            <div className="font-bold text-base text-slate-800 mb-1">
-              Tap to Scan or Choose Document
-            </div>
-            <div className="text-xs text-slate-500 mb-4">
-              Supports JPEG, PNG, PDF up to 10MB
-            </div>
-            <Button variant="outline" size="sm">
-              Select Sample Report
-            </Button>
-          </div>
+          {uploadedDocData ? (
+            <div className="max-w-2xl mx-auto space-y-6">
+              <OcrResultPreview
+                filename={uploadedDocData.doc.filename}
+                extraction={uploadedDocData.extraction}
+                onRemove={() => setUploadedDocData(null)}
+              />
 
-          <div className="max-w-md mx-auto p-4 bg-emerald-50 border border-emerald-200 rounded-2xl flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <CheckCircle2 className="w-5 h-5 text-emerald-600" />
-              <div>
-                <div className="text-xs font-bold text-emerald-900">Sample_Prescription_Report.pdf</div>
-                <div className="text-[11px] text-emerald-700">Digitization Complete • Paracetamol 650mg & CBC detected</div>
+              <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                <Button
+                  variant="primary"
+                  size="lg"
+                  onClick={() => setCurrentStep(4)}
+                  className="flex-1 shadow-md"
+                >
+                  Proceed to Final Review
+                </Button>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  onClick={() => setUploadedDocData(null)}
+                  className="sm:w-auto"
+                >
+                  Attach Another Document
+                </Button>
               </div>
             </div>
-            <span className="text-[11px] font-bold text-emerald-800 px-2 py-0.5 rounded bg-emerald-100">
-              Attached
-            </span>
-          </div>
+          ) : (
+            <div className="space-y-6">
+              <DocumentScannerModal
+                encounterId={encounterId}
+                onExtractionComplete={(doc, extraction) => {
+                  setUploadedDocData({ doc, extraction });
+                }}
+              />
+
+              <div className="text-center pt-4 border-t border-slate-200/80 max-w-md mx-auto">
+                <button
+                  type="button"
+                  onClick={() => setCurrentStep(4)}
+                  className="text-xs text-slate-500 hover:text-slate-800 font-semibold underline underline-offset-4 cursor-pointer"
+                >
+                  Skip Step: I do not have old documents today
+                </button>
+              </div>
+            </div>
+          )}
         </Card>
       )}
 
@@ -850,6 +875,7 @@ export const KioskPage: React.FC = () => {
                     setCurrentStep(1);
                     setEncounterId(`kiosk-enc-${Date.now()}`);
                     setInterviewState(null);
+                    setUploadedDocData(null);
                   }}
                   className="w-full py-3 px-6 rounded-2xl bg-white border-2 border-slate-200 hover:border-slate-300 text-slate-700 font-bold text-xs transition-all cursor-pointer"
                 >
@@ -909,18 +935,48 @@ export const KioskPage: React.FC = () => {
                   </div>
                 )}
 
-                <div className="p-4 bg-amber-50 rounded-2xl border border-amber-200">
-                  <div className="flex items-center justify-between mb-1">
-                    <div className="text-xs font-bold text-amber-800 uppercase tracking-wider">
-                      Extracted from Prescription
+                {uploadedDocData ? (
+                  <div className="p-4 bg-sky-50/70 rounded-2xl border border-sky-200 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="text-xs font-bold text-sky-900 uppercase tracking-wider">
+                        Digitized Document: {uploadedDocData.doc.filename}
+                      </div>
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 font-mono">
+                        {uploadedDocData.extraction.ocr_engine}
+                      </span>
                     </div>
-                    <span className="text-[11px] text-amber-700 font-semibold">Verified</span>
+
+                    {/* Extracted Medications */}
+                    {uploadedDocData.extraction.extracted_entities?.some(e => e.category === 'medication') && (
+                      <div className="space-y-1">
+                        <div className="text-[11px] font-bold text-slate-600 uppercase">Extracted Medications:</div>
+                        {uploadedDocData.extraction.extracted_entities?.filter(e => e.category === 'medication').map((m, i) => (
+                          <div key={i} className="text-xs text-slate-800 flex justify-between border-b border-sky-100 pb-1">
+                            <span className="font-semibold text-slate-700">{m.name}</span>
+                            <span className="font-bold text-sky-950">{String(m.value)}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Extracted Lab Findings */}
+                    {uploadedDocData.extraction.tables?.[0]?.rows && (
+                      <div className="space-y-1 border-t border-sky-200/60 pt-2">
+                        <div className="text-[11px] font-bold text-slate-600 uppercase">Extracted Lab Findings:</div>
+                        {uploadedDocData.extraction.tables[0].rows.slice(0, 4).map((r, i) => (
+                          <div key={i} className="text-xs text-slate-800 flex justify-between border-b border-sky-100 pb-1">
+                            <span className="font-medium text-slate-700">{r[0]}</span>
+                            <span className="font-mono font-bold text-slate-900">{r[1]} {r[3]} ({r[4]})</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
-                  <div className="text-sm font-bold text-slate-900">
-                    Paracetamol 650mg TDS (3 days)
+                ) : (
+                  <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 text-center text-xs text-slate-500 font-medium">
+                    No previous medical records attached. First-time clinical case taking.
                   </div>
-                  <div className="text-xs text-slate-500">Source: Uploaded medical record</div>
-                </div>
+                )}
               </div>
             </>
           )}
