@@ -11,6 +11,7 @@ from app.api.v1.endpoints import (
     his,
     interview,
     patients,
+    sign,
     summaries,
     timeline,
     verification,
@@ -33,3 +34,4 @@ api_router.include_router(timeline.router, prefix="/timeline", tags=["Patient Ti
 api_router.include_router(fhir.router, prefix="/fhir", tags=["FHIR R4"])
 api_router.include_router(abdm.router, prefix="/abdm", tags=["ABDM Integration"])
 api_router.include_router(his.router, prefix="/his", tags=["HIS Integration"])
+api_router.include_router(sign.router, prefix="/sign", tags=["Indian Sign Language"])
