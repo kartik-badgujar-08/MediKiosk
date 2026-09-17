@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 from app.api.v1.endpoints import (
+    abdm,
     asr,
     auth,
     clinical_state,
@@ -7,6 +8,7 @@ from app.api.v1.endpoints import (
     encounters,
     fhir,
     health,
+    his,
     interview,
     patients,
     summaries,
@@ -29,3 +31,5 @@ api_router.include_router(summaries.router, prefix="/summaries", tags=["Physicia
 api_router.include_router(verification.router, prefix="/verification", tags=["Verification"])
 api_router.include_router(timeline.router, prefix="/timeline", tags=["Patient Timeline"])
 api_router.include_router(fhir.router, prefix="/fhir", tags=["FHIR R4"])
+api_router.include_router(abdm.router, prefix="/abdm", tags=["ABDM Integration"])
+api_router.include_router(his.router, prefix="/his", tags=["HIS Integration"])
