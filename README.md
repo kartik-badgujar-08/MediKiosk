@@ -1,7 +1,7 @@
 # MediKiosk (SIH26047)
 ### First-Mile Multimodal Multilingual Clinical Intake & Case-Taking System
 
-[![MediKiosk CI](https://github.com/KartikBadgujar/MediKiosk/actions/workflows/ci.yml/badge.svg)](https://github.com/KartikBadgujar/MediKiosk/actions)
+[![MediKiosk CI](https://github.com/kartik-badgujar-08/MediKiosk/actions/workflows/ci.yml/badge.svg)](https://github.com/kartik-badgujar-08/MediKiosk/actions)
 ![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)
 ![Python](https://img.shields.io/badge/Python-3.11%20%7C%203.14-emerald.svg)
 ![Node](https://img.shields.io/badge/Node.js-20%20%7C%2024-sky.svg)
