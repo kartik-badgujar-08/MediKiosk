@@ -4,6 +4,7 @@ from app.api.v1.endpoints import (
     asr,
     auth,
     clinical_state,
+    demo,
     documents,
     encounters,
     fhir,
@@ -35,3 +36,4 @@ api_router.include_router(fhir.router, prefix="/fhir", tags=["FHIR R4"])
 api_router.include_router(abdm.router, prefix="/abdm", tags=["ABDM Integration"])
 api_router.include_router(his.router, prefix="/his", tags=["HIS Integration"])
 api_router.include_router(sign.router, prefix="/sign", tags=["Indian Sign Language"])
+api_router.include_router(demo.router, prefix="/demo", tags=["Demo Seed Scenarios"])

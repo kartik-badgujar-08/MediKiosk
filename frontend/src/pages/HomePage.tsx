@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { 
   User, 
   Stethoscope, 
@@ -8,14 +8,38 @@ import {
   FileText, 
   Sparkles, 
   CheckCircle2, 
-  GitBranch
+  GitBranch,
+  Database,
+  Loader2,
+  Check
 } from 'lucide-react';
+import { api } from '../services/api';
 
 export const HomePage: React.FC = () => {
+  const navigate = useNavigate();
+  const [isSeeding, setIsSeeding] = useState(false);
+  const [seedSuccess, setSeedSuccess] = useState(false);
+
+  const handleSeedDemo = async () => {
+    setIsSeeding(true);
+    try {
+      await api.seedDemoData();
+      setSeedSuccess(true);
+      setTimeout(() => {
+        setSeedSuccess(false);
+        navigate('/doctor');
+      }, 1200);
+    } catch (err) {
+      console.error('Failed to seed demo data:', err);
+    } finally {
+      setIsSeeding(false);
+    }
+  };
+
   return (
     <div className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 flex flex-col justify-center">
       {/* Hero Section */}
-      <div className="text-center max-w-3xl mx-auto mb-10">
+      <div className="text-center max-w-3xl mx-auto mb-8">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-50 border border-sky-200 text-sky-700 text-xs font-semibold mb-4">
           <Sparkles className="w-3.5 h-3.5 text-sky-500" />
           SIH26047 – First-Mile Clinical Intake System
@@ -23,10 +47,34 @@ export const HomePage: React.FC = () => {
         <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
           Intelligent Clinical Case-Taking with Multimodal Accessibility
         </h1>
-        <p className="mt-4 text-lg text-slate-600 leading-relaxed">
-          MediKiosk captures comprehensive patient medical history through Touch, Multilingual Voice, 
+        <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
+          MediKiosk captures patient medical history through Touch, Multilingual Voice, 
           Indian Sign Language (ISL), and Document OCR into a structured, FHIR-ready Canonical Clinical State.
         </p>
+
+        {/* 1-Click Seed Demo Button */}
+        <div className="mt-6 flex items-center justify-center">
+          <button
+            onClick={handleSeedDemo}
+            disabled={isSeeding || seedSuccess}
+            className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-xl bg-violet-600 hover:bg-violet-700 text-white font-bold text-xs shadow-sm hover:shadow transition-all disabled:opacity-70 cursor-pointer"
+          >
+            {isSeeding ? (
+              <Loader2 className="w-4 h-4 animate-spin" />
+            ) : seedSuccess ? (
+              <Check className="w-4 h-4 text-emerald-300" />
+            ) : (
+              <Database className="w-4 h-4 text-violet-200" />
+            )}
+            <span>
+              {isSeeding
+                ? 'Seeding Scenarios...'
+                : seedSuccess
+                ? 'Demo Data Seeded! Redirecting...'
+                : 'Seed Demo Scenarios (Rahul & Sunita ISL)'}
+            </span>
+          </button>
+        </div>
       </div>
 
       {/* Main Mode Entry Cards */}
