@@ -184,3 +184,52 @@ async def test_emergency_triage_and_real_ocr_meds_synthesis():
         assert "131/83" in summary["soap_sections"]["objective"]["content"]
         assert "Vertin 16" in summary["patient_vernacular_summary"]["en"]
 
+
+@pytest.mark.asyncio
+async def test_update_encounter_summary_draft():
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
+        # Create test encounter
+        p_res = await client.post(
+            "/api/v1/patients/",
+            json={"name": "Anita Verma", "age": 42, "gender": "Female"},
+        )
+        patient_id = p_res.json()["id"]
+
+        e_res = await client.post(
+            "/api/v1/encounters/",
+            json={"patient_id": patient_id, "intake_channel": "touch"},
+        )
+        encounter_id = e_res.json()["id"]
+
+        # 1. Update draft
+        put_res = await client.put(
+            f"/api/v1/summaries/{encounter_id}",
+            json={
+                "chief_complaint": "Acute Migraine with visual aura",
+                "hpi_narrative": "Patient reports recurrent unilateral throbbing headache with nausea.",
+                "triage_level": "URGENT",
+                "doctor_notes": "Prescribed Sumatriptan 50mg SOS. Advised dark room rest.",
+                "pertinent_positives": ["Photophobia", "Phonophobia", "Visual Aura"],
+                "soap_sections": {
+                    "assessment": {"title": "Assessment", "content": "Classical Migraine with aura."},
+                    "plan": {"title": "Plan", "content": "1. Sumatriptan 50mg SOS\n2. Avoid chocolate and bright lights."}
+                }
+            },
+        )
+        assert put_res.status_code == 200
+        saved = put_res.json()
+        assert saved["chief_complaint"] == "Acute Migraine with visual aura"
+        assert saved["hpi_narrative"] == "Patient reports recurrent unilateral throbbing headache with nausea."
+        assert saved["triage_level"] == "URGENT"
+        assert saved["doctor_notes"] == "Prescribed Sumatriptan 50mg SOS. Advised dark room rest."
+        assert "Visual Aura" in saved["pertinent_positives"]
+        assert "Classical Migraine with aura." in saved["soap_sections"]["assessment"]["content"]
+
+        # 2. Re-fetch via GET to verify disk persistence
+        get_res = await client.get(f"/api/v1/summaries/{encounter_id}")
+        assert get_res.status_code == 200
+        reloaded = get_res.json()
+        assert reloaded["chief_complaint"] == "Acute Migraine with visual aura"
+        assert reloaded["doctor_notes"] == "Prescribed Sumatriptan 50mg SOS. Advised dark room rest."
+
+

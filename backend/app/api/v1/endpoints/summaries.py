@@ -3,7 +3,7 @@ from fastapi import APIRouter, HTTPException, Query, status
 from app.repositories.encounter_repo import encounter_repo
 from app.repositories.patient_repo import patient_repo
 from app.repositories.summary_repo import summary_repo
-from app.schemas.summary import PhysicianSummaryResponse
+from app.schemas.summary import PhysicianSummaryResponse, PhysicianSummaryUpdateRequest
 from app.services.clinical.state_service import clinical_state_service
 from app.services.llm.llm_service import llm_service
 
@@ -60,4 +60,40 @@ async def get_encounter_summary(
 
     # Auto-generate if not yet persisted
     return await generate_encounter_summary(encounter_id=encounter_id, provider=provider)
+
+
+@router.put("/{encounter_id}", response_model=PhysicianSummaryResponse)
+async def update_encounter_summary_draft(
+    encounter_id: str,
+    update_data: PhysicianSummaryUpdateRequest,
+):
+    """
+    Save or update an editable physician clinical summary draft.
+    Allows attending clinicians to amend SOAP sections, HPI, impressions, plans, and notes.
+    """
+    existing = await summary_repo.get_by_encounter(encounter_id)
+    if not existing:
+        existing = (await generate_encounter_summary(encounter_id=encounter_id, provider="auto"))
+        if hasattr(existing, "model_dump"):
+            existing = existing.model_dump()
+
+    # Merge incoming update fields
+    data_dict = update_data.model_dump(exclude_unset=True)
+    for key, value in data_dict.items():
+        if value is not None:
+            if key == "soap_sections" and isinstance(value, dict) and "soap_sections" in existing:
+                # Deep merge soap sections
+                curr_soap = existing.get("soap_sections") or {}
+                for s_key, s_val in value.items():
+                    if isinstance(s_val, dict) and s_key in curr_soap:
+                        curr_soap[s_key].update(s_val)
+                    else:
+                        curr_soap[s_key] = s_val
+                existing["soap_sections"] = curr_soap
+            else:
+                existing[key] = value
+
+    saved = await summary_repo.save_or_update(existing)
+    return saved
+
 

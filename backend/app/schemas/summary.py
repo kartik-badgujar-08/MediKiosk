@@ -37,9 +37,25 @@ class PhysicianSummaryResponse(BaseModel):
         "intake assistance from patient multi-channel inputs and digitized documents. "
         "Does NOT constitute a clinical diagnosis. Attending physician verification is mandatory."
     )
+    doctor_notes: Optional[str] = None
     is_verified_by_doctor: bool = False
     verified_by: Optional[str] = None
     verified_at: Optional[str] = None
     created_at: str
     updated_at: str
+
+
+class PhysicianSummaryUpdateRequest(BaseModel):
+    chief_complaint: Optional[str] = None
+    hpi_narrative: Optional[str] = None
+    soap_sections: Optional[Dict[str, Any]] = None
+    sections: Optional[Dict[str, Any]] = None
+    pertinent_positives: Optional[List[str]] = None
+    pertinent_negatives: Optional[List[str]] = None
+    triage_level: Optional[str] = None
+    doctor_notes: Optional[str] = None
+    is_verified_by_doctor: Optional[bool] = None
+    verified_by: Optional[str] = None
+    verified_at: Optional[str] = None
+
 

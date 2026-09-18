@@ -94,8 +94,8 @@ export const DoctorPage: React.FC = () => {
       setEncounters(mapped);
       if (paramEncounterId && mapped.some((e) => e.id === paramEncounterId)) {
         setSelectedEncounterId(paramEncounterId);
-      } else if (mapped.length > 0 && !selectedEncounterId) {
-        setSelectedEncounterId(mapped[0].id);
+      } else if (mapped.length > 0) {
+        setSelectedEncounterId((prev) => (prev && mapped.some((e) => e.id === prev) ? prev : mapped[0].id));
       }
     } catch (err) {
       console.error('Failed to load encounters:', err);
@@ -211,6 +211,37 @@ export const DoctorPage: React.FC = () => {
     );
   }
 
+  if (!isLoading && encounters.length === 0) {
+    return (
+      <div className="flex-1 flex flex-col items-center justify-center p-12 text-center bg-slate-50">
+        <div className="w-16 h-16 rounded-3xl bg-teal-50 text-teal-600 flex items-center justify-center mb-4 border border-teal-200 shadow-xs">
+          <Stethoscope className="w-8 h-8" />
+        </div>
+        <h2 className="text-xl font-bold text-slate-900 mb-2">Doctor's Consultation Queue is Empty</h2>
+        <p className="text-xs text-slate-500 max-w-sm mb-6">
+          No patients are currently waiting in the consultation queue. Load sample cases or start a new patient intake at the kiosk.
+        </p>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={async () => {
+              await api.seedDemoData();
+              loadEncounters();
+            }}
+            className="px-4 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold shadow-xs cursor-pointer"
+          >
+            Load Demo Patients into Queue
+          </button>
+          <Link
+            to="/kiosk"
+            className="px-4 py-2.5 rounded-xl bg-white border border-slate-300 text-slate-700 text-xs font-bold hover:bg-slate-50 shadow-2xs"
+          >
+            Open Kiosk Intake
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
   const allFactsList = clinicalState
     ? [
         clinicalState.chief_complaint,
@@ -221,6 +252,8 @@ export const DoctorPage: React.FC = () => {
         ...(clinicalState.investigations || []),
       ].filter(Boolean)
     : [];
+
+  const currentEncounterInfo = encounters.find((e) => e.id === selectedEncounterId);
 
   return (
     <DoctorShell
@@ -268,12 +301,36 @@ export const DoctorPage: React.FC = () => {
         </div>
       )}
 
-      {/* Tab: Clinical Summary (Rich SOAP & Multi-Provider AI View) */}
+      {/* Tab: Clinical Summary (Rich SOAP, Editable Draft & Digitized Labs) */}
       {activeTab === 'summary' && selectedEncounterId && (
         <SoapSummaryView
           encounterId={selectedEncounterId}
           summary={summary}
           clinicalState={clinicalState}
+          patientInfo={
+            currentEncounterInfo
+              ? {
+                  name: currentEncounterInfo.patientName,
+                  age: currentEncounterInfo.age,
+                  gender: currentEncounterInfo.gender,
+                  uhid: currentEncounterInfo.uhid,
+                  abha: clinicalState?.patient_demographics?.abha_number,
+                  intakeChannel: currentEncounterInfo.intakeChannel,
+                  timestamp: currentEncounterInfo.timestamp,
+                }
+              : undefined
+          }
+          documents={documents}
+          onDocumentsUpdated={async () => {
+            try {
+              const docs = await api.getEncounterDocuments(selectedEncounterId);
+              setDocuments(docs || []);
+              const st = await api.getClinicalState(selectedEncounterId);
+              setClinicalState(st);
+            } catch (e) {
+              console.error('Failed to reload documents:', e);
+            }
+          }}
           onSummaryUpdated={(newSummary) => setSummary(newSummary)}
           verificationMap={verificationMap}
           onFactAction={handleFactAction}
@@ -282,6 +339,7 @@ export const DoctorPage: React.FC = () => {
           verifySuccess={verifySuccess}
         />
       )}
+
 
 
       {/* Tab: SOCRATES & Symptoms */}

@@ -364,7 +364,8 @@ export const KioskPage: React.FC = () => {
 
       // 2. Generate physician clinical summary
       try {
-        await api.generateSummary(encounterId);
+        const sum = await api.generateSummary(encounterId, { language });
+        setKioskSummary(sum);
       } catch (e) {
         console.warn('Summary generation notice:', e);
       }
@@ -430,8 +431,16 @@ export const KioskPage: React.FC = () => {
       onToggleVoice={() => setIsListening(!isListening)}
       onBack={handleBack}
       onNext={handleNext}
-      canGoBack={currentStep > 1}
-      canGoNext={currentStep === 1 ? hasConsent : (currentStep === 2 ? isInterviewComplete : true)}
+      canGoBack={currentStep > 1 && !submissionSuccess}
+      canGoNext={
+        currentStep === 1
+          ? hasConsent
+          : currentStep === 2
+          ? isInterviewComplete
+          : currentStep === 4 && submissionSuccess
+          ? false
+          : true
+      }
       nextButtonLabel={currentStep === totalSteps ? (isSubmittingCase ? 'Submitting...' : t('kiosk.submitBtn')) : t('kiosk.continueBtn')}
     >
       {/* STEP 1: Patient Registration & Consent */}
@@ -851,48 +860,120 @@ export const KioskPage: React.FC = () => {
       {currentStep === 4 && (
         <Card variant="kiosk" padding="kiosk">
           {submissionSuccess ? (
-            <div className="max-w-lg mx-auto text-center py-6 space-y-6">
-              <div className="w-20 h-20 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto shadow-inner">
-                <CheckCircle2 className="w-12 h-12" />
-              </div>
-
-              <div>
+            <div className="max-w-2xl mx-auto py-4 space-y-6 animate-in fade-in">
+              <div className="text-center space-y-2">
+                <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto shadow-inner">
+                  <CheckCircle2 className="w-10 h-10" />
+                </div>
                 <span className="text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200">
-                  Case Saved in Live Database
+                  {language === 'hi' ? 'केस सफलतापूर्वक दर्ज किया गया' : language === 'mr' ? 'नोंदणी यशस्वीरीत्या पूर्ण झाली' : 'Intake Case Submitted to Doctor'}
                 </span>
-                <h2 className="text-3xl font-black text-slate-900 mt-3 mb-1">
-                  Intake Completed
+                <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mt-2">
+                  {language === 'hi' ? 'आपकी क्लिनिकल पर्ची तैयार है' : language === 'mr' ? 'आपली तपासणी नोंदणी पूर्ण झाली' : 'Clinical Intake Completed'}
                 </h2>
-                <p className="text-slate-600 text-sm">
-                  Your case has been written to the persistent database and sent to the Doctor Clinical Queue.
+                <p className="text-slate-600 text-xs sm:text-sm max-w-md mx-auto">
+                  {language === 'hi'
+                    ? 'आपका केस सारांश डॉक्टर साहब के कंप्यूटर पर भेज दिया गया है। कृपया अपना टोकन नंबर नोट करें।'
+                    : language === 'mr'
+                    ? 'आपला केस गोषवारा डॉक्टरांच्या संगणकावर पाठवला गेला आहे. कृपया टोकन क्रमांक लक्षात ठेवा.'
+                    : 'Your clinical history and case summary have been transmitted directly to the doctor.'}
                 </p>
               </div>
 
               {/* Consultation Token Box */}
               <div className="p-6 rounded-3xl bg-gradient-to-br from-sky-600 via-sky-700 to-indigo-700 text-white shadow-xl text-center">
-                <div className="text-xs font-bold uppercase tracking-wider opacity-80 mb-1">
-                  Patient Token Number
+                <div className="text-xs font-bold uppercase tracking-wider opacity-85 mb-1">
+                  {language === 'hi' ? 'मरीज टोकन नंबर' : language === 'mr' ? 'रुग्ण टोकन क्रमांक' : 'Patient Consultation Token'}
                 </div>
                 <div className="text-6xl font-black tracking-tight mb-2">
                   #{tokenNumber}
                 </div>
-                <div className="text-sm font-semibold opacity-90">
-                  {patientName} • {patientUhid} {patientId ? `(ID: ${patientId.slice(0, 8)})` : ''}
+                <div className="text-sm font-semibold opacity-95">
+                  {patientName} • {patientAge} yrs ({patientGender}) • {patientUhid} {patientId ? `(ID: ${patientId.slice(0, 8)})` : ''}
                 </div>
-                <div className="text-[11px] opacity-75 mt-1 font-mono">
+                <div className="text-xs opacity-80 mt-1 font-mono">
                   Encounter ID: {encounterId}
+                </div>
+                <div className="mt-3.5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 text-white text-xs font-semibold backdrop-blur-xs">
+                  <span>📍 Please proceed to Doctor Consultation Room 3</span>
                 </div>
               </div>
 
-              <div className="space-y-3 pt-2">
-                <Link
-                  to={`/doctor?encounterId=${encounterId}`}
-                  className="w-full py-4 px-6 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2"
-                >
-                  <Stethoscope className="w-5 h-5 text-emerald-400" />
-                  Open Doctor Dashboard & Inspect Live Case
-                </Link>
+              {/* PATIENT CLINICAL SUMMARY (VISIBLE AT THE SAME TIME WITH TOKEN) */}
+              <div className="p-5 rounded-3xl bg-gradient-to-br from-teal-50 via-sky-50 to-indigo-50 border-2 border-teal-300 shadow-sm space-y-3.5 text-left">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <div className="p-2 rounded-xl bg-teal-600 text-white shadow-xs">
+                      <Sparkles className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <div className="text-xs font-black text-teal-950 uppercase tracking-wider">
+                        {language === 'hi'
+                          ? 'आपका क्लिनिकल सारांश (सरल भाषा में)'
+                          : language === 'mr'
+                          ? 'आपला क्लिनिकल गोषवारा (सोप्या भाषेत)'
+                          : 'Your Plain-Language Clinical Summary'}
+                      </div>
+                      <div className="text-[11px] text-teal-700">
+                        {language === 'hi'
+                          ? 'यह सारांश डॉक्टर साहब के पास उपलब्ध है'
+                          : language === 'mr'
+                          ? 'हा गोषवारा डॉक्टरांकडे उपलब्ध आहे'
+                          : 'Transmitted to physician desk'}
+                      </div>
+                    </div>
+                  </div>
 
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-teal-100 text-teal-800 border border-teal-200">
+                    AI Synthesized
+                  </span>
+                </div>
+
+                <div className="p-4 bg-white/95 rounded-2xl border border-teal-200 shadow-2xs">
+                  <p className="text-slate-800 text-xs sm:text-sm font-medium leading-relaxed">
+                    {kioskSummary?.patient_vernacular_summary?.[language] ||
+                      kioskSummary?.patient_vernacular_summary?.['en'] ||
+                      'Intake evaluation completed successfully. Your recorded symptoms and case details have been registered.'}
+                  </p>
+                </div>
+
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-1">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const txt =
+                        kioskSummary?.patient_vernacular_summary?.[language] ||
+                        kioskSummary?.patient_vernacular_summary?.['en'];
+                      if (txt) speak(txt);
+                    }}
+                    className="px-4 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-sm cursor-pointer transition-all active:scale-95"
+                  >
+                    <Volume2 className="w-4 h-4" />
+                    <span>
+                      {language === 'hi'
+                        ? '🔊 सारांश जोर से सुनें'
+                        : language === 'mr'
+                        ? '🔊 गोषवारा ऐका'
+                        : '🔊 Listen Loudly'}
+                    </span>
+                  </button>
+
+                  <div className="text-[11px] text-slate-600 font-medium">
+                    Chief Complaint: <strong className="text-slate-900">{interviewState?.answers?.['CC_PRIMARY'] || 'General Clinical Intake'}</strong>
+                  </div>
+                </div>
+              </div>
+
+              {/* End of Patient Workflow Card */}
+              <div className="p-4 bg-emerald-50 rounded-2xl border border-emerald-200 text-center text-xs text-emerald-900 font-semibold space-y-1">
+                <div>✅ Patient Workflow Complete</div>
+                <div className="text-[11px] text-emerald-700 font-normal">
+                  Thank you! You may now take your token and wait in the seating area. Press below to reset the kiosk for the next patient.
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="space-y-3 pt-1">
                 <button
                   type="button"
                   onClick={() => {
@@ -903,11 +984,19 @@ export const KioskPage: React.FC = () => {
                     setUploadedDocData(null);
                     setKioskSummary(null);
                   }}
-
-                  className="w-full py-3 px-6 rounded-2xl bg-white border-2 border-slate-200 hover:border-slate-300 text-slate-700 font-bold text-xs transition-all cursor-pointer"
+                  className="w-full py-4 px-6 rounded-2xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-sm shadow-md transition-all cursor-pointer flex items-center justify-center gap-2 active:scale-98"
                 >
-                  Start New Patient Intake
+                  <CheckCircle2 className="w-5 h-5" />
+                  <span>Finish & Start New Patient Intake</span>
                 </button>
+
+                <Link
+                  to={`/doctor?encounterId=${encounterId}`}
+                  className="w-full py-2 px-4 rounded-xl border border-slate-200 hover:bg-slate-100 text-slate-400 hover:text-slate-600 text-xs font-semibold transition-all flex items-center justify-center gap-1.5"
+                >
+                  <Stethoscope className="w-4 h-4" />
+                  <span>Attending Clinician: Open Doctor Desk (Test Link)</span>
+                </Link>
               </div>
             </div>
           ) : (

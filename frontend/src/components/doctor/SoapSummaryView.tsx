@@ -12,18 +12,38 @@ import {
   Activity, 
   Pill, 
   AlertCircle,
-  Languages
+  Languages,
+  Save,
+  User,
+  Plus,
+  Clock,
+  ShieldCheck,
+  Eye,
+  FileSpreadsheet
 } from 'lucide-react';
 import { Card } from '../ui/Card';
 import { Badge } from '../ui/Badge';
 import { Button } from '../ui/Button';
 import { api } from '../../services/api';
 
+export interface PatientDeskInfo {
+  name: string;
+  age: number;
+  gender: string;
+  uhid: string;
+  abha?: string;
+  intakeChannel?: string;
+  timestamp?: string;
+}
+
 export interface SoapSummaryViewProps {
   encounterId: string;
   summary: any;
   clinicalState: any;
+  patientInfo?: PatientDeskInfo;
+  documents?: any[];
   onSummaryUpdated: (updatedSummary: any) => void;
+  onDocumentsUpdated?: () => void;
   verificationMap: Record<string, 'ACCEPTED' | 'AMENDED' | 'REJECTED'>;
   onFactAction: (factId: string, action: 'ACCEPTED' | 'AMENDED' | 'REJECTED') => void;
   onFinalize: () => void;
@@ -35,7 +55,10 @@ export const SoapSummaryView: React.FC<SoapSummaryViewProps> = ({
   encounterId,
   summary,
   clinicalState,
+  patientInfo,
+  documents = [],
   onSummaryUpdated,
+  onDocumentsUpdated,
   verificationMap,
   onFactAction,
   onFinalize,
@@ -48,7 +71,41 @@ export const SoapSummaryView: React.FC<SoapSummaryViewProps> = ({
   const [previewLanguage, setPreviewLanguage] = useState<'en' | 'hi' | 'mr'>('en');
   const [isSpeakingVernacular, setIsSpeakingVernacular] = useState(false);
 
-  // Load available providers
+  // Editable Draft States
+  const [isEditMode, setIsEditMode] = useState(true);
+  const [draftChiefComplaint, setDraftChiefComplaint] = useState('');
+  const [draftHpi, setDraftHpi] = useState('');
+  const [draftObjective, setDraftObjective] = useState('');
+  const [draftAssessment, setDraftAssessment] = useState('');
+  const [draftPlan, setDraftPlan] = useState('');
+  const [draftTriage, setDraftTriage] = useState('ROUTINE');
+  const [draftDoctorNotes, setDraftDoctorNotes] = useState('');
+  const [draftPositives, setDraftPositives] = useState<string[]>([]);
+  const [draftNegatives, setDraftNegatives] = useState<string[]>([]);
+  const [newPositiveInput, setNewPositiveInput] = useState('');
+  const [newNegativeInput, setNewNegativeInput] = useState('');
+  const [isSavingDraft, setIsSavingDraft] = useState(false);
+  const [saveToast, setSaveToast] = useState<string | null>(null);
+  const [isDirty, setIsDirty] = useState(false);
+  const [isAttachingDoc, setIsAttachingDoc] = useState(false);
+
+  // Sync draft states from incoming summary
+  useEffect(() => {
+    if (summary) {
+      setDraftChiefComplaint(summary.chief_complaint || '');
+      setDraftHpi(summary.hpi_narrative || summary.soap_sections?.subjective?.content || '');
+      setDraftObjective(summary.soap_sections?.objective?.content || '');
+      setDraftAssessment(summary.soap_sections?.assessment?.content || '');
+      setDraftPlan(summary.soap_sections?.plan?.content || '');
+      setDraftTriage(summary.triage_level || 'ROUTINE');
+      setDraftDoctorNotes(summary.doctor_notes || '');
+      setDraftPositives(summary.pertinent_positives || []);
+      setDraftNegatives(summary.pertinent_negatives || []);
+      setIsDirty(false);
+    }
+  }, [summary]);
+
+  // Load available AI providers
   useEffect(() => {
     const loadProviders = async () => {
       try {
@@ -64,6 +121,35 @@ export const SoapSummaryView: React.FC<SoapSummaryViewProps> = ({
     loadProviders();
   }, []);
 
+  const handleSaveDraft = async () => {
+    setIsSavingDraft(true);
+    try {
+      const updated = await api.updateSummaryDraft(encounterId, {
+        chief_complaint: draftChiefComplaint,
+        hpi_narrative: draftHpi,
+        triage_level: draftTriage,
+        doctor_notes: draftDoctorNotes,
+        pertinent_positives: draftPositives,
+        pertinent_negatives: draftNegatives,
+        soap_sections: {
+          subjective: { title: 'Subjective (HPI)', content: draftHpi },
+          objective: { title: 'Objective (Vitals & Labs)', content: draftObjective },
+          assessment: { title: 'Assessment & Impression', content: draftAssessment },
+          plan: { title: 'Plan & Next Steps', content: draftPlan },
+        },
+      });
+      onSummaryUpdated(updated);
+      setIsDirty(false);
+      setSaveToast(`Draft successfully saved to database (${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })})`);
+      setTimeout(() => setSaveToast(null), 4000);
+    } catch (e) {
+      console.error('Failed to save summary draft:', e);
+      alert('Failed to save draft. Please verify connection.');
+    } finally {
+      setIsSavingDraft(false);
+    }
+  };
+
   const handleRegenerate = async () => {
     setIsRegenerating(true);
     try {
@@ -72,10 +158,52 @@ export const SoapSummaryView: React.FC<SoapSummaryViewProps> = ({
         language: previewLanguage,
       });
       onSummaryUpdated(refreshed);
+      setIsDirty(false);
     } catch (e) {
       console.error('Failed to regenerate summary:', e);
     } finally {
       setIsRegenerating(false);
+    }
+  };
+
+  const handleAddPositive = () => {
+    if (!newPositiveInput.trim()) return;
+    setDraftPositives((prev) => [...prev, newPositiveInput.trim()]);
+    setNewPositiveInput('');
+    setIsDirty(true);
+  };
+
+  const handleRemovePositive = (index: number) => {
+    setDraftPositives((prev) => prev.filter((_, i) => i !== index));
+    setIsDirty(true);
+  };
+
+  const handleAddNegative = () => {
+    if (!newNegativeInput.trim()) return;
+    setDraftNegatives((prev) => [...prev, newNegativeInput.trim()]);
+    setNewNegativeInput('');
+    setIsDirty(true);
+  };
+
+  const handleRemoveNegative = (index: number) => {
+    setDraftNegatives((prev) => prev.filter((_, i) => i !== index));
+    setIsDirty(true);
+  };
+
+  const handleAttachQuickDoc = async (sampleId: 'sample_cbc' | 'sample_rx') => {
+    setIsAttachingDoc(true);
+    try {
+      await api.attachSampleDocument(encounterId, sampleId);
+      if (onDocumentsUpdated) {
+        onDocumentsUpdated();
+      }
+      // Re-generate summary to digest newly attached lab/rx
+      const refreshed = await api.generateSummary(encounterId, { provider: selectedProvider });
+      onSummaryUpdated(refreshed);
+    } catch (e) {
+      console.error('Failed to attach sample document:', e);
+    } finally {
+      setIsAttachingDoc(false);
     }
   };
 
@@ -91,10 +219,6 @@ export const SoapSummaryView: React.FC<SoapSummaryViewProps> = ({
     window.speechSynthesis.speak(utterance);
   };
 
-  const soap = summary?.soap_sections;
-  const triage = summary?.triage_level || 'ROUTINE';
-  const pertinentPositives: string[] = summary?.pertinent_positives || [];
-  const pertinentNegatives: string[] = summary?.pertinent_negatives || [];
   const vernacularSummaries: Record<string, string> = summary?.patient_vernacular_summary || {};
 
   const allFactsList = clinicalState
@@ -110,43 +234,114 @@ export const SoapSummaryView: React.FC<SoapSummaryViewProps> = ({
 
   return (
     <div className="space-y-6">
-      {/* AI Provenance & Triage Level Header Banner */}
-      <div className="p-4 rounded-2xl bg-white border-2 border-slate-200 shadow-2xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+      {/* 1. PATIENT INFORMATION HEADER CARD */}
+      <div className="p-4 sm:p-5 rounded-3xl bg-white border-2 border-slate-200 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div className="flex items-center gap-3.5">
-          <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-violet-600 to-indigo-700 text-white flex items-center justify-center shadow-xs shrink-0">
-            <Sparkles className="w-6 h-6" />
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500 to-sky-600 text-white flex items-center justify-center font-bold text-lg shadow-sm shrink-0">
+            <User className="w-6 h-6" />
           </div>
           <div>
             <div className="flex items-center gap-2 flex-wrap">
-              <h3 className="text-base font-bold text-slate-900">Physician Clinical SOAP Note</h3>
-              <span className={`px-2.5 py-0.5 rounded-full text-xs font-black uppercase tracking-wider flex items-center gap-1.5 ${
-                triage === 'EMERGENCY'
-                  ? 'bg-rose-100 text-rose-800 border border-rose-300 animate-pulse'
-                  : triage === 'URGENT'
-                  ? 'bg-amber-100 text-amber-900 border border-amber-300'
-                  : 'bg-emerald-100 text-emerald-800 border border-emerald-300'
-              }`}>
-                <span className={`w-2 h-2 rounded-full ${
-                  triage === 'EMERGENCY' ? 'bg-rose-600' : triage === 'URGENT' ? 'bg-amber-500' : 'bg-emerald-500'
-                }`} />
-                Triage: {triage}
+              <h3 className="text-base sm:text-lg font-bold text-slate-900">
+                {patientInfo?.name || clinicalState?.patient_demographics?.name || 'Rahul Sharma'}
+              </h3>
+              <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
+                {patientInfo?.age || clinicalState?.patient_demographics?.age || 35} yrs • {patientInfo?.gender || clinicalState?.patient_demographics?.gender || 'Male'}
               </span>
+              <span className="text-xs font-mono px-2 py-0.5 rounded-md bg-teal-50 text-teal-800 border border-teal-200 font-semibold">
+                UHID: {patientInfo?.uhid || 'UHID-2026-0918'}
+              </span>
+              {patientInfo?.abha && (
+                <span className="text-xs font-mono px-2 py-0.5 rounded-md bg-indigo-50 text-indigo-800 border border-indigo-200 font-semibold">
+                  ABHA: {patientInfo.abha}
+                </span>
+              )}
             </div>
-            <div className="text-xs text-slate-500 mt-0.5 flex items-center gap-1.5 flex-wrap">
-              <span>Provider Engine:</span>
-              <strong className="text-slate-700 font-semibold">
-                {summary?.ai_model_used || 'MediKiosk Clinical Synthesis Engine'}
-              </strong>
+            <div className="text-xs text-slate-500 mt-1 flex items-center gap-3 flex-wrap">
+              <span className="flex items-center gap-1">
+                <Clock className="w-3.5 h-3.5 text-slate-400" />
+                Intake Time: <strong>{patientInfo?.timestamp || 'Today'}</strong>
+              </span>
+              <span>•</span>
+              <span>
+                Intake Channel: <strong className="capitalize">{patientInfo?.intakeChannel || 'Touch Kiosk'}</strong>
+              </span>
+              <span>•</span>
+              <span className="font-mono text-slate-400">Encounter: {encounterId.slice(0, 16)}...</span>
             </div>
           </div>
         </div>
 
-        {/* Provider Switcher & Regenerate Button */}
+        {/* Vital Signs Pills if available */}
+        {clinicalState?.vital_signs && clinicalState.vital_signs.length > 0 && (
+          <div className="flex items-center gap-2 flex-wrap bg-slate-50 p-2 rounded-2xl border border-slate-200">
+            {clinicalState.vital_signs.map((v: any, idx: number) => (
+              <div key={idx} className="px-2.5 py-1 bg-white rounded-xl border border-slate-200 text-xs shadow-2xs">
+                <span className="text-slate-500 font-medium mr-1.5">{v.name}:</span>
+                <span className="font-bold text-slate-900 font-mono">{v.value} {v.unit || ''}</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* 2. SUMMARY EDITABLE DRAFT TOOLBAR */}
+      <div className="p-4 rounded-2xl bg-white border-2 border-slate-200 shadow-2xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-600 to-indigo-700 text-white flex items-center justify-center shadow-xs shrink-0">
+            <Sparkles className="w-5 h-5" />
+          </div>
+          <div>
+            <div className="flex items-center gap-2 flex-wrap">
+              <h3 className="text-sm sm:text-base font-bold text-slate-900">
+                Doctor's Clinical Summary Draft
+              </h3>
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-violet-100 text-violet-800 border border-violet-200">
+                Editable Workspace
+              </span>
+              {isDirty && (
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-300 animate-pulse">
+                  Unsaved Changes
+                </span>
+              )}
+            </div>
+            <div className="text-xs text-slate-500 mt-0.5">
+              Engine: <strong className="text-slate-700">{summary?.ai_model_used || 'MediKiosk Clinical Synthesis Engine'}</strong>
+            </div>
+          </div>
+        </div>
+
+        {/* Toolbar Controls */}
         <div className="flex items-center gap-2.5 flex-wrap">
+          {/* Triage Level Selector */}
+          <div className="flex items-center gap-1.5 bg-slate-50 px-2 py-1 rounded-xl border border-slate-200 text-xs">
+            <span className="text-slate-500 font-semibold text-[11px]">Triage:</span>
+            <select
+              value={draftTriage}
+              onChange={(e) => {
+                setDraftTriage(e.target.value);
+                setIsDirty(true);
+              }}
+              className={`text-xs font-bold px-2 py-1 rounded-lg border focus:outline-none cursor-pointer ${
+                draftTriage === 'EMERGENCY'
+                  ? 'bg-rose-100 text-rose-800 border-rose-300'
+                  : draftTriage === 'URGENT'
+                  ? 'bg-amber-100 text-amber-900 border-amber-300'
+                  : 'bg-emerald-100 text-emerald-800 border-emerald-300'
+              }`}
+            >
+              <option value="ROUTINE">ROUTINE</option>
+              <option value="URGENT">URGENT</option>
+              <option value="EMERGENCY">EMERGENCY</option>
+            </select>
+          </div>
+
+          {/* AI Provider Switcher */}
           <select
             value={selectedProvider}
             onChange={(e) => setSelectedProvider(e.target.value)}
-            className="text-xs font-bold p-2 bg-slate-50 border border-slate-300 rounded-xl text-slate-800 focus:outline-none focus:border-teal-600 cursor-pointer"
+            className="text-xs font-semibold p-2 bg-slate-50 border border-slate-300 rounded-xl text-slate-800 focus:outline-none focus:border-teal-600 cursor-pointer"
+            title="Switch AI Synthesis Provider"
           >
             {providers.map((p) => (
               <option key={p.id} value={p.id}>
@@ -155,17 +350,50 @@ export const SoapSummaryView: React.FC<SoapSummaryViewProps> = ({
             ))}
           </select>
 
+          {/* Regenerate AI Draft */}
           <Button
             variant="outline"
             size="sm"
             onClick={handleRegenerate}
             isLoading={isRegenerating}
             leftIcon={<RefreshCw className="w-3.5 h-3.5" />}
+            title="Re-synthesize summary with selected AI engine"
           >
             Regenerate
           </Button>
+
+          {/* Save Draft Button */}
+          <Button
+            variant="primary"
+            size="sm"
+            onClick={handleSaveDraft}
+            isLoading={isSavingDraft}
+            leftIcon={<Save className="w-3.5 h-3.5" />}
+            className="shadow-sm"
+          >
+            Save Draft
+          </Button>
+
+          {/* View Toggle */}
+          <button
+            type="button"
+            onClick={() => setIsEditMode(!isEditMode)}
+            className="p-2 rounded-xl text-xs font-bold border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 flex items-center gap-1 shadow-2xs cursor-pointer"
+            title={isEditMode ? 'Switch to Formatted Read View' : 'Switch to Editable Draft'}
+          >
+            {isEditMode ? <Eye className="w-3.5 h-3.5 text-teal-600" /> : <Edit3 className="w-3.5 h-3.5 text-indigo-600" />}
+            <span className="hidden sm:inline">{isEditMode ? 'Preview' : 'Edit Draft'}</span>
+          </button>
         </div>
       </div>
+
+      {/* Save Success Toast */}
+      {saveToast && (
+        <div className="p-3 bg-emerald-50 border-2 border-emerald-300 rounded-2xl flex items-center gap-2.5 text-xs text-emerald-900 font-bold animate-in fade-in">
+          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+          <span>{saveToast}</span>
+        </div>
+      )}
 
       {/* Red Flag Alert Banner */}
       {clinicalState?.red_flags && clinicalState.red_flags.length > 0 && (
@@ -184,66 +412,165 @@ export const SoapSummaryView: React.FC<SoapSummaryViewProps> = ({
             </ul>
           </div>
           <span className="text-[11px] font-bold px-2.5 py-1 bg-rose-200 text-rose-900 rounded-md shrink-0">
-            Immediate Attention
+            Mandatory Review
           </span>
         </div>
       )}
 
-      {/* 4 SOAP PILLARS GRID */}
+      {/* 3. EDITABLE 4-PILLAR SOAP CLINICAL GRID */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {/* S - SUBJECTIVE */}
-        <Card className="border-l-4 border-l-sky-500 flex flex-col">
-          <div className="flex items-center justify-between pb-3 mb-3 border-b border-slate-100">
+        <Card className="border-l-4 border-l-sky-500 flex flex-col space-y-4">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-100">
             <div className="flex items-center gap-2">
               <div className="w-7 h-7 rounded-lg bg-sky-100 text-sky-700 flex items-center justify-center font-black text-xs">
                 S
               </div>
-              <h4 className="font-bold text-slate-900 text-sm">Subjective (HPI & Clinical Narrative)</h4>
+              <h4 className="font-bold text-slate-900 text-sm">Subjective (HPI & Clinical History)</h4>
             </div>
-            <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-sky-50 text-sky-700 border border-sky-200">
-              Patient Reported
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-sky-50 text-sky-700 border border-sky-200">
+              {isEditMode ? 'Editable Draft' : 'Verified'}
             </span>
           </div>
 
-          <div className="space-y-3.5 text-xs text-slate-800 flex-1">
+          <div className="space-y-3.5 text-xs flex-1">
+            {/* Chief Complaint */}
             <div>
-              <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
-                Chief Complaint
-              </div>
-              <div className="p-2.5 bg-slate-50 rounded-xl font-bold text-slate-900 text-sm border border-slate-200">
-                {summary?.chief_complaint || 'General Clinical Evaluation'}
-              </div>
+              <label className="block text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-1">
+                Chief Complaint (CC)
+              </label>
+              {isEditMode ? (
+                <input
+                  type="text"
+                  value={draftChiefComplaint}
+                  onChange={(e) => {
+                    setDraftChiefComplaint(e.target.value);
+                    setIsDirty(true);
+                  }}
+                  placeholder="e.g. Acute severe headache with photophobia"
+                  className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-bold text-slate-900 focus:bg-white focus:outline-none focus:border-sky-500"
+                />
+              ) : (
+                <div className="p-2.5 bg-slate-50 rounded-xl font-bold text-slate-900 text-xs border border-slate-200">
+                  {draftChiefComplaint || 'General Clinical Evaluation'}
+                </div>
+              )}
             </div>
 
+            {/* History of Present Illness */}
             <div>
-              <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
+              <label className="block text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-1">
                 History of Present Illness (SOCRATES Narrative)
-              </div>
-              <p className="p-3 bg-slate-50 rounded-xl border border-slate-200 leading-relaxed text-slate-700">
-                {summary?.hpi_narrative || 'Intake interview completed.'}
-              </p>
+              </label>
+              {isEditMode ? (
+                <textarea
+                  rows={4}
+                  value={draftHpi}
+                  onChange={(e) => {
+                    setDraftHpi(e.target.value);
+                    setIsDirty(true);
+                  }}
+                  placeholder="Detailed HPI narrative covering site, onset, character, radiation, severity..."
+                  className="w-full p-3 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-800 focus:bg-white focus:outline-none focus:border-sky-500 leading-relaxed font-sans"
+                />
+              ) : (
+                <p className="p-3 bg-slate-50 rounded-xl border border-slate-200 leading-relaxed text-slate-700 whitespace-pre-wrap">
+                  {draftHpi || 'No HPI narrative recorded.'}
+                </p>
+              )}
             </div>
 
-            {/* Pertinent Positives & Negatives Chips */}
+            {/* Pertinent Positives & Negatives */}
             <div>
-              <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1.5">
-                Pertinent Positives & Negatives
+              <div className="text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-1.5 flex items-center justify-between">
+                <span>Pertinent Positives (+) & Negatives (-)</span>
               </div>
-              <div className="flex flex-wrap gap-1.5">
-                {pertinentPositives.map((pos, i) => (
-                  <span key={`pos-${i}`} className="px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-800 border border-emerald-200 font-semibold text-[11px] flex items-center gap-1">
-                    <span className="text-emerald-600 font-bold">+</span> {pos}
+              <div className="flex flex-wrap gap-1.5 mb-2">
+                {draftPositives.map((pos, i) => (
+                  <span key={`pos-${i}`} className="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 font-semibold text-[11px] flex items-center gap-1.5 shadow-2xs">
+                    <span className="text-emerald-600 font-bold">+</span>
+                    <span>{pos}</span>
+                    {isEditMode && (
+                      <button
+                        type="button"
+                        onClick={() => handleRemovePositive(i)}
+                        className="hover:text-rose-600 ml-0.5 cursor-pointer"
+                        title="Remove"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    )}
                   </span>
                 ))}
-                {pertinentNegatives.map((neg, i) => (
-                  <span key={`neg-${i}`} className="px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 border border-slate-200 font-medium text-[11px] flex items-center gap-1">
-                    <span className="text-slate-400 font-bold">-</span> {neg}
+                {draftNegatives.map((neg, i) => (
+                  <span key={`neg-${i}`} className="px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 border border-slate-200 font-medium text-[11px] flex items-center gap-1.5 shadow-2xs">
+                    <span className="text-slate-400 font-bold">-</span>
+                    <span>{neg}</span>
+                    {isEditMode && (
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveNegative(i)}
+                        className="hover:text-rose-600 ml-0.5 cursor-pointer"
+                        title="Remove"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    )}
                   </span>
                 ))}
               </div>
+
+              {isEditMode && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                  <div className="flex gap-1.5">
+                    <input
+                      type="text"
+                      value={newPositiveInput}
+                      onChange={(e) => setNewPositiveInput(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          e.preventDefault();
+                          handleAddPositive();
+                        }
+                      }}
+                      placeholder="+ Add positive finding..."
+                      className="flex-1 px-2.5 py-1 text-[11px] bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-emerald-500"
+                    />
+                    <button
+                      type="button"
+                      onClick={handleAddPositive}
+                      className="px-2 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold cursor-pointer"
+                    >
+                      <Plus className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                  <div className="flex gap-1.5">
+                    <input
+                      type="text"
+                      value={newNegativeInput}
+                      onChange={(e) => setNewNegativeInput(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          e.preventDefault();
+                          handleAddNegative();
+                        }
+                      }}
+                      placeholder="- Add pertinent negative..."
+                      className="flex-1 px-2.5 py-1 text-[11px] bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-slate-400"
+                    />
+                    <button
+                      type="button"
+                      onClick={handleAddNegative}
+                      className="px-2 py-1 bg-slate-700 hover:bg-slate-800 text-white rounded-lg text-xs font-bold cursor-pointer"
+                    >
+                      <Plus className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
 
-            {/* Active Medications & Allergies */}
+            {/* Documented Medications & Allergies Chips */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
               <div className="p-2.5 bg-amber-50/60 rounded-xl border border-amber-200">
                 <div className="font-bold text-amber-950 text-[11px] mb-1 flex items-center gap-1">
@@ -251,7 +578,7 @@ export const SoapSummaryView: React.FC<SoapSummaryViewProps> = ({
                   <span>Documented Medications</span>
                 </div>
                 <div className="text-[11px] text-amber-900 leading-tight">
-                  {summary?.sections?.medications?.content || 'No medications recorded'}
+                  {summary?.sections?.medications?.content || 'No previous medications logged.'}
                 </div>
               </div>
 
@@ -269,95 +596,124 @@ export const SoapSummaryView: React.FC<SoapSummaryViewProps> = ({
         </Card>
 
         {/* O - OBJECTIVE */}
-        <Card className="border-l-4 border-l-teal-500 flex flex-col">
-          <div className="flex items-center justify-between pb-3 mb-3 border-b border-slate-100">
+        <Card className="border-l-4 border-l-teal-500 flex flex-col space-y-4">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-100">
             <div className="flex items-center gap-2">
               <div className="w-7 h-7 rounded-lg bg-teal-100 text-teal-700 flex items-center justify-center font-black text-xs">
                 O
               </div>
-              <h4 className="font-bold text-slate-900 text-sm">Objective (Vitals & Digested Labs)</h4>
+              <h4 className="font-bold text-slate-900 text-sm">Objective (Vitals & Labs)</h4>
             </div>
-            <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-teal-50 text-teal-700 border border-teal-200">
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-teal-50 text-teal-700 border border-teal-200">
               Measured & OCR
             </span>
           </div>
 
-          <div className="space-y-4 text-xs text-slate-800 flex-1">
+          <div className="space-y-3.5 text-xs flex-1">
+            {/* Vitals Summary */}
             <div>
-              <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+              <label className="block text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-1 flex items-center gap-1.5">
                 <Activity className="w-3.5 h-3.5 text-teal-600" />
                 <span>Recorded Vital Signs</span>
-              </div>
+              </label>
               <div className="p-3 bg-teal-50/50 rounded-xl border border-teal-200/80">
                 {clinicalState?.vital_signs && clinicalState.vital_signs.length > 0 ? (
                   <div className="grid grid-cols-2 gap-2">
                     {clinicalState.vital_signs.map((v: any, i: number) => (
-                      <div key={i} className="p-2 bg-white rounded-lg border border-teal-200 flex justify-between items-center">
+                      <div key={i} className="p-2 bg-white rounded-lg border border-teal-200 flex justify-between items-center text-xs">
                         <span className="text-slate-600 font-medium">{v.name}:</span>
                         <span className="font-bold text-slate-900 font-mono">{v.value} {v.unit || ''}</span>
                       </div>
                     ))}
                   </div>
                 ) : (
-                  <p className="text-slate-600 font-medium">
-                    {soap?.objective?.content || 'Physical vitals not recorded in this intake session.'}
+                  <p className="text-slate-600 font-medium text-xs">
+                    Physical vitals recorded during bedside intake.
                   </p>
                 )}
               </div>
             </div>
 
+            {/* Diagnostic Matrix / Objective Findings */}
             <div>
-              <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+              <label className="block text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-1 flex items-center gap-1.5">
                 <FileText className="w-3.5 h-3.5 text-indigo-600" />
-                <span>Diagnostic Investigations Matrix</span>
-              </div>
-              <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 max-h-48 overflow-y-auto">
-                <pre className="whitespace-pre-wrap font-sans text-xs text-slate-700 leading-relaxed">
-                  {soap?.objective?.content || 'No external diagnostic reports uploaded for this encounter.'}
-                </pre>
-              </div>
+                <span>Physical Examination & Objective Findings (Editable)</span>
+              </label>
+              {isEditMode ? (
+                <textarea
+                  rows={6}
+                  value={draftObjective}
+                  onChange={(e) => {
+                    setDraftObjective(e.target.value);
+                    setIsDirty(true);
+                  }}
+                  placeholder="Record objective clinical findings, examination notes, and lab matrix correlation..."
+                  className="w-full p-3 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-800 focus:bg-white focus:outline-none focus:border-teal-500 leading-relaxed font-sans"
+                />
+              ) : (
+                <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 max-h-52 overflow-y-auto">
+                  <pre className="whitespace-pre-wrap font-sans text-xs text-slate-700 leading-relaxed">
+                    {draftObjective || 'No objective findings recorded.'}
+                  </pre>
+                </div>
+              )}
             </div>
           </div>
         </Card>
 
         {/* A - ASSESSMENT */}
-        <Card className="border-l-4 border-l-amber-500 flex flex-col">
-          <div className="flex items-center justify-between pb-3 mb-3 border-b border-slate-100">
+        <Card className="border-l-4 border-l-amber-500 flex flex-col space-y-4">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-100">
             <div className="flex items-center gap-2">
               <div className="w-7 h-7 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center font-black text-xs">
                 A
               </div>
               <h4 className="font-bold text-slate-900 text-sm">Assessment (Impression & Risk Triage)</h4>
             </div>
-            <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200">
-              Clinical Analysis
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200">
+              Clinical Synthesis
             </span>
           </div>
 
-          <div className="space-y-3.5 text-xs text-slate-800 flex-1">
-            <div className="p-3.5 bg-amber-50/50 rounded-xl border border-amber-200 leading-relaxed">
-              <div className="text-[11px] font-bold text-amber-900 uppercase tracking-wider mb-1">
-                Syndromic Clinical Impression & Red Flags
-              </div>
-              <pre className="whitespace-pre-wrap font-sans text-xs text-slate-800 font-medium leading-relaxed">
-                {soap?.assessment?.content || 'Presentation requires targeted clinician examination and correlation.'}
-              </pre>
+          <div className="space-y-3.5 text-xs flex-1">
+            <div>
+              <label className="block text-[11px] font-bold text-amber-900 uppercase tracking-wider mb-1">
+                Syndromic Clinical Impression & Differential (Editable)
+              </label>
+              {isEditMode ? (
+                <textarea
+                  rows={4}
+                  value={draftAssessment}
+                  onChange={(e) => {
+                    setDraftAssessment(e.target.value);
+                    setIsDirty(true);
+                  }}
+                  placeholder="Record differential diagnosis, risk stratification, and clinical impression..."
+                  className="w-full p-3 bg-amber-50/40 border border-amber-300 rounded-xl text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-amber-500 leading-relaxed font-sans"
+                />
+              ) : (
+                <div className="p-3.5 bg-amber-50/50 rounded-xl border border-amber-200 leading-relaxed">
+                  <pre className="whitespace-pre-wrap font-sans text-xs text-slate-800 font-medium leading-relaxed">
+                    {draftAssessment || 'Clinical impression pending physician correlation.'}
+                  </pre>
+                </div>
+              )}
             </div>
-
 
             <div className="p-3 bg-slate-50 rounded-xl border border-slate-200">
               <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
-                Safety Red Flags Status
+                Deterministic Red Flag Safety Evaluation
               </div>
-              <div className="text-slate-700">
+              <div className="text-slate-700 text-xs">
                 {clinicalState?.red_flags?.length > 0 ? (
-                  <span className="text-rose-700 font-bold flex items-center gap-1">
-                    <AlertTriangle className="w-3.5 h-3.5" />
+                  <span className="text-rose-700 font-bold flex items-center gap-1.5">
+                    <AlertTriangle className="w-4 h-4 text-rose-600" />
                     {clinicalState.red_flags.length} red flag safety conditions flagged for mandatory physician review.
                   </span>
                 ) : (
-                  <span className="text-emerald-700 font-medium flex items-center gap-1">
-                    <CheckCircle2 className="w-3.5 h-3.5" />
+                  <span className="text-emerald-700 font-medium flex items-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                     Zero deterministic safety red flags triggered.
                   </span>
                 )}
@@ -367,50 +723,212 @@ export const SoapSummaryView: React.FC<SoapSummaryViewProps> = ({
         </Card>
 
         {/* P - PLAN */}
-        <Card className="border-l-4 border-l-emerald-500 flex flex-col">
-          <div className="flex items-center justify-between pb-3 mb-3 border-b border-slate-100">
+        <Card className="border-l-4 border-l-emerald-500 flex flex-col space-y-4">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-100">
             <div className="flex items-center gap-2">
               <div className="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-black text-xs">
                 P
               </div>
               <h4 className="font-bold text-slate-900 text-sm">Plan (Next Steps & Diagnostics)</h4>
             </div>
-            <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
-              Physician Action
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
+              Physician Orders
             </span>
           </div>
 
-          <div className="space-y-3 text-xs text-slate-800 flex-1">
-            <div className="p-3.5 bg-emerald-50/40 rounded-xl border border-emerald-200">
-              <div className="text-[11px] font-bold text-emerald-950 uppercase tracking-wider mb-1.5">
-                Recommended Diagnostics & Focus Items
-              </div>
-              <pre className="whitespace-pre-wrap font-sans text-xs text-slate-800 leading-relaxed font-medium">
-                {soap?.plan?.content || '1. Outpatient physician consultation.\n2. Confirm digitized medication and allergy history.'}
-              </pre>
+          <div className="space-y-3.5 text-xs flex-1">
+            <div>
+              <label className="block text-[11px] font-bold text-emerald-950 uppercase tracking-wider mb-1">
+                Recommended Diagnostics & Action Items (Editable)
+              </label>
+              {isEditMode ? (
+                <textarea
+                  rows={4}
+                  value={draftPlan}
+                  onChange={(e) => {
+                    setDraftPlan(e.target.value);
+                    setIsDirty(true);
+                  }}
+                  placeholder="1. Targeted laboratory tests or imaging\n2. Clinical monitoring instructions\n3. Outpatient consultation timeline..."
+                  className="w-full p-3 bg-emerald-50/40 border border-emerald-300 rounded-xl text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-emerald-500 leading-relaxed font-sans"
+                />
+              ) : (
+                <div className="p-3.5 bg-emerald-50/40 rounded-xl border border-emerald-200">
+                  <pre className="whitespace-pre-wrap font-sans text-xs text-slate-800 leading-relaxed font-medium">
+                    {draftPlan || '1. Outpatient physician consultation.'}
+                  </pre>
+                </div>
+              )}
             </div>
 
-            <div className="text-[11px] text-slate-500 italic">
-              * Attending physician verification and clinical sign-off is required before finalizing this encounter.
+            {/* Attending Doctor Private Notes */}
+            <div>
+              <label className="block text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-1">
+                Attending Physician Private Clinical Notes
+              </label>
+              <textarea
+                rows={2}
+                value={draftDoctorNotes}
+                onChange={(e) => {
+                  setDraftDoctorNotes(e.target.value);
+                  setIsDirty(true);
+                }}
+                placeholder="Optional confidential clinician notes, hospital ward transfer, or specific observations..."
+                className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-800 focus:bg-white focus:outline-none focus:border-teal-500"
+              />
             </div>
           </div>
         </Card>
       </div>
 
-      {/* MULTILINGUAL PATIENT VERNACULAR SUMMARY (Plain Language Preview) */}
+      {/* 4. DIGITIZED LABORATORY REPORTS & PRESCRIPTIONS SECTION */}
+      <Card className="border-2 border-slate-200">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 mb-4 border-b border-slate-200 gap-3">
+          <div>
+            <h4 className="font-bold text-slate-900 text-sm flex items-center gap-2">
+              <FileSpreadsheet className="w-5 h-5 text-indigo-600" />
+              <span>Digitized Laboratory Reports & Prescriptions (OCR)</span>
+            </h4>
+            <span className="text-xs text-slate-500">
+              Directly extracted from physical lab sheets and handwritten prescriptions via TrOCR pipeline.
+            </span>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              disabled={isAttachingDoc}
+              onClick={() => handleAttachQuickDoc('sample_cbc')}
+              className="px-3 py-1.5 rounded-xl border border-emerald-300 bg-emerald-50 text-emerald-800 text-xs font-bold hover:bg-emerald-100 transition-all cursor-pointer shadow-2xs"
+            >
+              + Attach Test CBC Lab
+            </button>
+            <button
+              type="button"
+              disabled={isAttachingDoc}
+              onClick={() => handleAttachQuickDoc('sample_rx')}
+              className="px-3 py-1.5 rounded-xl border border-sky-300 bg-sky-50 text-sky-800 text-xs font-bold hover:bg-sky-100 transition-all cursor-pointer shadow-2xs"
+            >
+              + Attach Test Rx
+            </button>
+          </div>
+        </div>
+
+        {documents.length > 0 ? (
+          <div className="space-y-4">
+            {documents.map((doc: any) => {
+              const ext = doc.extraction;
+              const table = ext?.tables?.[0];
+              const medications = ext?.extracted_entities?.filter((e: any) => e.category === 'medication') || [];
+
+              return (
+                <div key={doc.id} className="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2.5">
+                      <FileText className="w-5 h-5 text-sky-600 shrink-0" />
+                      <div>
+                        <div className="font-bold text-xs sm:text-sm text-slate-900">{doc.filename}</div>
+                        <div className="text-[11px] text-slate-500">
+                          {Math.round((doc.size_bytes || 0) / 1024)} KB • Engine: {ext?.ocr_engine || 'TrOCR'}
+                        </div>
+                      </div>
+                    </div>
+                    <Badge provenance="ocr">Digitized Record</Badge>
+                  </div>
+
+                  {/* Extracted Prescription Drugs */}
+                  {medications.length > 0 && (
+                    <div className="space-y-1.5 pt-1">
+                      <div className="text-[11px] font-bold text-slate-700 uppercase tracking-wider">
+                        Extracted Prescription Medications ({medications.length})
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        {medications.map((m: any, idx: number) => (
+                          <div key={idx} className="p-2.5 bg-white rounded-xl border border-slate-200 flex items-center justify-between text-xs">
+                            <div>
+                              <span className="font-bold text-slate-900">{m.name}</span>
+                              <span className="text-slate-600 ml-2 font-medium">{String(m.value)}</span>
+                            </div>
+                            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-sky-50 text-sky-700 border border-sky-200 font-semibold">
+                              {m.unit || 'Rx'}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Extracted Lab Table */}
+                  {table && table.rows && table.rows.length > 0 && (
+                    <div className="space-y-1.5 pt-1">
+                      <div className="text-[11px] font-bold text-slate-700 uppercase tracking-wider">
+                        Pathology Diagnostic Matrix
+                      </div>
+                      <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white">
+                        <table className="w-full text-left text-xs">
+                          <thead>
+                            <tr className="bg-slate-100/80 text-slate-700 font-bold border-b border-slate-200">
+                              {table.headers.map((h: string, i: number) => (
+                                <th key={i} className="p-2 text-[11px] uppercase">{h}</th>
+                              ))}
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-slate-100">
+                            {table.rows.map((row: string[], rIdx: number) => {
+                              const flag = (row[4] || 'NORMAL').toUpperCase();
+                              const isAbnormal = flag === 'LOW' || flag === 'HIGH' || flag === 'CRITICAL';
+                              return (
+                                <tr key={rIdx} className={isAbnormal ? 'bg-amber-50/50' : 'hover:bg-slate-50'}>
+                                  <td className="p-2 font-semibold text-slate-900">{row[0]}</td>
+                                  <td className={`p-2 font-bold font-mono ${isAbnormal ? 'text-rose-900' : 'text-slate-800'}`}>{row[1]}</td>
+                                  <td className="p-2 text-slate-500 font-mono">{row[2]}</td>
+                                  <td className="p-2 text-slate-600">{row[3]}</td>
+                                  <td className="p-2">
+                                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                                      flag === 'CRITICAL' ? 'bg-rose-600 text-white' :
+                                      flag === 'LOW' ? 'bg-amber-100 text-amber-900 border border-amber-300' :
+                                      flag === 'HIGH' ? 'bg-rose-100 text-rose-900 border border-rose-300' :
+                                      'bg-emerald-100 text-emerald-800'
+                                    }`}>
+                                      {flag}
+                                    </span>
+                                  </td>
+                                </tr>
+                              );
+                            })}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <div className="p-6 text-center bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200 space-y-2">
+            <FileText className="w-8 h-8 text-slate-400 mx-auto" />
+            <div className="text-xs font-bold text-slate-700">No Medical Documents Attached During Intake</div>
+            <p className="text-[11px] text-slate-500 max-w-sm mx-auto">
+              Patient completed first-time clinical interview. You can attach a sample CBC lab panel or prescription above to test OCR matrix parsing.
+            </p>
+          </div>
+        )}
+      </Card>
+
+      {/* 5. MULTILINGUAL PATIENT VERNACULAR SUMMARY PREVIEW */}
       <Card className="bg-gradient-to-r from-sky-50/70 via-indigo-50/50 to-teal-50/70 border-2 border-sky-200">
         <div className="flex items-center justify-between pb-3 mb-3 border-b border-sky-200/80 flex-wrap gap-2">
           <div className="flex items-center gap-2">
             <Languages className="w-5 h-5 text-sky-700" />
             <div>
-              <h4 className="font-bold text-slate-900 text-sm">Patient Plain-Language Vernacular Summary</h4>
+              <h4 className="font-bold text-slate-900 text-sm">Patient Plain-Language Vernacular Explanation</h4>
               <span className="text-xs text-slate-500">
-                Explains clinical case to patient in their native language with loud audio readout
+                Audited plain-language case explanation presented to patient with loud audio readout
               </span>
             </div>
           </div>
 
-          {/* Language Selector Pills */}
           <div className="flex items-center gap-1.5 bg-white p-1 rounded-xl border border-sky-300 shadow-2xs">
             <button
               onClick={() => setPreviewLanguage('en')}
@@ -457,7 +975,7 @@ export const SoapSummaryView: React.FC<SoapSummaryViewProps> = ({
         </div>
       </Card>
 
-      {/* FACT-BY-FACT CLINICAL OBSERVATION VERIFICATION TABLE */}
+      {/* 6. CLINICAL OBSERVATIONS VERIFICATION TABLE */}
       <Card>
         <div className="flex items-center justify-between pb-3 mb-3 border-b border-slate-100">
           <div>
@@ -542,7 +1060,7 @@ export const SoapSummaryView: React.FC<SoapSummaryViewProps> = ({
           })}
         </div>
 
-        {/* Doctor Finalize Button */}
+        {/* 7. DOCTOR SIGN & FINALIZE ACTION */}
         <div className="pt-5 mt-4 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="text-xs text-slate-500">
             {verifySuccess ? (
@@ -551,19 +1069,31 @@ export const SoapSummaryView: React.FC<SoapSummaryViewProps> = ({
                 Encounter Authenticated & Verified! FHIR R4 synced.
               </span>
             ) : (
-              <span>All verified facts are mapped to FHIR R4 and made available to ABDM / HIS.</span>
+              <span>All verified facts and draft changes are persisted to database and exported to FHIR R4.</span>
             )}
           </div>
 
-          <Button
-            variant="secondary"
-            size="md"
-            onClick={onFinalize}
-            isLoading={isVerifying}
-            leftIcon={<CheckCircle2 className="w-4 h-4" />}
-          >
-            Sign & Verify Encounter (FHIR R4 Ready)
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="md"
+              onClick={handleSaveDraft}
+              isLoading={isSavingDraft}
+              leftIcon={<Save className="w-4 h-4" />}
+            >
+              Save Draft
+            </Button>
+
+            <Button
+              variant="secondary"
+              size="md"
+              onClick={onFinalize}
+              isLoading={isVerifying}
+              leftIcon={<ShieldCheck className="w-4 h-4" />}
+            >
+              Sign & Verify Encounter (FHIR R4 Ready)
+            </Button>
+          </div>
         </div>
       </Card>
     </div>

@@ -191,6 +191,14 @@ export class ApiClient {
     });
   }
 
+  async updateSummaryDraft(encounterId: string, data: any): Promise<any> {
+    return this.request<any>(`/api/v1/summaries/${encounterId}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    });
+  }
+
+
 
   // Verification
   async patientConfirm(data: { encounter_id: string; confirmed: boolean; corrections?: any[] }): Promise<any> {

@@ -24,10 +24,14 @@ export type ProvenanceType =
 
 export type VerificationStatusType = 
   | 'PENDING' 
+  | 'PENDING_REVIEW'
+  | 'IN_PROGRESS'
   | 'PATIENT_CONFIRMED' 
   | 'VERIFIED' 
   | 'AMENDED' 
-  | 'REJECTED';
+  | 'REJECTED'
+  | 'COMPLETED'
+  | string;
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
   variant?: 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'slate';
@@ -48,7 +52,7 @@ export const Badge: React.FC<BadgeProps> = ({
   const sizeStyles = size === 'sm' ? 'px-2 py-0.5 text-[11px] gap-1' : 'px-2.5 py-1 text-xs gap-1.5';
 
   if (provenance) {
-    const provenanceConfig: Record<ProvenanceType, { label: string; icon: React.ReactNode; style: string }> = {
+    const provenanceConfig: Record<string, { label: string; icon: React.ReactNode; style: string }> = {
       patient_voice: {
         label: 'Voice Input',
         icon: <Mic className="w-3 h-3 text-sky-600" />,
@@ -91,7 +95,11 @@ export const Badge: React.FC<BadgeProps> = ({
       },
     };
 
-    const cfg = provenanceConfig[provenance];
+    const cfg = provenanceConfig[provenance] || {
+      label: String(provenance),
+      icon: <Sparkles className="w-3 h-3 text-slate-500" />,
+      style: 'bg-slate-100 text-slate-700 border-slate-200',
+    };
     return (
       <span
         className={`inline-flex items-center font-medium rounded-md border ${cfg.style} ${sizeStyles} ${className}`}
@@ -104,11 +112,26 @@ export const Badge: React.FC<BadgeProps> = ({
   }
 
   if (verification) {
-    const verifConfig: Record<VerificationStatusType, { label: string; icon: React.ReactNode; style: string }> = {
+    const verifConfig: Record<string, { label: string; icon: React.ReactNode; style: string }> = {
       PENDING: {
         label: 'Pending Review',
         icon: <AlertCircle className="w-3 h-3 text-amber-600" />,
         style: 'bg-amber-50 text-amber-800 border-amber-200',
+      },
+      PENDING_REVIEW: {
+        label: 'In Queue',
+        icon: <AlertCircle className="w-3 h-3 text-amber-600" />,
+        style: 'bg-amber-50 text-amber-800 border-amber-200',
+      },
+      IN_PROGRESS: {
+        label: 'In Progress',
+        icon: <AlertCircle className="w-3 h-3 text-sky-600" />,
+        style: 'bg-sky-50 text-sky-700 border-sky-200',
+      },
+      COMPLETED: {
+        label: 'Completed',
+        icon: <CheckCircle2 className="w-3 h-3 text-teal-600" />,
+        style: 'bg-teal-50 text-teal-700 border-teal-200',
       },
       PATIENT_CONFIRMED: {
         label: 'Patient Confirmed',
@@ -132,7 +155,11 @@ export const Badge: React.FC<BadgeProps> = ({
       },
     };
 
-    const cfg = verifConfig[verification];
+    const cfg = verifConfig[verification] || {
+      label: String(verification).replace(/_/g, ' '),
+      icon: <CheckCircle2 className="w-3 h-3 text-slate-500" />,
+      style: 'bg-slate-100 text-slate-700 border-slate-200',
+    };
     return (
       <span
         className={`inline-flex items-center font-semibold rounded-md border ${cfg.style} ${sizeStyles} ${className}`}
