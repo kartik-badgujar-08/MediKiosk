@@ -9,6 +9,13 @@ class ClinicalSummarySection(BaseModel):
     confidence: float = 0.95
 
 
+class SoapSections(BaseModel):
+    subjective: ClinicalSummarySection
+    objective: ClinicalSummarySection
+    assessment: ClinicalSummarySection
+    plan: ClinicalSummarySection
+
+
 class PhysicianSummaryResponse(BaseModel):
     id: str
     encounter_id: str
@@ -17,6 +24,11 @@ class PhysicianSummaryResponse(BaseModel):
     chief_complaint: str
     hpi_narrative: str
     sections: Dict[str, ClinicalSummarySection]
+    soap_sections: Optional[SoapSections] = None
+    patient_vernacular_summary: Optional[Dict[str, str]] = None
+    pertinent_positives: List[str] = Field(default_factory=list)
+    pertinent_negatives: List[str] = Field(default_factory=list)
+    triage_level: str = "ROUTINE"  # EMERGENCY | URGENT | ROUTINE
     red_flags: List[str]
     missing_fields: List[str]
     ai_model_used: str
@@ -30,3 +42,4 @@ class PhysicianSummaryResponse(BaseModel):
     verified_at: Optional[str] = None
     created_at: str
     updated_at: str
+

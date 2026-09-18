@@ -233,12 +233,17 @@ class DatabaseManager:
             res = await self.db[collection].update_one(query, {"$set": update_data})
             return res.modified_count > 0
 
-        record = await self.find_one(collection, query)
-        if record:
-            doc_id = record["id"]
-            self._in_memory_store[collection][doc_id].update(update_data)
-            self._save_to_disk()
-            return True
+        store = self._in_memory_store.setdefault(collection, {})
+        for k, rec in store.items():
+            match = True
+            for qk, qv in query.items():
+                if rec.get(qk) != qv:
+                    match = False
+                    break
+            if match:
+                rec.update(update_data)
+                self._save_to_disk()
+                return True
         return False
 
     async def delete_one(self, collection: str, query: Dict[str, Any]) -> bool:
@@ -246,13 +251,23 @@ class DatabaseManager:
             res = await self.db[collection].delete_one(query)
             return res.deleted_count > 0
 
-        record = await self.find_one(collection, query)
-        if record:
-            doc_id = record["id"]
-            del self._in_memory_store[collection][doc_id]
+        store = self._in_memory_store.setdefault(collection, {})
+        target_key = None
+        for k, rec in store.items():
+            match = True
+            for qk, qv in query.items():
+                if rec.get(qk) != qv:
+                    match = False
+                    break
+            if match:
+                target_key = k
+                break
+        if target_key:
+            del store[target_key]
             self._save_to_disk()
             return True
         return False
+
 
 
 db_manager = DatabaseManager()

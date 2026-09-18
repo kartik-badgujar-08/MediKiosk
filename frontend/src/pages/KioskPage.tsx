@@ -81,14 +81,39 @@ export const KioskPage: React.FC = () => {
   const [interviewState, setInterviewState] = useState<InterviewState | null>(null);
   const [isLoadingInterview, setIsLoadingInterview] = useState(false);
   const [selectedMultiOptions, setSelectedMultiOptions] = useState<string[]>([]);
+  const [kioskSummary, setKioskSummary] = useState<any | null>(null);
+  const [isLoadingSummary, setIsLoadingSummary] = useState(false);
 
   // Track question to avoid repeated speech triggers
   const lastSpokenQuestionId = useRef<string | null>(null);
+
+  // Auto-generate vernacular summary on entering Step 4 (Review)
+  useEffect(() => {
+    if (currentStep === 4 && !kioskSummary) {
+      const fetchSummary = async () => {
+        setIsLoadingSummary(true);
+        try {
+          const sum = await api.generateSummary(encounterId, { language });
+          setKioskSummary(sum);
+          const vernacularText = sum?.patient_vernacular_summary?.[language] || sum?.patient_vernacular_summary?.['en'];
+          if (vernacularText) {
+            speak(vernacularText);
+          }
+        } catch (e) {
+          console.warn('Could not auto-generate kiosk summary:', e);
+        } finally {
+          setIsLoadingSummary(false);
+        }
+      };
+      fetchSummary();
+    }
+  }, [currentStep, encounterId, language]);
 
   // Audio welcome on initial mount
   useEffect(() => {
     speak(t('audio.kioskWelcome'));
   }, [language]);
+
 
   useEffect(() => {
     if (patientProfile) {
@@ -876,7 +901,9 @@ export const KioskPage: React.FC = () => {
                     setEncounterId(`kiosk-enc-${Date.now()}`);
                     setInterviewState(null);
                     setUploadedDocData(null);
+                    setKioskSummary(null);
                   }}
+
                   className="w-full py-3 px-6 rounded-2xl bg-white border-2 border-slate-200 hover:border-slate-300 text-slate-700 font-bold text-xs transition-all cursor-pointer"
                 >
                   Start New Patient Intake
@@ -893,10 +920,93 @@ export const KioskPage: React.FC = () => {
               </p>
 
               <div className="max-w-xl mx-auto space-y-4 mb-8">
+                {/* AI Patient Plain-Language Vernacular Summary Card */}
+                <div className="p-5 rounded-3xl bg-gradient-to-br from-teal-50 via-sky-50 to-indigo-50 border-2 border-teal-300 shadow-xs space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2.5">
+                      <div className="p-2 rounded-xl bg-teal-600 text-white shadow-xs">
+                        <Sparkles className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <div className="text-xs font-black text-teal-950 uppercase tracking-wider">
+                          {language === 'hi'
+                            ? 'एआई क्लिनिकल सारांश (सरल भाषा)'
+                            : language === 'mr'
+                            ? 'एआय क्लिनिकल सारांश (सोप्या भाषेत)'
+                            : 'AI Case Summary (Plain Language)'}
+                        </div>
+                        <div className="text-[11px] text-teal-700">
+                          {language === 'hi'
+                            ? 'आपके द्वारा बताए गए लक्षणों का सरल विवरण'
+                            : language === 'mr'
+                            ? 'आपण नोंदवलेल्या लक्षणांचा सोपा गोषवारा'
+                            : 'Synthesized plain-language patient explanation'}
+                        </div>
+                      </div>
+                    </div>
+
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-teal-100 text-teal-800 border border-teal-200">
+                      {kioskSummary?.ai_model_used ? 'AI Synthesized' : 'Auto Generated'}
+                    </span>
+                  </div>
+
+                  {isLoadingSummary ? (
+                    <div className="py-4 flex items-center justify-center gap-2 text-xs font-bold text-teal-800">
+                      <div className="w-4 h-4 border-2 border-teal-600 border-t-transparent rounded-full animate-spin" />
+                      <span>
+                        {language === 'hi'
+                          ? 'सारांश तैयार किया जा रहा है...'
+                          : language === 'mr'
+                          ? 'सारांश तयार होत आहे...'
+                          : 'Synthesizing your clinical summary...'}
+                      </span>
+                    </div>
+                  ) : (
+                    <>
+                      <p className="text-slate-800 text-xs sm:text-sm font-medium leading-relaxed bg-white/90 p-3.5 rounded-2xl border border-teal-200 shadow-2xs">
+                        {kioskSummary?.patient_vernacular_summary?.[language] ||
+                          kioskSummary?.patient_vernacular_summary?.['en'] ||
+                          'Clinical intake completed. Please review your recorded symptoms and details below.'}
+                      </p>
+
+                      <div className="flex items-center justify-between pt-1">
+                        <span className="text-[11px] text-slate-500 font-medium">
+                          {language === 'hi'
+                            ? '📢 यह सारांश डॉक्टर साहब के पास भेजा जा रहा है'
+                            : language === 'mr'
+                            ? '📢 हा सारांश डॉक्टरांच्या स्क्रीनवर पाठवला जात आहे'
+                            : '📢 This summary will be sent to the doctor.'}
+                        </span>
+
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const txt =
+                              kioskSummary?.patient_vernacular_summary?.[language] ||
+                              kioskSummary?.patient_vernacular_summary?.['en'];
+                            if (txt) speak(txt);
+                          }}
+                          className="px-3 py-1.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-2xs cursor-pointer transition-all active:scale-95"
+                        >
+                          <Volume2 className="w-3.5 h-3.5" />
+                          <span>
+                            {language === 'hi'
+                              ? 'जोर से सुनें'
+                              : language === 'mr'
+                              ? 'ऐका'
+                              : 'Listen Loudly'}
+                          </span>
+                        </button>
+                      </div>
+                    </>
+                  )}
+                </div>
+
                 <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200">
                   <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
                     Patient Profile
                   </div>
+
                   <div className="font-bold text-slate-900 text-base">
                     {patientName}, {patientAge} yrs, {patientGender}
                   </div>

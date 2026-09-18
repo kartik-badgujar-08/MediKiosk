@@ -56,11 +56,18 @@ class Settings(BaseSettings):
     MEDCAT_MODEL_PACK: str = ""
 
     # LLM Service
-    LLM_MODE: str = "mock"  # mock | qwen | llama | ollama | openai-compatible
-    LLM_PROVIDER: str = "qwen"
+    LLM_MODE: str = "auto"  # auto | engine | gemini | ollama | qwen | openai-compatible
+    LLM_PROVIDER: str = "engine"
     LLM_API_KEY: str = ""
     LLM_BASE_URL: str = ""
     LLM_MODEL_NAME: str = "qwen2.5-7b-instruct"
+    GEMINI_API_KEY: str = ""
+    GEMINI_MODEL: str = "gemini-1.5-flash"
+    GROQ_API_KEY: str = ""
+    GROQ_MODEL: str = "llama-3.3-70b-versatile"
+    OLLAMA_BASE_URL: str = "http://localhost:11434"
+    OLLAMA_MODEL: str = "biomistral"
+
 
     # Standards & Integrations
     FHIR_BASE_URL: str = "https://hapi.fhir.org/baseR4"

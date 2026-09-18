@@ -205,6 +205,31 @@ class ClinicalStateService:
         # Categorize fact into appropriate state section
         if fact.name.lower() in ("chief complaint", "primary concern") or fact.category in ("chief_complaint", "cc"):
             state.chief_complaint = fact
+        elif fact.name.lower() in ("pain site", "site"):
+            if not state.pain_assessment:
+                state.pain_assessment = PainAssessment()
+            state.pain_assessment.site = fact
+            state.associated_symptoms.append(fact)
+        elif fact.name.lower() in ("pain onset", "onset"):
+            if not state.pain_assessment:
+                state.pain_assessment = PainAssessment()
+            state.pain_assessment.onset = fact
+            state.associated_symptoms.append(fact)
+        elif fact.name.lower() in ("pain character", "character"):
+            if not state.pain_assessment:
+                state.pain_assessment = PainAssessment()
+            state.pain_assessment.character = fact
+            state.associated_symptoms.append(fact)
+        elif fact.name.lower() in ("pain radiation", "radiation"):
+            if not state.pain_assessment:
+                state.pain_assessment = PainAssessment()
+            state.pain_assessment.radiation = fact
+            state.associated_symptoms.append(fact)
+        elif fact.name.lower() in ("pain severity", "severity"):
+            if not state.pain_assessment:
+                state.pain_assessment = PainAssessment()
+            state.pain_assessment.severity = fact
+            state.associated_symptoms.append(fact)
         elif fact.category == "medication":
             state.medications.append(fact)
         elif fact.category == "allergy":
@@ -217,6 +242,7 @@ class ClinicalStateService:
             state.ayush_history.append(fact)
         else:
             state.associated_symptoms.append(fact)
+
 
         # Provenance audit log entry
         state.provenance_log.append({

@@ -3,25 +3,22 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { DoctorShell, type PatientEncounterSummary } from '../components/doctor/DoctorShell';
 import { Card } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
-import { Button } from '../components/ui/Button';
 import { useAuth } from '../context/AuthContext';
 import { 
-  Check, 
-  Edit3, 
-  X, 
-  AlertTriangle, 
   FileText, 
   Share2, 
   CheckCircle2, 
   Layers,
-  Sparkles,
   Loader2,
   ShieldCheck,
   Stethoscope
 } from 'lucide-react';
+
 import { api } from '../services/api';
+import { SoapSummaryView } from '../components/doctor/SoapSummaryView';
 
 export const DoctorPage: React.FC = () => {
+
   const { doctorProfile } = useAuth();
   const [searchParams] = useSearchParams();
   const paramEncounterId = searchParams.get('encounterId');
@@ -271,169 +268,21 @@ export const DoctorPage: React.FC = () => {
         </div>
       )}
 
-      {/* Tab: Clinical Summary */}
-      {activeTab === 'summary' && (
-        <div className="space-y-6">
-          {/* Red Flag Alert Banner */}
-          {clinicalState?.red_flags && clinicalState.red_flags.length > 0 && (
-            <div className="bg-amber-50 border-2 border-amber-300 rounded-2xl p-4 flex items-start gap-3">
-              <AlertTriangle className="w-5 h-5 text-amber-600 mt-0.5 shrink-0" />
-              <div className="flex-1 text-xs text-amber-900">
-                <strong className="text-sm font-bold block mb-1">
-                  Deterministic Safety Alerts ({clinicalState.red_flags.length} Detected)
-                </strong>
-                <ul className="list-disc pl-4 space-y-1">
-                  {clinicalState.red_flags.map((rf: any, i: number) => (
-                    <li key={i}>
-                      <strong>{rf.title}:</strong> {rf.clinical_rationale}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <span className="text-[11px] font-bold px-2.5 py-1 bg-amber-200 text-amber-900 rounded-md shrink-0">
-                Clinician Attention
-              </span>
-            </div>
-          )}
-
-          {/* AI Physician Draft Summary Card */}
-          <Card>
-            <div className="flex items-center justify-between pb-4 mb-4 border-b border-slate-100">
-              <div className="flex items-center gap-2">
-                <div className="p-2 rounded-lg bg-violet-50 text-violet-600">
-                  <Sparkles className="w-5 h-5" />
-                </div>
-                <div>
-                  <h3 className="text-base font-bold text-slate-900">Physician-Ready Intake Summary</h3>
-                  <p className="text-xs text-slate-500">
-                    Synthesized from Multi-channel Input + OCR Digestion ({summary?.ai_model_used || 'Qwen/MediKiosk Engine'})
-                  </p>
-                </div>
-              </div>
-              <Badge provenance="ai_generated">Draft AI Summary</Badge>
-            </div>
-
-            {/* Structured Clinical Sections */}
-            <div className="space-y-5 text-sm">
-              <div>
-                <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">
-                  History of Present Illness (HPI)
-                </h4>
-                <p className="text-slate-800 leading-relaxed bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs sm:text-sm">
-                  {summary?.hpi_narrative || 'Intake interview completed. Presenting illness progression recorded.'}
-                </p>
-              </div>
-
-              {/* Individual Extracted Facts with Doctor Verification Controls */}
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-                    Clinical Observations & Verification Actions (Accept / Amend / Reject)
-                  </h4>
-                  <span className="text-xs text-slate-400">
-                    {allFactsList.length} Facts Extracted
-                  </span>
-                </div>
-
-                <div className="space-y-2.5">
-                  {allFactsList.map((fact: any) => {
-                    const action = verificationMap[fact.id] || 'ACCEPTED';
-                    return (
-                      <div
-                        key={fact.id}
-                        className={`p-3.5 bg-white border rounded-xl flex items-center justify-between gap-4 transition-all ${
-                          action === 'ACCEPTED'
-                            ? 'border-slate-200'
-                            : action === 'AMENDED'
-                            ? 'border-indigo-300 bg-indigo-50/20'
-                            : 'border-rose-300 bg-rose-50/30 opacity-75'
-                        }`}
-                      >
-                        <div className="flex items-center gap-3">
-                          <Badge provenance={fact.source || 'patient_touch'} />
-                          <div>
-                            <div className="font-bold text-slate-900 text-xs sm:text-sm flex items-center gap-2">
-                              <span>{fact.name}:</span>
-                              <span className={action === 'REJECTED' ? 'line-through text-slate-400' : 'text-slate-700'}>
-                                {String(fact.value)} {fact.unit || ''}
-                              </span>
-                            </div>
-                            <div className="text-[11px] text-slate-500 mt-0.5">
-                              Confidence: {Math.round((fact.confidence || 0.95) * 100)}% • Category: {fact.category}
-                              {fact.notes && ` • ${fact.notes}`}
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Action Buttons */}
-                        <div className="flex items-center gap-1.5 shrink-0">
-                          <button
-                            onClick={() => handleFactAction(fact.id, 'ACCEPTED')}
-                            className={`p-2 rounded-xl text-xs font-bold border transition-all ${
-                              action === 'ACCEPTED'
-                                ? 'bg-emerald-500 text-white border-emerald-600 shadow-xs'
-                                : 'text-slate-600 hover:bg-emerald-50 border-slate-200'
-                            }`}
-                            title="Accept fact"
-                          >
-                            <Check className="w-4 h-4" />
-                          </button>
-                          <button
-                            onClick={() => handleFactAction(fact.id, 'AMENDED')}
-                            className={`p-2 rounded-xl text-xs font-bold border transition-all ${
-                              action === 'AMENDED'
-                                ? 'bg-indigo-600 text-white border-indigo-700 shadow-xs'
-                                : 'text-slate-600 hover:bg-indigo-50 border-slate-200'
-                            }`}
-                            title="Amend fact"
-                          >
-                            <Edit3 className="w-4 h-4" />
-                          </button>
-                          <button
-                            onClick={() => handleFactAction(fact.id, 'REJECTED')}
-                            className={`p-2 rounded-xl text-xs font-bold border transition-all ${
-                              action === 'REJECTED'
-                                ? 'bg-rose-500 text-white border-rose-600 shadow-xs'
-                                : 'text-slate-600 hover:bg-rose-50 border-slate-200'
-                            }`}
-                            title="Reject fact"
-                          >
-                            <X className="w-4 h-4" />
-                          </button>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Doctor Sign and Verify Button */}
-              <div className="pt-5 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div className="text-xs text-slate-500">
-                  {verifySuccess ? (
-                    <span className="text-emerald-700 font-bold flex items-center gap-1.5">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                      Encounter Authenticated & Verified! FHIR R4 synced.
-                    </span>
-                  ) : (
-                    <span>All verified facts are mapped to FHIR R4 and made available to ABDM / HIS.</span>
-                  )}
-                </div>
-
-                <Button
-                  variant="secondary"
-                  size="md"
-                  onClick={handleDoctorFinalize}
-                  isLoading={isVerifying}
-                  leftIcon={<CheckCircle2 className="w-4 h-4" />}
-                >
-                  Sign & Verify Encounter (FHIR R4 Ready)
-                </Button>
-              </div>
-            </div>
-          </Card>
-        </div>
+      {/* Tab: Clinical Summary (Rich SOAP & Multi-Provider AI View) */}
+      {activeTab === 'summary' && selectedEncounterId && (
+        <SoapSummaryView
+          encounterId={selectedEncounterId}
+          summary={summary}
+          clinicalState={clinicalState}
+          onSummaryUpdated={(newSummary) => setSummary(newSummary)}
+          verificationMap={verificationMap}
+          onFactAction={handleFactAction}
+          onFinalize={handleDoctorFinalize}
+          isVerifying={isVerifying}
+          verifySuccess={verifySuccess}
+        />
       )}
+
 
       {/* Tab: SOCRATES & Symptoms */}
       {activeTab === 'socrates' && (

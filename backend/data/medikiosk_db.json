@@ -1299,6 +1299,84 @@
       "metadata": {},
       "created_at": "2026-09-17T23:46:28.281189+00:00",
       "updated_at": "2026-09-17T23:46:28.281189+00:00"
+    },
+    "e2eacd1a-20c0-410c-b16e-2a0444f72569": {
+      "id": "e2eacd1a-20c0-410c-b16e-2a0444f72569",
+      "name": "Rahul Sharma",
+      "age": 28,
+      "gender": "Male",
+      "phone": "+91-9876543210",
+      "uhid": "UHID-2026-DD5932",
+      "abha_id": null,
+      "preferred_language": "en",
+      "metadata": {},
+      "created_at": "2026-09-17T23:50:11.718952+00:00",
+      "updated_at": "2026-09-17T23:50:11.718952+00:00"
+    },
+    "5595820f-9840-4b22-8aa1-e471bfa69f10": {
+      "id": "5595820f-9840-4b22-8aa1-e471bfa69f10",
+      "name": "Rahul Sharma",
+      "age": 35,
+      "gender": "Male",
+      "phone": null,
+      "uhid": "UHID-2026-CE81CC",
+      "abha_id": null,
+      "preferred_language": "en",
+      "metadata": {},
+      "created_at": "2026-09-18T00:22:35.824825+00:00",
+      "updated_at": "2026-09-18T00:22:35.824825+00:00"
+    },
+    "9c40ff01-910f-4fdb-a279-0eea4cb6ba45": {
+      "id": "9c40ff01-910f-4fdb-a279-0eea4cb6ba45",
+      "name": "Pooja Patil",
+      "age": 28,
+      "gender": "Female",
+      "phone": null,
+      "uhid": "UHID-2026-9A4DBF",
+      "abha_id": null,
+      "preferred_language": "en",
+      "metadata": {},
+      "created_at": "2026-09-18T00:22:37.586157+00:00",
+      "updated_at": "2026-09-18T00:22:37.586157+00:00"
+    },
+    "63b74536-cabe-4b04-a23b-ea02de9bc596": {
+      "id": "63b74536-cabe-4b04-a23b-ea02de9bc596",
+      "name": "Santu Ghorai",
+      "age": 33,
+      "gender": "Male",
+      "phone": null,
+      "uhid": "UHID-2026-E54394",
+      "abha_id": null,
+      "preferred_language": "en",
+      "metadata": {},
+      "created_at": "2026-09-18T00:22:38.122921+00:00",
+      "updated_at": "2026-09-18T00:22:38.122921+00:00"
+    },
+    "3ed7fe5d-d227-4252-9c1b-aeb52f69ed4d": {
+      "id": "3ed7fe5d-d227-4252-9c1b-aeb52f69ed4d",
+      "name": "Rahul Sharma",
+      "age": 35,
+      "gender": "Male",
+      "phone": "+919876543210",
+      "uhid": "UHID-2026-8941",
+      "abha_id": "rahul.sharma@abdm",
+      "preferred_language": "hi",
+      "metadata": {},
+      "created_at": "2026-09-18T00:22:46.106150+00:00",
+      "updated_at": "2026-09-18T00:22:46.106150+00:00"
+    },
+    "4b83b205-2cb2-4067-9a54-89356e7fba61": {
+      "id": "4b83b205-2cb2-4067-9a54-89356e7fba61",
+      "name": "Sunita Patil",
+      "age": 28,
+      "gender": "Female",
+      "phone": "+919876543299",
+      "uhid": "UHID-2026-8942",
+      "abha_id": "sunita.patil@abdm",
+      "preferred_language": "mr",
+      "metadata": {},
+      "created_at": "2026-09-18T00:22:46.241554+00:00",
+      "updated_at": "2026-09-18T00:22:46.241554+00:00"
     }
   },
   "encounters": {
@@ -2333,6 +2411,78 @@
       "consent_timestamp": "2026-09-17T23:46:28.326164+00:00",
       "created_at": "2026-09-17T23:46:28.326164+00:00",
       "updated_at": "2026-09-17T23:46:28.326164+00:00"
+    },
+    "4f5ceeee-051a-4887-9112-87bbc4d6e09c": {
+      "id": "4f5ceeee-051a-4887-9112-87bbc4d6e09c",
+      "patient_id": "e2eacd1a-20c0-410c-b16e-2a0444f72569",
+      "status": "PENDING_REVIEW",
+      "chief_complaint": "Clinical Case Intake",
+      "intake_channel": "touch",
+      "language": "en",
+      "consent_given": true,
+      "consent_timestamp": "2026-09-17T23:50:11.865212+00:00",
+      "created_at": "2026-09-17T23:50:11.865212+00:00",
+      "updated_at": "2026-09-17T23:51:38.417988+00:00"
+    },
+    "0d4e5bef-8730-414b-841a-281bb2d8d3ac": {
+      "id": "0d4e5bef-8730-414b-841a-281bb2d8d3ac",
+      "patient_id": "5595820f-9840-4b22-8aa1-e471bfa69f10",
+      "status": "IN_PROGRESS",
+      "chief_complaint": null,
+      "intake_channel": "voice",
+      "language": "en",
+      "consent_given": true,
+      "consent_timestamp": "2026-09-18T00:22:35.867095+00:00",
+      "created_at": "2026-09-18T00:22:35.867095+00:00",
+      "updated_at": "2026-09-18T00:22:35.867095+00:00"
+    },
+    "99ae2f16-0a73-414d-be27-f1cb852250e5": {
+      "id": "99ae2f16-0a73-414d-be27-f1cb852250e5",
+      "patient_id": "9c40ff01-910f-4fdb-a279-0eea4cb6ba45",
+      "status": "IN_PROGRESS",
+      "chief_complaint": null,
+      "intake_channel": "touch",
+      "language": "en",
+      "consent_given": true,
+      "consent_timestamp": "2026-09-18T00:22:37.673458+00:00",
+      "created_at": "2026-09-18T00:22:37.673458+00:00",
+      "updated_at": "2026-09-18T00:22:37.673458+00:00"
+    },
+    "549994c0-7eae-485b-adc8-1527d645c8b5": {
+      "id": "549994c0-7eae-485b-adc8-1527d645c8b5",
+      "patient_id": "63b74536-cabe-4b04-a23b-ea02de9bc596",
+      "status": "IN_PROGRESS",
+      "chief_complaint": null,
+      "intake_channel": "touch",
+      "language": "en",
+      "consent_given": true,
+      "consent_timestamp": "2026-09-18T00:22:38.163437+00:00",
+      "created_at": "2026-09-18T00:22:38.163437+00:00",
+      "updated_at": "2026-09-18T00:22:38.163437+00:00"
+    },
+    "b8388047-7cea-4f03-95f8-683d3fdbe456": {
+      "id": "b8388047-7cea-4f03-95f8-683d3fdbe456",
+      "patient_id": "3ed7fe5d-d227-4252-9c1b-aeb52f69ed4d",
+      "status": "PENDING_REVIEW",
+      "chief_complaint": "Fever (3 days) + Headache",
+      "intake_channel": "voice",
+      "language": "hi",
+      "consent_given": true,
+      "consent_timestamp": "2026-09-18T00:22:46.139558+00:00",
+      "created_at": "2026-09-18T00:22:46.139558+00:00",
+      "updated_at": "2026-09-18T00:22:46.172591+00:00"
+    },
+    "0e9c1b33-685f-47c9-b34d-2e01b1fc4d35": {
+      "id": "0e9c1b33-685f-47c9-b34d-2e01b1fc4d35",
+      "patient_id": "4b83b205-2cb2-4067-9a54-89356e7fba61",
+      "status": "PENDING_REVIEW",
+      "chief_complaint": "Acute Abdominal Pain (ISL Sign Intake)",
+      "intake_channel": "sign",
+      "language": "mr",
+      "consent_given": true,
+      "consent_timestamp": "2026-09-18T00:22:46.274164+00:00",
+      "created_at": "2026-09-18T00:22:46.274164+00:00",
+      "updated_at": "2026-09-18T00:22:46.306891+00:00"
     }
   },
   "clinical_states": {
@@ -2340,7 +2490,7 @@
       "id": "b4cd53c1-31cb-473c-ae4b-520fe179d525",
       "encounter_id": "7d1cd818-9dc2-49c4-9ca9-b31d7a0d67b7",
       "patient_id": "539dea95-e583-4b17-8dc3-a1d06ed95b23",
-      "version": 7,
+      "version": 19,
       "chief_complaint": {
         "id": null,
         "category": "symptom",
@@ -2417,7 +2567,7 @@
             "Chief Complaint: Fever",
             "Symptom: Bleeding / Petechiae"
           ],
-          "detected_at": "2026-09-17T20:36:09.339851+00:00"
+          "detected_at": "2026-09-18T00:13:47.265125+00:00"
         }
       ],
       "provenance_log": [
@@ -2440,13 +2590,13 @@
       ],
       "overall_verification_status": "PENDING",
       "created_at": "2026-09-17T20:36:09.301667+00:00",
-      "updated_at": "2026-09-17T20:36:09.339957+00:00"
+      "updated_at": "2026-09-18T00:13:47.265199+00:00"
     },
     "6c097775-2184-4e29-9d41-e4e08d98309b": {
       "id": "6c097775-2184-4e29-9d41-e4e08d98309b",
       "encounter_id": "efba8d26-f080-49eb-8914-af928b33e2c5",
       "patient_id": "4b1011d1-fdc7-49f1-b673-e5b18d1055ef",
-      "version": 4,
+      "version": 16,
       "chief_complaint": {
         "id": null,
         "category": "symptom",
@@ -2656,19 +2806,19 @@
             "Headache",
             "Mosquito exposure"
           ],
-          "detected_at": "2026-09-17T20:36:09.471666+00:00"
+          "detected_at": "2026-09-18T00:13:47.325090+00:00"
         }
       ],
       "provenance_log": [],
       "overall_verification_status": "PENDING",
       "created_at": "2026-09-17T20:36:09.391181+00:00",
-      "updated_at": "2026-09-17T20:36:09.471810+00:00"
+      "updated_at": "2026-09-18T00:13:47.325226+00:00"
     },
     "45fa5bf7-bfa6-4ccb-8933-82485845ead6": {
       "id": "45fa5bf7-bfa6-4ccb-8933-82485845ead6",
       "encounter_id": "99ce7a4e-19ac-45ca-9c72-d4e13c768830",
       "patient_id": "0b356c32-9cac-45cd-b964-1e2b4d5e7fb9",
-      "version": 2,
+      "version": 14,
       "chief_complaint": {
         "id": null,
         "category": "symptom",
@@ -2773,13 +2923,13 @@
       "provenance_log": [],
       "overall_verification_status": "PENDING",
       "created_at": "2026-09-17T20:36:09.401478+00:00",
-      "updated_at": "2026-09-17T20:36:09.486041+00:00"
+      "updated_at": "2026-09-18T00:13:47.393140+00:00"
     },
     "a4df179c-ff09-4add-bd68-a17b63ff0841": {
       "id": "a4df179c-ff09-4add-bd68-a17b63ff0841",
       "encounter_id": "c9724dcb-90ba-49c2-b55e-ee515b934b4f",
       "patient_id": "f58f0403-4ddd-47cd-a02e-11f41a909b2d",
-      "version": 10,
+      "version": 22,
       "chief_complaint": null,
       "history_of_present_illness": [],
       "pain_assessment": null,
@@ -2899,13 +3049,13 @@
       ],
       "overall_verification_status": "PENDING",
       "created_at": "2026-09-17T20:36:09.564429+00:00",
-      "updated_at": "2026-09-17T20:36:09.619030+00:00"
+      "updated_at": "2026-09-18T00:13:47.446378+00:00"
     },
     "5b537a7d-f2c0-4044-bf64-3d09809b6de8": {
       "id": "5b537a7d-f2c0-4044-bf64-3d09809b6de8",
       "encounter_id": "45ef81c7-520e-44ce-a010-4d479ac39036",
       "patient_id": "7344b1e8-c887-4317-80dd-1eabde7facf3",
-      "version": 7,
+      "version": 19,
       "chief_complaint": null,
       "history_of_present_illness": [],
       "pain_assessment": null,
@@ -2977,13 +3127,13 @@
       ],
       "overall_verification_status": "PENDING",
       "created_at": "2026-09-17T20:36:09.651662+00:00",
-      "updated_at": "2026-09-17T20:36:09.687797+00:00"
+      "updated_at": "2026-09-18T00:13:47.503315+00:00"
     },
     "d5c11e66-bbaa-4f59-a0a0-1fc21c8e11a5": {
       "id": "d5c11e66-bbaa-4f59-a0a0-1fc21c8e11a5",
       "encounter_id": "6b18871c-c033-44b9-97d7-4258bb5b1527",
       "patient_id": "d18c680a-54a9-4b9e-9dcd-eed6810ada1b",
-      "version": 3,
+      "version": 15,
       "chief_complaint": null,
       "history_of_present_illness": [],
       "pain_assessment": null,
@@ -3004,13 +3154,13 @@
       "provenance_log": [],
       "overall_verification_status": "PENDING",
       "created_at": "2026-09-17T20:36:10.518940+00:00",
-      "updated_at": "2026-09-17T20:36:10.548870+00:00"
+      "updated_at": "2026-09-18T00:13:47.575716+00:00"
     },
     "7e8901f9-9e63-4380-89c5-83ade4ba61a7": {
       "id": "7e8901f9-9e63-4380-89c5-83ade4ba61a7",
       "encounter_id": "2947bcf5-d7f4-482b-be2a-519c59e86545",
       "patient_id": "33eb9dc9-1971-48fc-9375-73fcc0bddef3",
-      "version": 6,
+      "version": 18,
       "chief_complaint": {
         "id": "c8d17f4a-621d-4790-bb4d-6609d20be144",
         "category": "symptom",
@@ -3080,13 +3230,13 @@
       ],
       "overall_verification_status": "PENDING",
       "created_at": "2026-09-17T20:36:10.861650+00:00",
-      "updated_at": "2026-09-17T20:36:10.928586+00:00"
+      "updated_at": "2026-09-18T00:13:47.804033+00:00"
     },
     "a0da3d30-6981-4f57-bec5-21cd5d6c83c8": {
       "id": "a0da3d30-6981-4f57-bec5-21cd5d6c83c8",
       "encounter_id": "320e6bd7-60eb-46f5-8b8a-6b6d3e0e57a1",
       "patient_id": "12baf71b-8406-488e-8a2b-c7d0631a539f",
-      "version": 9,
+      "version": 21,
       "chief_complaint": null,
       "history_of_present_illness": [],
       "pain_assessment": null,
@@ -3133,13 +3283,13 @@
       ],
       "overall_verification_status": "VERIFIED",
       "created_at": "2026-09-17T20:36:11.021120+00:00",
-      "updated_at": "2026-09-17T20:36:11.134937+00:00"
+      "updated_at": "2026-09-18T00:13:47.880655+00:00"
     },
     "39cee981-60ad-48a6-8d35-b9b3f9856e8f": {
       "id": "39cee981-60ad-48a6-8d35-b9b3f9856e8f",
       "encounter_id": "a434aa25-87a4-4ec5-a6ba-d9b466f9302a",
       "patient_id": "d53fcfd1-fb81-4a2b-af3a-286180423f5b",
-      "version": 9,
+      "version": 21,
       "chief_complaint": {
         "id": null,
         "category": "symptom",
@@ -3192,13 +3342,13 @@
       "provenance_log": [],
       "overall_verification_status": "PATIENT_CONFIRMED",
       "created_at": "2026-09-17T20:52:28.962193+00:00",
-      "updated_at": "2026-09-17T20:52:36.853714+00:00"
+      "updated_at": "2026-09-18T00:13:47.951822+00:00"
     },
     "7d10589a-fd4b-4787-938d-2f3ce7f6ed41": {
       "id": "7d10589a-fd4b-4787-938d-2f3ce7f6ed41",
       "encounter_id": "a123b12f-55a4-4193-843d-de827532491d",
       "patient_id": "72608660-4bda-45a0-9501-b0d41799bea4",
-      "version": 14,
+      "version": 26,
       "chief_complaint": null,
       "history_of_present_illness": [],
       "pain_assessment": null,
@@ -3366,13 +3516,13 @@
       ],
       "overall_verification_status": "PENDING",
       "created_at": "2026-09-17T20:59:28.788011+00:00",
-      "updated_at": "2026-09-17T20:59:28.984630+00:00"
+      "updated_at": "2026-09-18T00:13:48.023306+00:00"
     },
     "0a28bcb7-9859-4bc2-aa26-9b39210252f4": {
       "id": "0a28bcb7-9859-4bc2-aa26-9b39210252f4",
       "encounter_id": "84483193-9944-4f5c-a2da-323a529592e2",
       "patient_id": "92b1f635-6dd2-4f41-8e60-f6e3749f43fe",
-      "version": 19,
+      "version": 31,
       "chief_complaint": null,
       "history_of_present_illness": [],
       "pain_assessment": null,
@@ -3612,13 +3762,13 @@
       ],
       "overall_verification_status": "PENDING",
       "created_at": "2026-09-17T20:59:29.105141+00:00",
-      "updated_at": "2026-09-17T20:59:29.259605+00:00"
+      "updated_at": "2026-09-18T00:13:48.080790+00:00"
     },
     "7b6f54aa-15a5-4dd3-a3b3-0d42c79f001b": {
       "id": "7b6f54aa-15a5-4dd3-a3b3-0d42c79f001b",
       "encounter_id": "78df4c1d-f716-4a82-bb61-8f97911ac2d8",
       "patient_id": "340796b5-4394-4905-9203-002978c771c0",
-      "version": 19,
+      "version": 31,
       "chief_complaint": null,
       "history_of_present_illness": [],
       "pain_assessment": null,
@@ -3858,13 +4008,13 @@
       ],
       "overall_verification_status": "PENDING",
       "created_at": "2026-09-17T20:59:29.421962+00:00",
-      "updated_at": "2026-09-17T20:59:29.735805+00:00"
+      "updated_at": "2026-09-18T00:13:48.122070+00:00"
     },
     "4fecd19b-3887-432d-b098-dfc9ecec2a1c": {
       "id": "4fecd19b-3887-432d-b098-dfc9ecec2a1c",
       "encounter_id": "34800f99-468a-47ca-b32e-0c727866e8d7",
       "patient_id": "66ca6232-d995-46c4-8fa9-82d58985fa91",
-      "version": 7,
+      "version": 19,
       "chief_complaint": {
         "id": null,
         "category": "symptom",
@@ -3941,7 +4091,7 @@
             "Chief Complaint: Fever",
             "Symptom: Bleeding / Petechiae"
           ],
-          "detected_at": "2026-09-17T21:04:40.515594+00:00"
+          "detected_at": "2026-09-18T00:13:48.240362+00:00"
         }
       ],
       "provenance_log": [
@@ -3964,13 +4114,13 @@
       ],
       "overall_verification_status": "PENDING",
       "created_at": "2026-09-17T21:04:40.391041+00:00",
-      "updated_at": "2026-09-17T21:04:40.515703+00:00"
+      "updated_at": "2026-09-18T00:13:48.240517+00:00"
     },
     "f7b25cf9-684f-42bf-9d85-c8212d6e9c03": {
       "id": "f7b25cf9-684f-42bf-9d85-c8212d6e9c03",
       "encounter_id": "c173ed52-d5d3-419e-ade4-a317029bf9c0",
       "patient_id": "875d7fd7-5887-4300-8414-698e08360364",
-      "version": 4,
+      "version": 16,
       "chief_complaint": {
         "id": null,
         "category": "symptom",
@@ -4180,19 +4330,19 @@
             "Headache",
             "Mosquito exposure"
           ],
-          "detected_at": "2026-09-17T21:04:40.843116+00:00"
+          "detected_at": "2026-09-18T00:13:48.304379+00:00"
         }
       ],
       "provenance_log": [],
       "overall_verification_status": "PENDING",
       "created_at": "2026-09-17T21:04:40.657708+00:00",
-      "updated_at": "2026-09-17T21:04:40.843258+00:00"
+      "updated_at": "2026-09-18T00:13:48.304531+00:00"
     },
     "9e2e380b-cb67-43fc-9fe2-fe87db4b7ddc": {
       "id": "9e2e380b-cb67-43fc-9fe2-fe87db4b7ddc",
       "encounter_id": "a16c972f-236a-4377-b27e-8bf61ce41799",
       "patient_id": "9a8506ed-4fe6-4ec8-a19f-03b4f50b79ff",
-      "version": 2,
+      "version": 14,
       "chief_complaint": {
         "id": null,
         "category": "symptom",
@@ -4297,13 +4447,13 @@
       "provenance_log": [],
       "overall_verification_status": "PENDING",
       "created_at": "2026-09-17T21:04:40.731552+00:00",
-      "updated_at": "2026-09-17T21:04:40.901868+00:00"
+      "updated_at": "2026-09-18T00:13:48.354597+00:00"
     },
     "90ffa701-728c-48da-b50a-6be2cbdc0dee": {
       "id": "90ffa701-728c-48da-b50a-6be2cbdc0dee",
       "encounter_id": "d3775c23-e6f2-42fa-b06c-dbec7464e55a",
       "patient_id": "1745660c-5864-4b47-b44b-4610907b4e52",
-      "version": 14,
+      "version": 26,
       "chief_complaint": null,
       "history_of_present_illness": [],
       "pain_assessment": null,
@@ -4471,13 +4621,13 @@
       ],
       "overall_verification_status": "PENDING",
       "created_at": "2026-09-17T21:04:41.065154+00:00",
-      "updated_at": "2026-09-17T21:04:41.299998+00:00"
+      "updated_at": "2026-09-18T00:13:48.402614+00:00"
     },
     "078e283c-b2ee-4154-b9f6-951df40ff483": {
       "id": "078e283c-b2ee-4154-b9f6-951df40ff483",
       "encounter_id": "a65ff55a-06bd-42f0-a91a-cef951d979a7",
       "patient_id": "a61a04b8-5898-4b74-b1fd-e5ad905f3e8e",
-      "version": 19,
+      "version": 31,
       "chief_complaint": null,
       "history_of_present_illness": [],
       "pain_assessment": null,
@@ -4717,13 +4867,13 @@
       ],
       "overall_verification_status": "PENDING",
       "created_at": "2026-09-17T21:04:41.445532+00:00",
-      "updated_at": "2026-09-17T21:04:41.785952+00:00"
+      "updated_at": "2026-09-18T00:13:48.461923+00:00"
     },
     "cf325350-8b20-4786-ba8d-75d43f359856": {
       "id": "cf325350-8b20-4786-ba8d-75d43f359856",
       "encounter_id": "c0d95cd0-47fb-4ce6-af15-54f75d33cf0d",
       "patient_id": "d52dd87a-b9c4-4492-bdd4-fdb13d394d01",
-      "version": 19,
+      "version": 31,
       "chief_complaint": null,
       "history_of_present_illness": [],
       "pain_assessment": null,
@@ -4963,13 +5113,13 @@
       ],
       "overall_verification_status": "PENDING",
       "created_at": "2026-09-17T21:04:42.025267+00:00",
-      "updated_at": "2026-09-17T21:04:42.507556+00:00"
+      "updated_at": "2026-09-18T00:13:48.545111+00:00"
     },
     "eb96698d-48d5-455e-a59d-c3b2df37fff8": {
       "id": "eb96698d-48d5-455e-a59d-c3b2df37fff8",
       "encounter_id": "48d3f52c-16e3-436d-a4a3-3088a81c8c32",
       "patient_id": "e4657ace-6533-41f1-9d12-22300daeb3bd",
-      "version": 7,
+      "version": 19,
       "chief_complaint": null,
       "history_of_present_illness": [],
       "pain_assessment": null,
@@ -5041,13 +5191,13 @@
       ],
       "overall_verification_status": "PENDING",
       "created_at": "2026-09-17T21:04:42.621325+00:00",
-      "updated_at": "2026-09-17T21:04:42.815486+00:00"
+      "updated_at": "2026-09-18T00:13:48.614913+00:00"
     },
     "67d947a1-85e9-4d79-8551-ff6e337d7ebf": {
       "id": "67d947a1-85e9-4d79-8551-ff6e337d7ebf",
       "encounter_id": "d073ef0f-d76c-4e23-a758-6826049b8916",
       "patient_id": "30cd4e5d-7155-4c46-a69f-affe254fb16d",
-      "version": 3,
+      "version": 15,
       "chief_complaint": null,
       "history_of_present_illness": [],
       "pain_assessment": null,
@@ -5068,13 +5218,13 @@
       "provenance_log": [],
       "overall_verification_status": "PENDING",
       "created_at": "2026-09-17T21:04:43.095483+00:00",
-      "updated_at": "2026-09-17T21:04:43.144078+00:00"
+      "updated_at": "2026-09-18T00:13:48.680801+00:00"
     },
     "0d5b456e-9b73-49e3-a299-0367f581ce68": {
       "id": "0d5b456e-9b73-49e3-a299-0367f581ce68",
       "encounter_id": "c5f4bb65-f95a-4a70-92d8-229bc0d6ff62",
       "patient_id": "861963f8-34a9-4134-8cab-8d8915298c25",
-      "version": 6,
+      "version": 18,
       "chief_complaint": {
         "id": "0b578298-f966-492f-bc65-4b7bad22307d",
         "category": "symptom",
@@ -5144,13 +5294,13 @@
       ],
       "overall_verification_status": "PENDING",
       "created_at": "2026-09-17T21:04:43.659405+00:00",
-      "updated_at": "2026-09-17T21:04:43.870109+00:00"
+      "updated_at": "2026-09-18T00:13:48.869827+00:00"
     },
     "e3132c5b-a5b9-4aab-bccd-0c55f69acc5e": {
       "id": "e3132c5b-a5b9-4aab-bccd-0c55f69acc5e",
       "encounter_id": "1a9269d1-8e9b-4ec6-aa39-e99a415e5957",
       "patient_id": "6a2f4832-310d-46a2-8e70-03ebf4e8489e",
-      "version": 9,
+      "version": 21,
       "chief_complaint": null,
       "history_of_present_illness": [],
       "pain_assessment": null,
@@ -5197,13 +5347,13 @@
       ],
       "overall_verification_status": "VERIFIED",
       "created_at": "2026-09-17T21:04:44.097113+00:00",
-      "updated_at": "2026-09-17T21:04:44.608497+00:00"
+      "updated_at": "2026-09-18T00:13:48.963584+00:00"
     },
     "944d5a01-f83b-4e76-95bf-69b0c4099242": {
       "id": "944d5a01-f83b-4e76-95bf-69b0c4099242",
       "encounter_id": "3437a98f-7eae-428b-8607-d874e3d09798",
       "patient_id": "b747b6b4-e297-4c0c-baee-bf2d87fdc136",
-      "version": 7,
+      "version": 19,
       "chief_complaint": {
         "id": null,
         "category": "symptom",
@@ -5280,7 +5430,7 @@
             "Chief Complaint: Fever",
             "Symptom: Bleeding / Petechiae"
           ],
-          "detected_at": "2026-09-17T21:05:03.442999+00:00"
+          "detected_at": "2026-09-18T00:13:49.075770+00:00"
         }
       ],
       "provenance_log": [
@@ -5303,13 +5453,13 @@
       ],
       "overall_verification_status": "PENDING",
       "created_at": "2026-09-17T21:05:03.245485+00:00",
-      "updated_at": "2026-09-17T21:05:03.443161+00:00"
+      "updated_at": "2026-09-18T00:13:49.075885+00:00"
     },
     "f546310c-81c7-42a4-9978-6b2f77179620": {
       "id": "f546310c-81c7-42a4-9978-6b2f77179620",
       "encounter_id": "23b232cd-9a04-4962-b8f3-58b73c8c61cd",
       "patient_id": "65138a1c-f34e-4175-be0f-37dc10f2a44d",
-      "version": 4,
+      "version": 16,
       "chief_complaint": {
         "id": null,
         "category": "symptom",
@@ -5519,19 +5669,19 @@
             "Headache",
             "Mosquito exposure"
           ],
-          "detected_at": "2026-09-17T21:05:03.906983+00:00"
+          "detected_at": "2026-09-18T00:13:49.127349+00:00"
         }
       ],
       "provenance_log": [],
       "overall_verification_status": "PENDING",
       "created_at": "2026-09-17T21:05:03.641200+00:00",
-      "updated_at": "2026-09-17T21:05:03.907158+00:00"
+      "updated_at": "2026-09-18T00:13:49.127494+00:00"
     },
     "d63241ad-a552-4b08-9e57-93f044942ddb": {
       "id": "d63241ad-a552-4b08-9e57-93f044942ddb",
       "encounter_id": "e4038850-8c66-4202-b3df-d603222cc756",
       "patient_id": "21e439ac-ef4d-48c8-88d6-d8a3e38a52c6",
-      "version": 2,
+      "version": 14,
       "chief_complaint": {
         "id": null,
         "category": "symptom",
@@ -5636,13 +5786,13 @@
       "provenance_log": [],
       "overall_verification_status": "PENDING",
       "created_at": "2026-09-17T21:05:03.747007+00:00",
-      "updated_at": "2026-09-17T21:05:03.944090+00:00"
+      "updated_at": "2026-09-18T00:13:49.181944+00:00"
     },
     "41740eb9-a548-48fe-b432-de5a64b56ba8": {
       "id": "41740eb9-a548-48fe-b432-de5a64b56ba8",
       "encounter_id": "43e7b7be-1da7-46ac-8abf-f42e5ab8c58c",
       "patient_id": "ca2e54db-73ee-4fa4-840e-8189ed8ac897",
-      "version": 14,
+      "version": 26,
       "chief_complaint": null,
       "history_of_present_illness": [],
       "pain_assessment": null,
@@ -5810,13 +5960,13 @@
       ],
       "overall_verification_status": "PENDING",
       "created_at": "2026-09-17T21:05:04.207330+00:00",
-      "updated_at": "2026-09-17T21:05:04.595769+00:00"
+      "updated_at": "2026-09-18T00:13:49.231333+00:00"
     },
     "9eac05fb-1d54-473d-9c23-4ef12bc0a14f": {
       "id": "9eac05fb-1d54-473d-9c23-4ef12bc0a14f",
       "encounter_id": "fe48438b-4d17-4686-8c09-7b1cf0e29df3",
       "patient_id": "9751525f-4efe-463b-b716-0dedf5586884",
-      "version": 19,
+      "version": 31,
       "chief_complaint": null,
       "history_of_present_illness": [],
       "pain_assessment": null,
@@ -6056,13 +6206,13 @@
       ],
       "overall_verification_status": "PENDING",
       "created_at": "2026-09-17T21:05:04.822057+00:00",
-      "updated_at": "2026-09-17T21:05:05.523189+00:00"
+      "updated_at": "2026-09-18T00:13:49.318845+00:00"
     },
     "240773b0-e7f2-448c-960e-189ef3e1a45e": {
       "id": "240773b0-e7f2-448c-960e-189ef3e1a45e",
       "encounter_id": "73e8faa8-7d3e-4702-8013-ac7cf1ceea11",
       "patient_id": "daf3904c-b6fb-4df1-8c35-edba37363a09",
-      "version": 19,
+      "version": 31,
       "chief_complaint": null,
       "history_of_present_illness": [],
       "pain_assessment": null,
@@ -6302,13 +6452,13 @@
       ],
       "overall_verification_status": "PENDING",
       "created_at": "2026-09-17T21:05:05.758462+00:00",
-      "updated_at": "2026-09-17T21:05:06.374790+00:00"
+      "updated_at": "2026-09-18T00:13:49.364571+00:00"
     },
     "43bb56f1-ed0c-49a1-b6f9-19543078c365": {
       "id": "43bb56f1-ed0c-49a1-b6f9-19543078c365",
       "encounter_id": "9f36ed18-f79f-436e-9407-e72f010a06b4",
       "patient_id": "a73916f3-7115-4ea2-8136-02f1f48eb5c5",
-      "version": 7,
+      "version": 19,
       "chief_complaint": null,
       "history_of_present_illness": [],
       "pain_assessment": null,
@@ -6380,13 +6530,13 @@
       ],
       "overall_verification_status": "PENDING",
       "created_at": "2026-09-17T21:05:06.520503+00:00",
-      "updated_at": "2026-09-17T21:05:06.739686+00:00"
+      "updated_at": "2026-09-18T00:13:49.411627+00:00"
     },
     "e3439d7e-decf-439f-a29a-037e4ab71479": {
       "id": "e3439d7e-decf-439f-a29a-037e4ab71479",
       "encounter_id": "98371f90-9fd8-40f7-add2-b6694b885952",
       "patient_id": "b740e456-5172-459f-a375-11d703914a32",
-      "version": 3,
+      "version": 15,
       "chief_complaint": null,
       "history_of_present_illness": [],
       "pain_assessment": null,
@@ -6407,13 +6557,13 @@
       "provenance_log": [],
       "overall_verification_status": "PENDING",
       "created_at": "2026-09-17T21:05:07.048028+00:00",
-      "updated_at": "2026-09-17T21:05:07.119245+00:00"
+      "updated_at": "2026-09-18T00:13:49.459796+00:00"
     },
     "45df47a1-f322-466c-9d4d-028b53938558": {
       "id": "45df47a1-f322-466c-9d4d-028b53938558",
       "encounter_id": "a19dd30c-6856-4d77-9958-cd580e61a96e",
       "patient_id": "f42f3575-eef1-440f-b2b0-9567330b201f",
-      "version": 6,
+      "version": 18,
       "chief_complaint": {
         "id": "c7604153-866a-493f-93ef-110b0060aa67",
         "category": "symptom",
@@ -6483,13 +6633,13 @@
       ],
       "overall_verification_status": "PENDING",
       "created_at": "2026-09-17T21:05:07.754621+00:00",
-      "updated_at": "2026-09-17T21:05:07.948552+00:00"
+      "updated_at": "2026-09-18T00:13:49.623881+00:00"
     },
     "c12791f2-674e-4fd1-993d-d94920ebb262": {
       "id": "c12791f2-674e-4fd1-993d-d94920ebb262",
       "encounter_id": "24d7c5a8-0d68-400a-bd41-9170848ca97f",
       "patient_id": "4654f3c6-a80d-461f-ae2f-f90aeed86f0a",
-      "version": 9,
+      "version": 21,
       "chief_complaint": null,
       "history_of_present_illness": [],
       "pain_assessment": null,
@@ -6536,13 +6686,13 @@
       ],
       "overall_verification_status": "VERIFIED",
       "created_at": "2026-09-17T21:05:08.249100+00:00",
-      "updated_at": "2026-09-17T21:05:08.929682+00:00"
+      "updated_at": "2026-09-18T00:13:49.779675+00:00"
     },
     "ef3e6651-7083-4866-8730-4db4795befea": {
       "id": "ef3e6651-7083-4866-8730-4db4795befea",
       "encounter_id": "8c60bf9c-c22a-4de4-8713-8f2ec97838a0",
       "patient_id": "b3234ec7-32bb-4aba-90ed-457ae23180cf",
-      "version": 7,
+      "version": 19,
       "chief_complaint": {
         "id": null,
         "category": "symptom",
@@ -6619,7 +6769,7 @@
             "Chief Complaint: Fever",
             "Symptom: Bleeding / Petechiae"
           ],
-          "detected_at": "2026-09-17T21:07:02.453669+00:00"
+          "detected_at": "2026-09-18T00:13:49.824808+00:00"
         }
       ],
       "provenance_log": [
@@ -6642,13 +6792,13 @@
       ],
       "overall_verification_status": "PENDING",
       "created_at": "2026-09-17T21:07:02.244206+00:00",
-      "updated_at": "2026-09-17T21:07:02.453761+00:00"
+      "updated_at": "2026-09-18T00:13:49.824947+00:00"
     },
     "db6f3637-30cc-4a3e-9c26-eb8c23cb7184": {
       "id": "db6f3637-30cc-4a3e-9c26-eb8c23cb7184",
       "encounter_id": "4933dac5-6e25-4928-b2af-0aea1f1af1af",
       "patient_id": "4461af9c-2b05-465a-83d0-7f74e7a52c6f",
-      "version": 4,
+      "version": 16,
       "chief_complaint": {
         "id": null,
         "category": "symptom",
@@ -6858,19 +7008,19 @@
             "Headache",
             "Mosquito exposure"
           ],
-          "detected_at": "2026-09-17T21:07:02.910209+00:00"
+          "detected_at": "2026-09-18T00:13:49.884663+00:00"
         }
       ],
       "provenance_log": [],
       "overall_verification_status": "PENDING",
       "created_at": "2026-09-17T21:07:02.658967+00:00",
-      "updated_at": "2026-09-17T21:07:02.910348+00:00"
+      "updated_at": "2026-09-18T00:13:49.884833+00:00"
     },
     "5da09a7e-4eff-4650-8ad4-05f10fda25ac": {
       "id": "5da09a7e-4eff-4650-8ad4-05f10fda25ac",
       "encounter_id": "2ff0ac00-a0b4-4893-b5af-41cd8e590ca5",
       "patient_id": "cbe5fbe2-5b58-4bfb-88aa-e435700ae345",
-      "version": 2,
+      "version": 14,
       "chief_complaint": {
         "id": null,
         "category": "symptom",
@@ -6975,7 +7125,7 @@
       "provenance_log": [],
       "overall_verification_status": "PENDING",
       "created_at": "2026-09-17T21:07:02.763217+00:00",
-      "updated_at": "2026-09-17T21:07:02.957521+00:00"
+      "updated_at": "2026-09-18T00:13:49.934969+00:00"
     },
     "d1275040-d770-4762-bd9e-81c9e5db0b26": {
       "id": "d1275040-d770-4762-bd9e-81c9e5db0b26",
@@ -10714,6 +10864,1364 @@
       "overall_verification_status": "PENDING",
       "created_at": "2026-09-17T23:47:10.844020+00:00",
       "updated_at": "2026-09-17T23:47:11.213198+00:00"
+    },
+    "30287f0a-a8d9-45a5-817c-fa5cf4c3a279": {
+      "id": "30287f0a-a8d9-45a5-817c-fa5cf4c3a279",
+      "encounter_id": "4f5ceeee-051a-4887-9112-87bbc4d6e09c",
+      "patient_id": "e2eacd1a-20c0-410c-b16e-2a0444f72569",
+      "version": 23,
+      "chief_complaint": {
+        "id": null,
+        "category": "symptom",
+        "name": "Chief Complaint",
+        "value": "Breathlessness",
+        "unit": null,
+        "source": "patient_touch",
+        "confidence": 0.95,
+        "verification_status": "PENDING",
+        "amended_value": null,
+        "verified_by": null,
+        "verified_at": null,
+        "notes": null,
+        "created_at": "2026-09-17T23:50:40.533337+00:00",
+        "updated_at": "2026-09-17T23:50:40.533350+00:00"
+      },
+      "history_of_present_illness": [],
+      "pain_assessment": null,
+      "associated_symptoms": [
+        {
+          "id": "acc02b94-936c-4abf-ba4f-1bcad4b1e725",
+          "category": "symptom",
+          "name": "Vertigo (Dizziness / Giddiness)",
+          "value": "Active Complaint from Uploaded Prescription",
+          "unit": "symptom",
+          "source": "ocr",
+          "confidence": 0.651,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": "Extracted from uploaded document 'images.jpg' via Clinical NER (Prescription)",
+          "created_at": "2026-09-17T23:50:41.031759+00:00",
+          "updated_at": "2026-09-17T23:50:41.031777+00:00"
+        },
+        {
+          "id": "c5a0ffa1-1240-4c3d-8c62-6e45369d17d2",
+          "category": "symptom",
+          "name": "Blood Pressure",
+          "value": "131/83 mmHg",
+          "unit": "",
+          "source": "ocr",
+          "confidence": 0.651,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": "Extracted from uploaded document 'images.jpg' via Clinical Vital Extractor",
+          "created_at": "2026-09-17T23:50:41.152188+00:00",
+          "updated_at": "2026-09-17T23:50:41.152213+00:00"
+        }
+      ],
+      "past_medical_history": [],
+      "past_surgical_history": [],
+      "medications": [
+        {
+          "id": null,
+          "category": "medication",
+          "name": "Antibiotics",
+          "value": "Active",
+          "unit": null,
+          "source": "patient_touch",
+          "confidence": 1.0,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": null,
+          "created_at": "2026-09-17T23:50:40.533446+00:00",
+          "updated_at": "2026-09-17T23:50:40.533454+00:00"
+        },
+        {
+          "id": "a2716158-434c-428c-9b94-6c171895a35d",
+          "category": "medication",
+          "name": "Vertin 16",
+          "value": "16mg TDS - 1 tab thrice daily (TDS)",
+          "unit": "Tab.",
+          "source": "ocr",
+          "confidence": 0.651,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": "Extracted from uploaded document 'images.jpg' via RapidOCR + TrOCR Transformer",
+          "created_at": "2026-09-17T23:50:40.481290+00:00",
+          "updated_at": "2026-09-17T23:50:40.481352+00:00"
+        },
+        {
+          "id": "1c03bf0a-4074-4e51-b271-0dcddcdda059",
+          "category": "medication",
+          "name": "Sompraz D 40",
+          "value": "40mg OD AC - 1 capsule once daily before breakfast (OD AC)",
+          "unit": "Cap.",
+          "source": "ocr",
+          "confidence": 0.651,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": "Extracted from uploaded document 'images.jpg' via RapidOCR + TrOCR Transformer",
+          "created_at": "2026-09-17T23:50:40.645649+00:00",
+          "updated_at": "2026-09-17T23:50:40.645685+00:00"
+        },
+        {
+          "id": "d4d8d40f-5de8-4ca2-aa2b-08cbdf7f382c",
+          "category": "medication",
+          "name": "Ondem 4",
+          "value": "4mg SOS - As needed / during acute symptoms",
+          "unit": "Tab.",
+          "source": "ocr",
+          "confidence": 0.651,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": "Extracted from uploaded document 'images.jpg' via RapidOCR + TrOCR Transformer",
+          "created_at": "2026-09-17T23:50:40.736215+00:00",
+          "updated_at": "2026-09-17T23:50:40.736235+00:00"
+        },
+        {
+          "id": "5f25d55d-c298-4ef1-b243-38ddffdd35d4",
+          "category": "medication",
+          "name": "Nexito 5",
+          "value": "5mg OD - 1 tab once daily at bedtime / 9 PM",
+          "unit": "Tab.",
+          "source": "ocr",
+          "confidence": 0.651,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": "Extracted from uploaded document 'images.jpg' via RapidOCR + TrOCR Transformer",
+          "created_at": "2026-09-17T23:50:40.833579+00:00",
+          "updated_at": "2026-09-17T23:50:40.833612+00:00"
+        },
+        {
+          "id": "bada439f-3baa-4c14-a9ae-b8cbaa5d38ef",
+          "category": "medication",
+          "name": "Jupiros EZ",
+          "value": "10mg OD - 1 tab once daily at bedtime",
+          "unit": "Tab.",
+          "source": "ocr",
+          "confidence": 0.651,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": "Extracted from uploaded document 'images.jpg' via RapidOCR + TrOCR Transformer",
+          "created_at": "2026-09-17T23:50:40.928008+00:00",
+          "updated_at": "2026-09-17T23:50:40.928049+00:00"
+        }
+      ],
+      "allergies": [
+        {
+          "id": null,
+          "category": "allergy",
+          "name": "Other",
+          "value": "Allergic",
+          "unit": null,
+          "source": "patient_touch",
+          "confidence": 1.0,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": null,
+          "created_at": "2026-09-17T23:50:40.533476+00:00",
+          "updated_at": "2026-09-17T23:50:40.533483+00:00"
+        }
+      ],
+      "family_history": [],
+      "personal_history": [],
+      "review_of_systems": [],
+      "ayush_history": [],
+      "vital_signs": [],
+      "investigations": [],
+      "document_ids": [],
+      "extracted_entities": [],
+      "red_flags": [],
+      "provenance_log": [
+        {
+          "fact_id": "a2716158-434c-428c-9b94-6c171895a35d",
+          "fact_name": "Vertin 16",
+          "source": "ocr",
+          "confidence": 0.651,
+          "verification_status": "PENDING",
+          "timestamp": "2026-09-17T23:50:40.590808+00:00"
+        },
+        {
+          "fact_id": "1c03bf0a-4074-4e51-b271-0dcddcdda059",
+          "fact_name": "Sompraz D 40",
+          "source": "ocr",
+          "confidence": 0.651,
+          "verification_status": "PENDING",
+          "timestamp": "2026-09-17T23:50:40.690959+00:00"
+        },
+        {
+          "fact_id": "d4d8d40f-5de8-4ca2-aa2b-08cbdf7f382c",
+          "fact_name": "Ondem 4",
+          "source": "ocr",
+          "confidence": 0.651,
+          "verification_status": "PENDING",
+          "timestamp": "2026-09-17T23:50:40.788956+00:00"
+        },
+        {
+          "fact_id": "5f25d55d-c298-4ef1-b243-38ddffdd35d4",
+          "fact_name": "Nexito 5",
+          "source": "ocr",
+          "confidence": 0.651,
+          "verification_status": "PENDING",
+          "timestamp": "2026-09-17T23:50:40.877601+00:00"
+        },
+        {
+          "fact_id": "bada439f-3baa-4c14-a9ae-b8cbaa5d38ef",
+          "fact_name": "Jupiros EZ",
+          "source": "ocr",
+          "confidence": 0.651,
+          "verification_status": "PENDING",
+          "timestamp": "2026-09-17T23:50:40.978157+00:00"
+        },
+        {
+          "fact_id": "acc02b94-936c-4abf-ba4f-1bcad4b1e725",
+          "fact_name": "Vertigo (Dizziness / Giddiness)",
+          "source": "ocr",
+          "confidence": 0.651,
+          "verification_status": "PENDING",
+          "timestamp": "2026-09-17T23:50:41.086074+00:00"
+        },
+        {
+          "fact_id": "c5a0ffa1-1240-4c3d-8c62-6e45369d17d2",
+          "fact_name": "Blood Pressure",
+          "source": "ocr",
+          "confidence": 0.651,
+          "verification_status": "PENDING",
+          "timestamp": "2026-09-17T23:50:41.207728+00:00"
+        }
+      ],
+      "overall_verification_status": "PATIENT_CONFIRMED",
+      "created_at": "2026-09-17T23:50:40.481699+00:00",
+      "updated_at": "2026-09-17T23:51:38.600590+00:00"
+    },
+    "a2a521e0-e8fd-4896-8408-ff1ac2bdd1fc": {
+      "id": "a2a521e0-e8fd-4896-8408-ff1ac2bdd1fc",
+      "encounter_id": "enc-demo-fever-001",
+      "patient_id": "pat-rahul-sharma-001",
+      "version": 17,
+      "chief_complaint": null,
+      "history_of_present_illness": [],
+      "pain_assessment": null,
+      "associated_symptoms": [],
+      "past_medical_history": [],
+      "past_surgical_history": [],
+      "medications": [],
+      "allergies": [],
+      "family_history": [],
+      "personal_history": [],
+      "review_of_systems": [],
+      "ayush_history": [],
+      "vital_signs": [],
+      "investigations": [],
+      "document_ids": [],
+      "extracted_entities": [],
+      "red_flags": [],
+      "provenance_log": [],
+      "overall_verification_status": "PENDING",
+      "created_at": "2026-09-17T23:51:45.125789+00:00",
+      "updated_at": "2026-09-18T00:15:44.872902+00:00"
+    },
+    "3ffc91c8-5452-4db3-8b64-5087d370d3bb": {
+      "id": "3ffc91c8-5452-4db3-8b64-5087d370d3bb",
+      "encounter_id": "enc-demo-chest-002",
+      "patient_id": "pat-sunita-patil-002",
+      "version": 13,
+      "chief_complaint": null,
+      "history_of_present_illness": [],
+      "pain_assessment": null,
+      "associated_symptoms": [],
+      "past_medical_history": [],
+      "past_surgical_history": [],
+      "medications": [],
+      "allergies": [],
+      "family_history": [],
+      "personal_history": [],
+      "review_of_systems": [],
+      "ayush_history": [],
+      "vital_signs": [],
+      "investigations": [],
+      "document_ids": [],
+      "extracted_entities": [],
+      "red_flags": [],
+      "provenance_log": [],
+      "overall_verification_status": "PENDING",
+      "created_at": "2026-09-17T23:51:45.234385+00:00",
+      "updated_at": "2026-09-18T00:13:47.155380+00:00"
+    },
+    "98b43249-bd60-4a36-9078-c15c394d0898": {
+      "id": "98b43249-bd60-4a36-9078-c15c394d0898",
+      "encounter_id": "85110542-54a4-43a4-b31a-1c0e49da4438",
+      "patient_id": "8e018d26-4659-4070-a45d-fd11de1d0b3e",
+      "version": 13,
+      "chief_complaint": null,
+      "history_of_present_illness": [],
+      "pain_assessment": null,
+      "associated_symptoms": [],
+      "past_medical_history": [],
+      "past_surgical_history": [],
+      "medications": [],
+      "allergies": [],
+      "family_history": [],
+      "personal_history": [],
+      "review_of_systems": [],
+      "ayush_history": [],
+      "vital_signs": [],
+      "investigations": [],
+      "document_ids": [],
+      "extracted_entities": [],
+      "red_flags": [],
+      "provenance_log": [],
+      "overall_verification_status": "PENDING",
+      "created_at": "2026-09-17T23:51:45.389857+00:00",
+      "updated_at": "2026-09-18T00:13:47.205606+00:00"
+    },
+    "a5e2e400-0e1f-4e30-ac9f-572bfbd38e7d": {
+      "id": "a5e2e400-0e1f-4e30-ac9f-572bfbd38e7d",
+      "encounter_id": "74ddaff6-cc59-41ec-ab52-9afcc78f4c3f",
+      "patient_id": "2ada3cdf-ffb3-4ca5-9e9e-5b4cc27a9d02",
+      "version": 13,
+      "chief_complaint": null,
+      "history_of_present_illness": [],
+      "pain_assessment": null,
+      "associated_symptoms": [],
+      "past_medical_history": [],
+      "past_surgical_history": [],
+      "medications": [],
+      "allergies": [],
+      "family_history": [],
+      "personal_history": [],
+      "review_of_systems": [],
+      "ayush_history": [],
+      "vital_signs": [],
+      "investigations": [],
+      "document_ids": [],
+      "extracted_entities": [],
+      "red_flags": [],
+      "provenance_log": [],
+      "overall_verification_status": "PENDING",
+      "created_at": "2026-09-17T23:51:46.010116+00:00",
+      "updated_at": "2026-09-18T00:13:47.643295+00:00"
+    },
+    "e74ed98c-1fd4-4a3c-bebc-4a73a43e7c2c": {
+      "id": "e74ed98c-1fd4-4a3c-bebc-4a73a43e7c2c",
+      "encounter_id": "bf005554-bed4-48d3-88cf-21ee42f95083",
+      "patient_id": "b92df446-c937-4380-b6db-c5c608f75832",
+      "version": 13,
+      "chief_complaint": null,
+      "history_of_present_illness": [],
+      "pain_assessment": null,
+      "associated_symptoms": [],
+      "past_medical_history": [],
+      "past_surgical_history": [],
+      "medications": [],
+      "allergies": [],
+      "family_history": [],
+      "personal_history": [],
+      "review_of_systems": [],
+      "ayush_history": [],
+      "vital_signs": [],
+      "investigations": [],
+      "document_ids": [],
+      "extracted_entities": [],
+      "red_flags": [],
+      "provenance_log": [],
+      "overall_verification_status": "PENDING",
+      "created_at": "2026-09-17T23:51:46.117633+00:00",
+      "updated_at": "2026-09-18T00:13:47.690397+00:00"
+    },
+    "68944f9d-c401-48f2-bac0-887c97ca4f64": {
+      "id": "68944f9d-c401-48f2-bac0-887c97ca4f64",
+      "encounter_id": "569bc915-a42b-406f-857e-1acf863bcecb",
+      "patient_id": "03b11b70-a94f-4f83-82ea-e03e3f3cd1e3",
+      "version": 13,
+      "chief_complaint": null,
+      "history_of_present_illness": [],
+      "pain_assessment": null,
+      "associated_symptoms": [],
+      "past_medical_history": [],
+      "past_surgical_history": [],
+      "medications": [],
+      "allergies": [],
+      "family_history": [],
+      "personal_history": [],
+      "review_of_systems": [],
+      "ayush_history": [],
+      "vital_signs": [],
+      "investigations": [],
+      "document_ids": [],
+      "extracted_entities": [],
+      "red_flags": [],
+      "provenance_log": [],
+      "overall_verification_status": "PENDING",
+      "created_at": "2026-09-17T23:51:46.305942+00:00",
+      "updated_at": "2026-09-18T00:13:47.740183+00:00"
+    },
+    "946cf29d-9087-4f77-a95a-f82fc952b56c": {
+      "id": "946cf29d-9087-4f77-a95a-f82fc952b56c",
+      "encounter_id": "f7ef63fa-22ae-4d25-bc81-ed8f43bc6a2e",
+      "patient_id": "507dab79-fdd4-4771-a4b9-9c1ccf1b70d0",
+      "version": 13,
+      "chief_complaint": null,
+      "history_of_present_illness": [],
+      "pain_assessment": null,
+      "associated_symptoms": [],
+      "past_medical_history": [],
+      "past_surgical_history": [],
+      "medications": [],
+      "allergies": [],
+      "family_history": [],
+      "personal_history": [],
+      "review_of_systems": [],
+      "ayush_history": [],
+      "vital_signs": [],
+      "investigations": [],
+      "document_ids": [],
+      "extracted_entities": [],
+      "red_flags": [],
+      "provenance_log": [],
+      "overall_verification_status": "PENDING",
+      "created_at": "2026-09-17T23:51:46.737671+00:00",
+      "updated_at": "2026-09-18T00:13:48.184112+00:00"
+    },
+    "2fb427a6-66fa-4421-a6d6-fee5ff2402a6": {
+      "id": "2fb427a6-66fa-4421-a6d6-fee5ff2402a6",
+      "encounter_id": "464c5326-6454-4149-9701-7f2ccb49521c",
+      "patient_id": "6b7b0c61-7d7b-47bd-9aa9-ab6aece75858",
+      "version": 13,
+      "chief_complaint": null,
+      "history_of_present_illness": [],
+      "pain_assessment": null,
+      "associated_symptoms": [],
+      "past_medical_history": [],
+      "past_surgical_history": [],
+      "medications": [],
+      "allergies": [],
+      "family_history": [],
+      "personal_history": [],
+      "review_of_systems": [],
+      "ayush_history": [],
+      "vital_signs": [],
+      "investigations": [],
+      "document_ids": [],
+      "extracted_entities": [],
+      "red_flags": [],
+      "provenance_log": [],
+      "overall_verification_status": "PENDING",
+      "created_at": "2026-09-17T23:51:47.390197+00:00",
+      "updated_at": "2026-09-18T00:13:48.752787+00:00"
+    },
+    "a760c2af-cdab-4d6e-b5b2-9351430a2dad": {
+      "id": "a760c2af-cdab-4d6e-b5b2-9351430a2dad",
+      "encounter_id": "ea48b833-c185-40be-bf60-5a14550ab8d1",
+      "patient_id": "299665db-8bcf-4543-84ae-491297f4dd11",
+      "version": 13,
+      "chief_complaint": null,
+      "history_of_present_illness": [],
+      "pain_assessment": null,
+      "associated_symptoms": [],
+      "past_medical_history": [],
+      "past_surgical_history": [],
+      "medications": [],
+      "allergies": [],
+      "family_history": [],
+      "personal_history": [],
+      "review_of_systems": [],
+      "ayush_history": [],
+      "vital_signs": [],
+      "investigations": [],
+      "document_ids": [],
+      "extracted_entities": [],
+      "red_flags": [],
+      "provenance_log": [],
+      "overall_verification_status": "PENDING",
+      "created_at": "2026-09-17T23:51:47.524150+00:00",
+      "updated_at": "2026-09-18T00:13:48.805655+00:00"
+    },
+    "cf49bca7-748e-476a-a0df-8e2872241c31": {
+      "id": "cf49bca7-748e-476a-a0df-8e2872241c31",
+      "encounter_id": "d0f32035-8c1e-4607-a280-28ffa0e2dadf",
+      "patient_id": "21a0661e-0975-4b11-8647-4aea0d141fb1",
+      "version": 13,
+      "chief_complaint": null,
+      "history_of_present_illness": [],
+      "pain_assessment": null,
+      "associated_symptoms": [],
+      "past_medical_history": [],
+      "past_surgical_history": [],
+      "medications": [],
+      "allergies": [],
+      "family_history": [],
+      "personal_history": [],
+      "review_of_systems": [],
+      "ayush_history": [],
+      "vital_signs": [],
+      "investigations": [],
+      "document_ids": [],
+      "extracted_entities": [],
+      "red_flags": [],
+      "provenance_log": [],
+      "overall_verification_status": "PENDING",
+      "created_at": "2026-09-17T23:51:47.710884+00:00",
+      "updated_at": "2026-09-18T00:13:48.921542+00:00"
+    },
+    "77110f01-115d-4019-acdb-427a1e0c73fd": {
+      "id": "77110f01-115d-4019-acdb-427a1e0c73fd",
+      "encounter_id": "eabb66fa-1c3e-4145-8729-f5756ba666f9",
+      "patient_id": "1d60e6f0-74c3-4b78-bc84-fb659f65ccd1",
+      "version": 13,
+      "chief_complaint": null,
+      "history_of_present_illness": [],
+      "pain_assessment": null,
+      "associated_symptoms": [],
+      "past_medical_history": [],
+      "past_surgical_history": [],
+      "medications": [],
+      "allergies": [],
+      "family_history": [],
+      "personal_history": [],
+      "review_of_systems": [],
+      "ayush_history": [],
+      "vital_signs": [],
+      "investigations": [],
+      "document_ids": [],
+      "extracted_entities": [],
+      "red_flags": [],
+      "provenance_log": [],
+      "overall_verification_status": "PENDING",
+      "created_at": "2026-09-17T23:51:47.897707+00:00",
+      "updated_at": "2026-09-18T00:13:49.020431+00:00"
+    },
+    "42a6394c-0fd9-4e86-b2ae-d68473007807": {
+      "id": "42a6394c-0fd9-4e86-b2ae-d68473007807",
+      "encounter_id": "4f490e7c-b841-42f3-bcb2-870d65efba5b",
+      "patient_id": "189ab36d-1e98-4902-94f7-90d2172fead5",
+      "version": 13,
+      "chief_complaint": null,
+      "history_of_present_illness": [],
+      "pain_assessment": null,
+      "associated_symptoms": [],
+      "past_medical_history": [],
+      "past_surgical_history": [],
+      "medications": [],
+      "allergies": [],
+      "family_history": [],
+      "personal_history": [],
+      "review_of_systems": [],
+      "ayush_history": [],
+      "vital_signs": [],
+      "investigations": [],
+      "document_ids": [],
+      "extracted_entities": [],
+      "red_flags": [],
+      "provenance_log": [],
+      "overall_verification_status": "PENDING",
+      "created_at": "2026-09-17T23:51:48.821166+00:00",
+      "updated_at": "2026-09-18T00:13:49.511057+00:00"
+    },
+    "c47bb79e-d5ae-4c04-a671-a05d346a0871": {
+      "id": "c47bb79e-d5ae-4c04-a671-a05d346a0871",
+      "encounter_id": "4a5ed913-ccf8-4dfd-adaa-3d7a88f641bd",
+      "patient_id": "5a5e17d7-f57f-4b20-83b5-20227f7b23aa",
+      "version": 13,
+      "chief_complaint": null,
+      "history_of_present_illness": [],
+      "pain_assessment": null,
+      "associated_symptoms": [],
+      "past_medical_history": [],
+      "past_surgical_history": [],
+      "medications": [],
+      "allergies": [],
+      "family_history": [],
+      "personal_history": [],
+      "review_of_systems": [],
+      "ayush_history": [],
+      "vital_signs": [],
+      "investigations": [],
+      "document_ids": [],
+      "extracted_entities": [],
+      "red_flags": [],
+      "provenance_log": [],
+      "overall_verification_status": "PENDING",
+      "created_at": "2026-09-17T23:51:49.050118+00:00",
+      "updated_at": "2026-09-18T00:13:49.562318+00:00"
+    },
+    "f44f673f-c3e4-425b-bfac-d0caa24f6ebc": {
+      "id": "f44f673f-c3e4-425b-bfac-d0caa24f6ebc",
+      "encounter_id": "a9c7356d-ff90-4cbd-b7c4-e4154564ebdf",
+      "patient_id": "cf89bcca-e183-49e0-a522-6e4448b71cd5",
+      "version": 13,
+      "chief_complaint": null,
+      "history_of_present_illness": [],
+      "pain_assessment": null,
+      "associated_symptoms": [],
+      "past_medical_history": [],
+      "past_surgical_history": [],
+      "medications": [],
+      "allergies": [],
+      "family_history": [],
+      "personal_history": [],
+      "review_of_systems": [],
+      "ayush_history": [],
+      "vital_signs": [],
+      "investigations": [],
+      "document_ids": [],
+      "extracted_entities": [],
+      "red_flags": [],
+      "provenance_log": [],
+      "overall_verification_status": "PENDING",
+      "created_at": "2026-09-17T23:51:49.379241+00:00",
+      "updated_at": "2026-09-18T00:13:49.684196+00:00"
+    },
+    "15a6c425-542a-4b4e-add5-3020aacca121": {
+      "id": "15a6c425-542a-4b4e-add5-3020aacca121",
+      "encounter_id": "aaada104-d29a-4af0-827d-a2bd1ec95889",
+      "patient_id": "732eb798-c07a-4774-8ab2-c36b081f5fd9",
+      "version": 13,
+      "chief_complaint": null,
+      "history_of_present_illness": [],
+      "pain_assessment": null,
+      "associated_symptoms": [],
+      "past_medical_history": [],
+      "past_surgical_history": [],
+      "medications": [],
+      "allergies": [],
+      "family_history": [],
+      "personal_history": [],
+      "review_of_systems": [],
+      "ayush_history": [],
+      "vital_signs": [],
+      "investigations": [],
+      "document_ids": [],
+      "extracted_entities": [],
+      "red_flags": [],
+      "provenance_log": [],
+      "overall_verification_status": "PENDING",
+      "created_at": "2026-09-17T23:51:49.565816+00:00",
+      "updated_at": "2026-09-18T00:13:49.739045+00:00"
+    },
+    "2d373da3-00af-4444-8068-b74046cc9d15": {
+      "id": "2d373da3-00af-4444-8068-b74046cc9d15",
+      "encounter_id": "0d4e5bef-8730-414b-841a-281bb2d8d3ac",
+      "patient_id": "5595820f-9840-4b22-8aa1-e471bfa69f10",
+      "version": 6,
+      "chief_complaint": {
+        "id": "250dc023-63e6-45bc-accc-6b6783dcfc7a",
+        "category": "symptom",
+        "name": "Chief Complaint",
+        "value": "Fever",
+        "unit": null,
+        "source": "patient_voice",
+        "confidence": 0.95,
+        "verification_status": "PENDING",
+        "amended_value": null,
+        "verified_by": null,
+        "verified_at": null,
+        "notes": null,
+        "created_at": "2026-09-18T00:22:35.910365+00:00",
+        "updated_at": "2026-09-18T00:22:35.910375+00:00"
+      },
+      "history_of_present_illness": [],
+      "pain_assessment": null,
+      "associated_symptoms": [],
+      "past_medical_history": [],
+      "past_surgical_history": [],
+      "medications": [
+        {
+          "id": "4ffb6db2-0d14-45ad-9b10-138202f64422",
+          "category": "medication",
+          "name": "Paracetamol 650mg",
+          "value": "1 tab TDS PRN",
+          "unit": null,
+          "source": "ocr",
+          "confidence": 0.93,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": null,
+          "created_at": "2026-09-18T00:22:36.011678+00:00",
+          "updated_at": "2026-09-18T00:22:36.011688+00:00"
+        }
+      ],
+      "allergies": [],
+      "family_history": [],
+      "personal_history": [],
+      "review_of_systems": [],
+      "ayush_history": [],
+      "vital_signs": [],
+      "investigations": [],
+      "document_ids": [],
+      "extracted_entities": [],
+      "red_flags": [],
+      "provenance_log": [
+        {
+          "fact_id": "250dc023-63e6-45bc-accc-6b6783dcfc7a",
+          "fact_name": "Chief Complaint",
+          "source": "patient_voice",
+          "confidence": 0.95,
+          "verification_status": "PENDING",
+          "timestamp": "2026-09-18T00:22:35.972271+00:00"
+        },
+        {
+          "fact_id": "4ffb6db2-0d14-45ad-9b10-138202f64422",
+          "fact_name": "Paracetamol 650mg",
+          "source": "ocr",
+          "confidence": 0.93,
+          "verification_status": "PENDING",
+          "timestamp": "2026-09-18T00:22:36.043788+00:00"
+        }
+      ],
+      "overall_verification_status": "PENDING",
+      "created_at": "2026-09-18T00:22:35.910528+00:00",
+      "updated_at": "2026-09-18T00:22:36.137575+00:00"
+    },
+    "74dee22d-256d-4ca1-8f80-e06bf9d74730": {
+      "id": "74dee22d-256d-4ca1-8f80-e06bf9d74730",
+      "encounter_id": "99ae2f16-0a73-414d-be27-f1cb852250e5",
+      "patient_id": "9c40ff01-910f-4fdb-a279-0eea4cb6ba45",
+      "version": 10,
+      "chief_complaint": {
+        "id": "4a405cdf-0320-441e-b6c5-39f217096a1f",
+        "category": "symptom",
+        "name": "Chief Complaint",
+        "value": "Headache",
+        "unit": null,
+        "source": "patient_touch",
+        "confidence": 1.0,
+        "verification_status": "PENDING",
+        "amended_value": null,
+        "verified_by": null,
+        "verified_at": null,
+        "notes": null,
+        "created_at": "2026-09-18T00:22:37.718522+00:00",
+        "updated_at": "2026-09-18T00:22:37.718537+00:00"
+      },
+      "history_of_present_illness": [],
+      "pain_assessment": {
+        "site": {
+          "id": "b3bef4d8-a662-451b-8b8b-ef26e3651275",
+          "category": "symptom",
+          "name": "Pain Site",
+          "value": "Frontal forehead",
+          "unit": null,
+          "source": "patient_touch",
+          "confidence": 1.0,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": null,
+          "created_at": "2026-09-18T00:22:37.833557+00:00",
+          "updated_at": "2026-09-18T00:22:37.833568+00:00"
+        },
+        "onset": null,
+        "character": null,
+        "radiation": null,
+        "associated_symptoms": [],
+        "timing": null,
+        "exacerbating_relieving": null,
+        "severity": null
+      },
+      "associated_symptoms": [
+        {
+          "id": "b3bef4d8-a662-451b-8b8b-ef26e3651275",
+          "category": "symptom",
+          "name": "Pain Site",
+          "value": "Frontal forehead",
+          "unit": null,
+          "source": "patient_touch",
+          "confidence": 1.0,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": null,
+          "created_at": "2026-09-18T00:22:37.833557+00:00",
+          "updated_at": "2026-09-18T00:22:37.833568+00:00"
+        },
+        {
+          "id": "9de7ac67-e791-40e3-8c6d-f4b09a032643",
+          "category": "symptom",
+          "name": "Nausea",
+          "value": true,
+          "unit": null,
+          "source": "patient_touch",
+          "confidence": 1.0,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": null,
+          "created_at": "2026-09-18T00:22:37.901762+00:00",
+          "updated_at": "2026-09-18T00:22:37.901772+00:00"
+        }
+      ],
+      "past_medical_history": [],
+      "past_surgical_history": [],
+      "medications": [],
+      "allergies": [],
+      "family_history": [],
+      "personal_history": [],
+      "review_of_systems": [],
+      "ayush_history": [],
+      "vital_signs": [
+        {
+          "id": "19b1d16b-fed6-4eb8-8b58-5cfc074bc3c2",
+          "category": "vital",
+          "name": "Blood Pressure",
+          "value": "118/76",
+          "unit": "mmHg",
+          "source": "ocr",
+          "confidence": 1.0,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": null,
+          "created_at": "2026-09-18T00:22:37.973985+00:00",
+          "updated_at": "2026-09-18T00:22:37.973994+00:00"
+        }
+      ],
+      "investigations": [],
+      "document_ids": [],
+      "extracted_entities": [],
+      "red_flags": [],
+      "provenance_log": [
+        {
+          "fact_id": "4a405cdf-0320-441e-b6c5-39f217096a1f",
+          "fact_name": "Chief Complaint",
+          "source": "patient_touch",
+          "confidence": 1.0,
+          "verification_status": "PENDING",
+          "timestamp": "2026-09-18T00:22:37.792673+00:00"
+        },
+        {
+          "fact_id": "b3bef4d8-a662-451b-8b8b-ef26e3651275",
+          "fact_name": "Pain Site",
+          "source": "patient_touch",
+          "confidence": 1.0,
+          "verification_status": "PENDING",
+          "timestamp": "2026-09-18T00:22:37.866454+00:00"
+        },
+        {
+          "fact_id": "9de7ac67-e791-40e3-8c6d-f4b09a032643",
+          "fact_name": "Nausea",
+          "source": "patient_touch",
+          "confidence": 1.0,
+          "verification_status": "PENDING",
+          "timestamp": "2026-09-18T00:22:37.936560+00:00"
+        },
+        {
+          "fact_id": "19b1d16b-fed6-4eb8-8b58-5cfc074bc3c2",
+          "fact_name": "Blood Pressure",
+          "source": "ocr",
+          "confidence": 1.0,
+          "verification_status": "PENDING",
+          "timestamp": "2026-09-18T00:22:38.008057+00:00"
+        }
+      ],
+      "overall_verification_status": "PENDING",
+      "created_at": "2026-09-18T00:22:37.718753+00:00",
+      "updated_at": "2026-09-18T00:22:38.045529+00:00"
+    },
+    "484bf455-f268-49ff-9d4e-4b6772817049": {
+      "id": "484bf455-f268-49ff-9d4e-4b6772817049",
+      "encounter_id": "549994c0-7eae-485b-adc8-1527d645c8b5",
+      "patient_id": "63b74536-cabe-4b04-a23b-ea02de9bc596",
+      "version": 12,
+      "chief_complaint": {
+        "id": "8d191942-ba01-4377-ae3b-991067c92fe8",
+        "category": "symptom",
+        "name": "Chief Complaint",
+        "value": "Vertigo",
+        "unit": null,
+        "source": "patient_touch",
+        "confidence": 1.0,
+        "verification_status": "PENDING",
+        "amended_value": null,
+        "verified_by": null,
+        "verified_at": null,
+        "notes": null,
+        "created_at": "2026-09-18T00:22:38.204500+00:00",
+        "updated_at": "2026-09-18T00:22:38.204525+00:00"
+      },
+      "history_of_present_illness": [],
+      "pain_assessment": null,
+      "associated_symptoms": [],
+      "past_medical_history": [],
+      "past_surgical_history": [],
+      "medications": [
+        {
+          "id": "0959a689-6b65-449a-9ffe-a4a77a726dae",
+          "category": "medication",
+          "name": "Vertin 16",
+          "value": "16mg TDS x 10 days",
+          "unit": null,
+          "source": "ocr",
+          "confidence": 1.0,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": null,
+          "created_at": "2026-09-18T00:22:38.311838+00:00",
+          "updated_at": "2026-09-18T00:22:38.311853+00:00"
+        },
+        {
+          "id": "e80d1e2b-ae90-4bc2-9aa8-00e701fd57a9",
+          "category": "medication",
+          "name": "Sompraz D 40",
+          "value": "40mg OD AC",
+          "unit": null,
+          "source": "ocr",
+          "confidence": 1.0,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": null,
+          "created_at": "2026-09-18T00:22:38.381948+00:00",
+          "updated_at": "2026-09-18T00:22:38.381958+00:00"
+        },
+        {
+          "id": "22411ad0-1989-424c-9d52-5c1871bd6514",
+          "category": "medication",
+          "name": "Ondem 4",
+          "value": "4mg SOS",
+          "unit": null,
+          "source": "ocr",
+          "confidence": 1.0,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": null,
+          "created_at": "2026-09-18T00:22:38.463683+00:00",
+          "updated_at": "2026-09-18T00:22:38.463700+00:00"
+        }
+      ],
+      "allergies": [],
+      "family_history": [],
+      "personal_history": [],
+      "review_of_systems": [],
+      "ayush_history": [],
+      "vital_signs": [
+        {
+          "id": "96ed5e3e-f869-49c7-82ea-e23478cb8a9d",
+          "category": "vital",
+          "name": "Blood Pressure",
+          "value": "131/83",
+          "unit": "mmHg",
+          "source": "ocr",
+          "confidence": 1.0,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": null,
+          "created_at": "2026-09-18T00:22:38.536755+00:00",
+          "updated_at": "2026-09-18T00:22:38.536764+00:00"
+        }
+      ],
+      "investigations": [],
+      "document_ids": [],
+      "extracted_entities": [],
+      "red_flags": [],
+      "provenance_log": [
+        {
+          "fact_id": "8d191942-ba01-4377-ae3b-991067c92fe8",
+          "fact_name": "Chief Complaint",
+          "source": "patient_touch",
+          "confidence": 1.0,
+          "verification_status": "PENDING",
+          "timestamp": "2026-09-18T00:22:38.275479+00:00"
+        },
+        {
+          "fact_id": "0959a689-6b65-449a-9ffe-a4a77a726dae",
+          "fact_name": "Vertin 16",
+          "source": "ocr",
+          "confidence": 1.0,
+          "verification_status": "PENDING",
+          "timestamp": "2026-09-18T00:22:38.344947+00:00"
+        },
+        {
+          "fact_id": "e80d1e2b-ae90-4bc2-9aa8-00e701fd57a9",
+          "fact_name": "Sompraz D 40",
+          "source": "ocr",
+          "confidence": 1.0,
+          "verification_status": "PENDING",
+          "timestamp": "2026-09-18T00:22:38.424999+00:00"
+        },
+        {
+          "fact_id": "22411ad0-1989-424c-9d52-5c1871bd6514",
+          "fact_name": "Ondem 4",
+          "source": "ocr",
+          "confidence": 1.0,
+          "verification_status": "PENDING",
+          "timestamp": "2026-09-18T00:22:38.499480+00:00"
+        },
+        {
+          "fact_id": "96ed5e3e-f869-49c7-82ea-e23478cb8a9d",
+          "fact_name": "Blood Pressure",
+          "source": "ocr",
+          "confidence": 1.0,
+          "verification_status": "PENDING",
+          "timestamp": "2026-09-18T00:22:38.569610+00:00"
+        }
+      ],
+      "overall_verification_status": "PENDING",
+      "created_at": "2026-09-18T00:22:38.204662+00:00",
+      "updated_at": "2026-09-18T00:22:38.604044+00:00"
+    },
+    "d07ccc05-d381-447d-abff-c8b87b5e9eef": {
+      "id": "d07ccc05-d381-447d-abff-c8b87b5e9eef",
+      "encounter_id": "b8388047-7cea-4f03-95f8-683d3fdbe456",
+      "patient_id": "3ed7fe5d-d227-4252-9c1b-aeb52f69ed4d",
+      "version": 4,
+      "chief_complaint": {
+        "id": null,
+        "category": "symptom",
+        "name": "Chief Complaint",
+        "value": "Fever",
+        "unit": null,
+        "source": "patient_voice",
+        "confidence": 0.96,
+        "verification_status": "PATIENT_CONFIRMED",
+        "amended_value": null,
+        "verified_by": null,
+        "verified_at": null,
+        "notes": null,
+        "created_at": "2026-09-18T00:22:46.208397+00:00",
+        "updated_at": "2026-09-18T00:22:46.208426+00:00"
+      },
+      "history_of_present_illness": [
+        {
+          "id": null,
+          "category": "symptom",
+          "name": "Fever Duration",
+          "value": "3 days",
+          "unit": null,
+          "source": "patient_voice",
+          "confidence": 0.95,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": null,
+          "created_at": "2026-09-18T00:22:46.208446+00:00",
+          "updated_at": "2026-09-18T00:22:46.208450+00:00"
+        },
+        {
+          "id": null,
+          "category": "symptom",
+          "name": "Fever Grade",
+          "value": "High grade with chills",
+          "unit": null,
+          "source": "patient_voice",
+          "confidence": 0.94,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": null,
+          "created_at": "2026-09-18T00:22:46.208458+00:00",
+          "updated_at": "2026-09-18T00:22:46.208461+00:00"
+        }
+      ],
+      "pain_assessment": null,
+      "associated_symptoms": [
+        {
+          "id": null,
+          "category": "symptom",
+          "name": "Headache",
+          "value": "Severe frontal throbbing",
+          "unit": null,
+          "source": "patient_voice",
+          "confidence": 0.95,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": null,
+          "created_at": "2026-09-18T00:22:46.208469+00:00",
+          "updated_at": "2026-09-18T00:22:46.208471+00:00"
+        },
+        {
+          "id": null,
+          "category": "symptom",
+          "name": "Body ache",
+          "value": "Generalized myalgia",
+          "unit": null,
+          "source": "patient_voice",
+          "confidence": 0.94,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": null,
+          "created_at": "2026-09-18T00:22:46.208478+00:00",
+          "updated_at": "2026-09-18T00:22:46.208480+00:00"
+        },
+        {
+          "id": null,
+          "category": "symptom",
+          "name": "Mosquito exposure",
+          "value": "Significant bites in neighborhood",
+          "unit": null,
+          "source": "patient_voice",
+          "confidence": 0.98,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": null,
+          "created_at": "2026-09-18T00:22:46.208486+00:00",
+          "updated_at": "2026-09-18T00:22:46.208488+00:00"
+        }
+      ],
+      "past_medical_history": [],
+      "past_surgical_history": [],
+      "medications": [
+        {
+          "id": null,
+          "category": "medication",
+          "name": "Paracetamol 650mg",
+          "value": "1 tab TDS",
+          "unit": null,
+          "source": "ocr",
+          "confidence": 0.94,
+          "verification_status": "PATIENT_CONFIRMED",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": "Extracted from uploaded OPD prescription via PaddleOCR",
+          "created_at": "2026-09-18T00:22:46.208496+00:00",
+          "updated_at": "2026-09-18T00:22:46.208498+00:00"
+        }
+      ],
+      "allergies": [
+        {
+          "id": null,
+          "category": "allergy",
+          "name": "No Known Drug Allergies (NKDA)",
+          "value": false,
+          "unit": null,
+          "source": "patient_touch",
+          "confidence": 0.99,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": null,
+          "created_at": "2026-09-18T00:22:46.208505+00:00",
+          "updated_at": "2026-09-18T00:22:46.208507+00:00"
+        }
+      ],
+      "family_history": [],
+      "personal_history": [],
+      "review_of_systems": [],
+      "ayush_history": [
+        {
+          "id": null,
+          "category": "ayush",
+          "name": "Herbal kadha",
+          "value": "Giloy & Tulsi decoction twice daily",
+          "unit": null,
+          "source": "patient_voice",
+          "confidence": 0.9,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": null,
+          "created_at": "2026-09-18T00:22:46.208513+00:00",
+          "updated_at": "2026-09-18T00:22:46.208515+00:00"
+        }
+      ],
+      "vital_signs": [],
+      "investigations": [
+        {
+          "id": null,
+          "category": "investigation",
+          "name": "Platelet Count",
+          "value": "130,000",
+          "unit": "/uL",
+          "source": "ocr",
+          "confidence": 0.96,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": "Mild thrombocytopenia detected in uploaded CBC report",
+          "created_at": "2026-09-18T00:22:46.208523+00:00",
+          "updated_at": "2026-09-18T00:22:46.208525+00:00"
+        },
+        {
+          "id": null,
+          "category": "investigation",
+          "name": "Hemoglobin",
+          "value": "13.8",
+          "unit": "g/dL",
+          "source": "ocr",
+          "confidence": 0.97,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": null,
+          "created_at": "2026-09-18T00:22:46.208537+00:00",
+          "updated_at": "2026-09-18T00:22:46.208540+00:00"
+        }
+      ],
+      "document_ids": [],
+      "extracted_entities": [],
+      "red_flags": [
+        {
+          "rule_id": "RF-VEC-001",
+          "severity": "MEDIUM",
+          "title": "Acute Febrile Illness with Vector Exposure",
+          "description": "Potential clinical consideration detected — requires clinician review.",
+          "clinical_rationale": "Fever with retro-orbital headache and local mosquito vector exposure warrants viral vector serology and platelet monitoring.",
+          "triggered_facts": [
+            "Fever for 3 days",
+            "Headache",
+            "Mosquito exposure"
+          ],
+          "detected_at": "2026-09-18T00:22:46.492911+00:00"
+        }
+      ],
+      "provenance_log": [],
+      "overall_verification_status": "PENDING",
+      "created_at": "2026-09-18T00:22:46.208732+00:00",
+      "updated_at": "2026-09-18T00:22:46.492977+00:00"
+    },
+    "4d597e5a-31aa-43ab-8f3e-13d6680ba950": {
+      "id": "4d597e5a-31aa-43ab-8f3e-13d6680ba950",
+      "encounter_id": "0e9c1b33-685f-47c9-b34d-2e01b1fc4d35",
+      "patient_id": "4b83b205-2cb2-4067-9a54-89356e7fba61",
+      "version": 2,
+      "chief_complaint": {
+        "id": null,
+        "category": "symptom",
+        "name": "Chief Complaint",
+        "value": "Abdominal Pain",
+        "unit": null,
+        "source": "sign_language",
+        "confidence": 0.94,
+        "verification_status": "PATIENT_CONFIRMED",
+        "amended_value": null,
+        "verified_by": null,
+        "verified_at": null,
+        "notes": "Captured via Indian Sign Language gesture (ISLRTC-MED-0341: PAIN_STOMACH)",
+        "created_at": "2026-09-18T00:22:46.340915+00:00",
+        "updated_at": "2026-09-18T00:22:46.340946+00:00"
+      },
+      "history_of_present_illness": [],
+      "pain_assessment": {
+        "site": {
+          "id": null,
+          "category": "symptom",
+          "name": "Pain Site",
+          "value": "Abdomen Upper",
+          "unit": null,
+          "source": "sign_language",
+          "confidence": 0.95,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": null,
+          "created_at": "2026-09-18T00:22:46.340964+00:00",
+          "updated_at": "2026-09-18T00:22:46.340967+00:00"
+        },
+        "onset": {
+          "id": null,
+          "category": "symptom",
+          "name": "Pain Onset",
+          "value": "Sudden acute",
+          "unit": null,
+          "source": "patient_touch",
+          "confidence": 1.0,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": null,
+          "created_at": "2026-09-18T00:22:46.340975+00:00",
+          "updated_at": "2026-09-18T00:22:46.340977+00:00"
+        },
+        "character": {
+          "id": null,
+          "category": "symptom",
+          "name": "Pain Character",
+          "value": "Colicky cramping",
+          "unit": null,
+          "source": "patient_touch",
+          "confidence": 1.0,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": null,
+          "created_at": "2026-09-18T00:22:46.340984+00:00",
+          "updated_at": "2026-09-18T00:22:46.340987+00:00"
+        },
+        "radiation": null,
+        "associated_symptoms": [],
+        "timing": null,
+        "exacerbating_relieving": null,
+        "severity": {
+          "id": null,
+          "category": "symptom",
+          "name": "Pain Severity",
+          "value": 6,
+          "unit": null,
+          "source": "patient_touch",
+          "confidence": 1.0,
+          "verification_status": "PENDING",
+          "amended_value": null,
+          "verified_by": null,
+          "verified_at": null,
+          "notes": null,
+          "created_at": "2026-09-18T00:22:46.340993+00:00",
+          "updated_at": "2026-09-18T00:22:46.340995+00:00"
+        }
+      },
+      "associated_symptoms": [],
+      "past_medical_history": [],
+      "past_surgical_history": [],
+      "medications": [],
+      "allergies": [],
+      "family_history": [],
+      "personal_history": [],
+      "review_of_systems": [],
+      "ayush_history": [],
+      "vital_signs": [],
+      "investigations": [],
+      "document_ids": [],
+      "extracted_entities": [],
+      "red_flags": [],
+      "provenance_log": [],
+      "overall_verification_status": "PENDING",
+      "created_at": "2026-09-18T00:22:46.341115+00:00",
+      "updated_at": "2026-09-18T00:22:46.568540+00:00"
     }
   },
   "documents": {
@@ -11052,6 +12560,18 @@
       "status": "PROCESSED",
       "created_at": "2026-09-17T23:47:06.597875+00:00",
       "updated_at": "2026-09-17T23:47:10.815859+00:00"
+    },
+    "21ee6ea7-ac40-408a-a75e-83bdff8f5c01": {
+      "id": "21ee6ea7-ac40-408a-a75e-83bdff8f5c01",
+      "encounter_id": "4f5ceeee-051a-4887-9112-87bbc4d6e09c",
+      "patient_id": "e2eacd1a-20c0-410c-b16e-2a0444f72569",
+      "filename": "images.jpg",
+      "content_type": "image/jpeg",
+      "size_bytes": 28274,
+      "storage_path": "F:\\New folder\\Project\\uploads\\73b03287-ae49-4f30-9d84-0649913b1216_images.jpg",
+      "status": "PROCESSED",
+      "created_at": "2026-09-17T23:50:37.921484+00:00",
+      "updated_at": "2026-09-17T23:50:40.434263+00:00"
     }
   },
   "document_extractions": {
@@ -14505,6 +16025,574 @@
       "ocr_engine": "RapidOCR Deep-Learning ONNX + TrOCR",
       "created_at": "2026-09-17T23:47:10.787234+00:00",
       "id": "60735c68-94fa-4847-8b4e-f28803fbe1b6"
+    },
+    "05387d4a-7674-47bb-a075-cd83d2dd6e2d": {
+      "document_id": "21ee6ea7-ac40-408a-a75e-83bdff8f5c01",
+      "raw_text": "DR.A JANA\nMD (MEOICINE),MBSS\nASSOCIATEMROFESSOROFMEDICINR\nFHYSKIAN,INTURNALWIDNONEYICHALIS\n30/m\n512029\nVelimic: 1- t  iody)\nsle) 80\n@ 8om prar-D40\nCoC: N.\n-ODIz X(d\n13103\n@ondem. 4 :1-sos\nWNee信 S: 1\nele Vovhyo\n下 10dy\nupms E2-\niomm\nT todyh\nNEXTCHECKOBEFORE:\nFORVALOMATIONS,HEQUEST\nOSPTALUID",
+      "layout_blocks": [
+        {
+          "text": "DR.A JANA",
+          "bbox": [
+            [
+              47.0,
+              80.0
+            ],
+            [
+              206.0,
+              80.0
+            ],
+            [
+              206.0,
+              104.0
+            ],
+            [
+              47.0,
+              104.0
+            ]
+          ],
+          "confidence": 0.804
+        },
+        {
+          "text": "MD (MEOICINE),MBSS",
+          "bbox": [
+            [
+              81.0,
+              112.0
+            ],
+            [
+              227.0,
+              112.0
+            ],
+            [
+              227.0,
+              129.0
+            ],
+            [
+              81.0,
+              129.0
+            ]
+          ],
+          "confidence": 0.76
+        },
+        {
+          "text": "ASSOCIATEMROFESSOROFMEDICINR",
+          "bbox": [
+            [
+              483.0,
+              132.0
+            ],
+            [
+              697.0,
+              132.0
+            ],
+            [
+              697.0,
+              149.0
+            ],
+            [
+              483.0,
+              149.0
+            ]
+          ],
+          "confidence": 0.81
+        },
+        {
+          "text": "FHYSKIAN,INTURNALWIDNONEYICHALIS",
+          "bbox": [
+            [
+              439.0,
+              151.0
+            ],
+            [
+              697.0,
+              151.0
+            ],
+            [
+              697.0,
+              167.0
+            ],
+            [
+              439.0,
+              167.0
+            ]
+          ],
+          "confidence": 0.735
+        },
+        {
+          "text": "30/m",
+          "bbox": [
+            [
+              420.0,
+              171.0
+            ],
+            [
+              505.0,
+              166.0
+            ],
+            [
+              507.0,
+              205.0
+            ],
+            [
+              423.0,
+              211.0
+            ]
+          ],
+          "confidence": 0.517
+        },
+        {
+          "text": "512029",
+          "bbox": [
+            [
+              604.0,
+              164.0
+            ],
+            [
+              723.0,
+              171.0
+            ],
+            [
+              721.0,
+              206.0
+            ],
+            [
+              602.0,
+              199.0
+            ]
+          ],
+          "confidence": 0.669
+        },
+        {
+          "text": "Velimic: 1- t  iody)",
+          "bbox": [
+            [
+              295.0,
+              276.0
+            ],
+            [
+              726.0,
+              242.0
+            ],
+            [
+              730.0,
+              292.0
+            ],
+            [
+              299.0,
+              326.0
+            ]
+          ],
+          "confidence": 0.566
+        },
+        {
+          "text": "sle) 80",
+          "bbox": [
+            [
+              21.0,
+              294.0
+            ],
+            [
+              152.0,
+              283.0
+            ],
+            [
+              156.0,
+              340.0
+            ],
+            [
+              26.0,
+              351.0
+            ]
+          ],
+          "confidence": 0.627
+        },
+        {
+          "text": "@ 8om prar-D40",
+          "bbox": [
+            [
+              261.0,
+              340.0
+            ],
+            [
+              558.0,
+              327.0
+            ],
+            [
+              560.0,
+              374.0
+            ],
+            [
+              263.0,
+              387.0
+            ]
+          ],
+          "confidence": 0.733
+        },
+        {
+          "text": "CoC: N.",
+          "bbox": [
+            [
+              24.0,
+              353.0
+            ],
+            [
+              150.0,
+              331.0
+            ],
+            [
+              156.0,
+              370.0
+            ],
+            [
+              30.0,
+              391.0
+            ]
+          ],
+          "confidence": 0.604
+        },
+        {
+          "text": "-ODIz X(d",
+          "bbox": [
+            [
+              538.0,
+              367.0
+            ],
+            [
+              728.0,
+              347.0
+            ],
+            [
+              732.0,
+              384.0
+            ],
+            [
+              542.0,
+              404.0
+            ]
+          ],
+          "confidence": 0.549
+        },
+        {
+          "text": "13103",
+          "bbox": [
+            [
+              47.0,
+              443.0
+            ],
+            [
+              150.0,
+              443.0
+            ],
+            [
+              150.0,
+              502.0
+            ],
+            [
+              47.0,
+              502.0
+            ]
+          ],
+          "confidence": 0.553
+        },
+        {
+          "text": "@ondem. 4 :1-sos",
+          "bbox": [
+            [
+              264.0,
+              461.0
+            ],
+            [
+              627.0,
+              438.0
+            ],
+            [
+              630.0,
+              488.0
+            ],
+            [
+              267.0,
+              511.0
+            ]
+          ],
+          "confidence": 0.669
+        },
+        {
+          "text": "WNee信 S: 1",
+          "bbox": [
+            [
+              342.0,
+              518.0
+            ],
+            [
+              576.0,
+              498.0
+            ],
+            [
+              579.0,
+              535.0
+            ],
+            [
+              345.0,
+              555.0
+            ]
+          ],
+          "confidence": 0.557
+        },
+        {
+          "text": "ele Vovhyo",
+          "bbox": [
+            [
+              36.0,
+              533.0
+            ],
+            [
+              205.0,
+              498.0
+            ],
+            [
+              213.0,
+              536.0
+            ],
+            [
+              44.0,
+              571.0
+            ]
+          ],
+          "confidence": 0.648
+        },
+        {
+          "text": "下 10dy",
+          "bbox": [
+            [
+              585.0,
+              542.0
+            ],
+            [
+              721.0,
+              526.0
+            ],
+            [
+              725.0,
+              560.0
+            ],
+            [
+              589.0,
+              576.0
+            ]
+          ],
+          "confidence": 0.57
+        },
+        {
+          "text": "upms E2-",
+          "bbox": [
+            [
+              359.0,
+              602.0
+            ],
+            [
+              605.0,
+              577.0
+            ],
+            [
+              610.0,
+              625.0
+            ],
+            [
+              364.0,
+              650.0
+            ]
+          ],
+          "confidence": 0.559
+        },
+        {
+          "text": "iomm",
+          "bbox": [
+            [
+              124.0,
+              648.0
+            ],
+            [
+              241.0,
+              623.0
+            ],
+            [
+              247.0,
+              651.0
+            ],
+            [
+              129.0,
+              676.0
+            ]
+          ],
+          "confidence": 0.615
+        },
+        {
+          "text": "T todyh",
+          "bbox": [
+            [
+              543.0,
+              684.0
+            ],
+            [
+              691.0,
+              680.0
+            ],
+            [
+              692.0,
+              721.0
+            ],
+            [
+              544.0,
+              725.0
+            ]
+          ],
+          "confidence": 0.664
+        },
+        {
+          "text": "NEXTCHECKOBEFORE:",
+          "bbox": [
+            [
+              273.0,
+              875.0
+            ],
+            [
+              413.0,
+              875.0
+            ],
+            [
+              413.0,
+              891.0
+            ],
+            [
+              273.0,
+              891.0
+            ]
+          ],
+          "confidence": 0.758
+        },
+        {
+          "text": "FORVALOMATIONS,HEQUEST",
+          "bbox": [
+            [
+              46.0,
+              911.0
+            ],
+            [
+              215.0,
+              911.0
+            ],
+            [
+              215.0,
+              928.0
+            ],
+            [
+              46.0,
+              928.0
+            ]
+          ],
+          "confidence": 0.701
+        },
+        {
+          "text": "OSPTALUID",
+          "bbox": [
+            [
+              611.0,
+              964.0
+            ],
+            [
+              687.0,
+              964.0
+            ],
+            [
+              687.0,
+              978.0
+            ],
+            [
+              611.0,
+              978.0
+            ]
+          ],
+          "confidence": 0.648
+        }
+      ],
+      "tables": [],
+      "extracted_entities": [
+        {
+          "name": "Vertin 16",
+          "category": "medication",
+          "value": "16mg TDS - 1 tab thrice daily (TDS)",
+          "unit": "Tab.",
+          "confidence": 0.651,
+          "source": "doc:images.jpg",
+          "extraction_method": "RapidOCR + TrOCR Transformer",
+          "verified": false
+        },
+        {
+          "name": "Sompraz D 40",
+          "category": "medication",
+          "value": "40mg OD AC - 1 capsule once daily before breakfast (OD AC)",
+          "unit": "Cap.",
+          "confidence": 0.651,
+          "source": "doc:images.jpg",
+          "extraction_method": "RapidOCR + TrOCR Transformer",
+          "verified": false
+        },
+        {
+          "name": "Ondem 4",
+          "category": "medication",
+          "value": "4mg SOS - As needed / during acute symptoms",
+          "unit": "Tab.",
+          "confidence": 0.651,
+          "source": "doc:images.jpg",
+          "extraction_method": "RapidOCR + TrOCR Transformer",
+          "verified": false
+        },
+        {
+          "name": "Nexito 5",
+          "category": "medication",
+          "value": "5mg OD - 1 tab once daily at bedtime / 9 PM",
+          "unit": "Tab.",
+          "confidence": 0.651,
+          "source": "doc:images.jpg",
+          "extraction_method": "RapidOCR + TrOCR Transformer",
+          "verified": false
+        },
+        {
+          "name": "Jupiros EZ",
+          "category": "medication",
+          "value": "10mg OD - 1 tab once daily at bedtime",
+          "unit": "Tab.",
+          "confidence": 0.651,
+          "source": "doc:images.jpg",
+          "extraction_method": "RapidOCR + TrOCR Transformer",
+          "verified": false
+        },
+        {
+          "name": "Vertigo (Dizziness / Giddiness)",
+          "category": "symptom",
+          "value": "Active Complaint from Uploaded Prescription",
+          "unit": "symptom",
+          "confidence": 0.651,
+          "source": "doc:images.jpg",
+          "extraction_method": "Clinical NER (Prescription)",
+          "verified": false
+        },
+        {
+          "name": "Blood Pressure",
+          "category": "vital",
+          "value": "131/83 mmHg",
+          "unit": "",
+          "confidence": 0.651,
+          "source": "doc:images.jpg",
+          "extraction_method": "Clinical Vital Extractor",
+          "verified": false
+        }
+      ],
+      "confidence": 0.651,
+      "processing_time_ms": 2350.88,
+      "ocr_engine": "RapidOCR Deep-Learning ONNX + TrOCR",
+      "created_at": "2026-09-17T23:50:40.373679+00:00",
+      "id": "05387d4a-7674-47bb-a075-cd83d2dd6e2d"
     }
   },
   "summaries": {
@@ -16276,6 +18364,1187 @@
       "verified_at": null,
       "created_at": "2026-09-17T23:15:13.719730+00:00",
       "updated_at": "2026-09-17T23:15:13.719730+00:00"
+    },
+    "47780300-9554-4350-b4f4-77a7b9b9e851": {
+      "id": "dbab77ba-fe23-41bb-9fdd-fcccb7c08529",
+      "encounter_id": "4f5ceeee-051a-4887-9112-87bbc4d6e09c",
+      "patient_id": "e2eacd1a-20c0-410c-b16e-2a0444f72569",
+      "patient_demographics": {
+        "id": "e2eacd1a-20c0-410c-b16e-2a0444f72569",
+        "name": "Rahul Sharma",
+        "age": 28,
+        "gender": "Male",
+        "phone": "+91-9876543210",
+        "uhid": "UHID-2026-DD5932",
+        "abha_id": null,
+        "preferred_language": "en",
+        "metadata": {},
+        "created_at": "2026-09-17T23:50:11.718952+00:00",
+        "updated_at": "2026-09-17T23:50:11.718952+00:00"
+      },
+      "chief_complaint": "Breathlessness",
+      "hpi_narrative": "A 28-year-old Male presents for clinical intake reporting chief concern of breathlessness. Accompanying clinical features include: Vertigo (Dizziness / Giddiness), Blood Pressure.",
+      "sections": {
+        "chief_complaint": {
+          "title": "Chief Complaint",
+          "content": "Breathlessness",
+          "facts": [
+            {
+              "id": null,
+              "category": "symptom",
+              "name": "Chief Complaint",
+              "value": "Breathlessness",
+              "unit": null,
+              "source": "patient_touch",
+              "confidence": 0.95,
+              "verification_status": "PENDING",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": null,
+              "created_at": "2026-09-17T23:50:40.533337+00:00",
+              "updated_at": "2026-09-17T23:50:40.533350+00:00"
+            }
+          ],
+          "confidence": 0.95
+        },
+        "hpi": {
+          "title": "History of Present Illness",
+          "content": "A 28-year-old Male presents for clinical intake reporting chief concern of breathlessness. Accompanying clinical features include: Vertigo (Dizziness / Giddiness), Blood Pressure.",
+          "facts": [],
+          "confidence": 0.95
+        },
+        "medications": {
+          "title": "Medications & Interventions",
+          "content": "Antibiotics (Active); Vertin 16 (16mg TDS - 1 tab thrice daily (TDS)); Sompraz D 40 (40mg OD AC - 1 capsule once daily before breakfast (OD AC)); Ondem 4 (4mg SOS - As needed / during acute symptoms); Nexito 5 (5mg OD - 1 tab once daily at bedtime / 9 PM); Jupiros EZ (10mg OD - 1 tab once daily at bedtime)",
+          "facts": [
+            {
+              "id": null,
+              "category": "medication",
+              "name": "Antibiotics",
+              "value": "Active",
+              "unit": null,
+              "source": "patient_touch",
+              "confidence": 1.0,
+              "verification_status": "PENDING",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": null,
+              "created_at": "2026-09-17T23:50:40.533446+00:00",
+              "updated_at": "2026-09-17T23:50:40.533454+00:00"
+            },
+            {
+              "id": "a2716158-434c-428c-9b94-6c171895a35d",
+              "category": "medication",
+              "name": "Vertin 16",
+              "value": "16mg TDS - 1 tab thrice daily (TDS)",
+              "unit": "Tab.",
+              "source": "ocr",
+              "confidence": 0.651,
+              "verification_status": "PENDING",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": "Extracted from uploaded document 'images.jpg' via RapidOCR + TrOCR Transformer",
+              "created_at": "2026-09-17T23:50:40.481290+00:00",
+              "updated_at": "2026-09-17T23:50:40.481352+00:00"
+            },
+            {
+              "id": "1c03bf0a-4074-4e51-b271-0dcddcdda059",
+              "category": "medication",
+              "name": "Sompraz D 40",
+              "value": "40mg OD AC - 1 capsule once daily before breakfast (OD AC)",
+              "unit": "Cap.",
+              "source": "ocr",
+              "confidence": 0.651,
+              "verification_status": "PENDING",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": "Extracted from uploaded document 'images.jpg' via RapidOCR + TrOCR Transformer",
+              "created_at": "2026-09-17T23:50:40.645649+00:00",
+              "updated_at": "2026-09-17T23:50:40.645685+00:00"
+            },
+            {
+              "id": "d4d8d40f-5de8-4ca2-aa2b-08cbdf7f382c",
+              "category": "medication",
+              "name": "Ondem 4",
+              "value": "4mg SOS - As needed / during acute symptoms",
+              "unit": "Tab.",
+              "source": "ocr",
+              "confidence": 0.651,
+              "verification_status": "PENDING",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": "Extracted from uploaded document 'images.jpg' via RapidOCR + TrOCR Transformer",
+              "created_at": "2026-09-17T23:50:40.736215+00:00",
+              "updated_at": "2026-09-17T23:50:40.736235+00:00"
+            },
+            {
+              "id": "5f25d55d-c298-4ef1-b243-38ddffdd35d4",
+              "category": "medication",
+              "name": "Nexito 5",
+              "value": "5mg OD - 1 tab once daily at bedtime / 9 PM",
+              "unit": "Tab.",
+              "source": "ocr",
+              "confidence": 0.651,
+              "verification_status": "PENDING",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": "Extracted from uploaded document 'images.jpg' via RapidOCR + TrOCR Transformer",
+              "created_at": "2026-09-17T23:50:40.833579+00:00",
+              "updated_at": "2026-09-17T23:50:40.833612+00:00"
+            },
+            {
+              "id": "bada439f-3baa-4c14-a9ae-b8cbaa5d38ef",
+              "category": "medication",
+              "name": "Jupiros EZ",
+              "value": "10mg OD - 1 tab once daily at bedtime",
+              "unit": "Tab.",
+              "source": "ocr",
+              "confidence": 0.651,
+              "verification_status": "PENDING",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": "Extracted from uploaded document 'images.jpg' via RapidOCR + TrOCR Transformer",
+              "created_at": "2026-09-17T23:50:40.928008+00:00",
+              "updated_at": "2026-09-17T23:50:40.928049+00:00"
+            }
+          ],
+          "confidence": 0.95
+        },
+        "allergies": {
+          "title": "Allergies & Adverse Reactions",
+          "content": "Other (Allergic)",
+          "facts": [
+            {
+              "id": null,
+              "category": "allergy",
+              "name": "Other",
+              "value": "Allergic",
+              "unit": null,
+              "source": "patient_touch",
+              "confidence": 1.0,
+              "verification_status": "PENDING",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": null,
+              "created_at": "2026-09-17T23:50:40.533476+00:00",
+              "updated_at": "2026-09-17T23:50:40.533483+00:00"
+            }
+          ],
+          "confidence": 0.95
+        },
+        "ayush": {
+          "title": "AYUSH & Traditional Home Remedies",
+          "content": "No traditional or Ayurvedic herbal remedies reported.",
+          "facts": [],
+          "confidence": 0.95
+        },
+        "investigations": {
+          "title": "Laboratory & Diagnostic Reports",
+          "content": "No external diagnostic reports uploaded for this encounter.",
+          "facts": [],
+          "confidence": 0.95
+        }
+      },
+      "red_flags": [],
+      "missing_fields": [
+        "Prior chronic illness history"
+      ],
+      "ai_model_used": "mock-qwen-clinical-adapter",
+      "disclaimer": "CONFIDENTIAL MEDICAL SUMMARY (DRAFT) — Generated automatically by MediKiosk AI intake assistance from patient multi-channel inputs and digitized documents. Does NOT constitute a clinical diagnosis. Attending physician verification is mandatory.",
+      "is_verified_by_doctor": false,
+      "verified_by": null,
+      "verified_at": null,
+      "created_at": "2026-09-17T23:51:38.666301+00:00",
+      "updated_at": "2026-09-17T23:51:38.667063+00:00"
+    },
+    "0ed325be-87f7-48bd-b210-54986ea6af4b": {
+      "id": "2951f1f6-8153-479d-9b45-ac9b3ebf7ad3",
+      "encounter_id": "enc-demo-fever-001",
+      "patient_id": "pat-rahul-sharma-001",
+      "patient_demographics": {
+        "id": "pat-rahul-sharma-001",
+        "name": "Rahul Sharma",
+        "age": 35,
+        "gender": "Male",
+        "phone": "+91-9876543210",
+        "uhid": "UHID-2026-092811",
+        "abha_id": "91-2834-5829-1029",
+        "abha_number": "91-2834-5829-1029",
+        "abha_address": "rahul.sharma@abdm",
+        "preferred_language": "hi",
+        "created_at": "2026-09-17T10:00:00Z",
+        "updated_at": "2026-09-17T10:00:00Z"
+      },
+      "chief_complaint": "General clinical evaluation",
+      "hpi_narrative": "A 35-year-old Male presents for clinical intake reporting a primary complaint of general clinical evaluation. No secondary focal systemic symptoms volunteered.",
+      "sections": {
+        "chief_complaint": {
+          "title": "Chief Complaint",
+          "content": "General clinical evaluation",
+          "facts": [],
+          "confidence": 0.95
+        },
+        "hpi": {
+          "title": "History of Present Illness",
+          "content": "A 35-year-old Male presents for clinical intake reporting a primary complaint of general clinical evaluation. No secondary focal systemic symptoms volunteered.",
+          "facts": [],
+          "confidence": 0.95
+        },
+        "medications": {
+          "title": "Medications & Interventions",
+          "content": "No active prescription medications documented.",
+          "facts": [],
+          "confidence": 0.95
+        },
+        "allergies": {
+          "title": "Allergies & Adverse Reactions",
+          "content": "No known drug allergies (NKDA) recorded.",
+          "facts": [],
+          "confidence": 0.95
+        },
+        "ayush": {
+          "title": "AYUSH & Traditional Home Remedies",
+          "content": "No traditional AYUSH or herbal home remedies reported.",
+          "facts": [],
+          "confidence": 0.95
+        },
+        "investigations": {
+          "title": "Laboratory & Diagnostic Reports",
+          "content": "No laboratory pathology panels attached for this encounter.",
+          "facts": [],
+          "confidence": 0.95
+        }
+      },
+      "soap_sections": {
+        "subjective": {
+          "title": "S - Subjective (HPI & Clinical Narrative)",
+          "content": "CHIEF COMPLAINT:\nGeneral clinical evaluation\n\nHISTORY OF PRESENT ILLNESS:\nA 35-year-old Male presents for clinical intake reporting a primary complaint of general clinical evaluation. No secondary focal systemic symptoms volunteered.\n\nCURRENT MEDICATIONS (TrOCR Digitized / Patient Reported):\nNo active prescription medications documented.\n\nALLERGIES:\nNo known drug allergies (NKDA) recorded.\n\nAYUSH & TRADITIONAL REMEDIES:\nNo traditional AYUSH or herbal home remedies reported.",
+          "facts": [],
+          "confidence": 0.95
+        },
+        "objective": {
+          "title": "O - Objective (Vitals & Digested Labs)",
+          "content": "VITAL SIGNS:\nPhysical vitals not recorded in current intake session.\n\nDIAGNOSTIC INVESTIGATIONS & DIGITIZED LAB MATRIX:\nNo laboratory pathology panels attached for this encounter.",
+          "facts": [],
+          "confidence": 0.95
+        },
+        "assessment": {
+          "title": "A - Assessment (Triage, Impression & Red Flags)",
+          "content": "TRIAGE PRIORITY: ROUTINE\n\nCLINICAL IMPRESSION (NON-DIAGNOSTIC DRAFT):\nSyndromic impression: Presenting clinical features of general clinical evaluation require targeted physical examination and diagnostic correlation by attending clinician.\n\nACTIVE SAFETY RED FLAGS (0):\nNone detected by deterministic safety rules.",
+          "facts": [],
+          "confidence": 0.95
+        },
+        "plan": {
+          "title": "P - Plan (Diagnostics, Questions & Next Steps)",
+          "content": "1. Routine outpatient physician consultation.\n2. Physician verification and confirmation of digitized medications and drug allergies.",
+          "facts": [],
+          "confidence": 0.95
+        }
+      },
+      "patient_vernacular_summary": {
+        "en": "Hello Rahul Sharma. Your clinical intake for general clinical evaluation has been recorded. We have noted your symptoms, recent medications (none reported), and vitals. This summary has been sent directly to your doctor's screen. Please proceed to the consultation room when your token is called.",
+        "hi": "नमस्ते Rahul Sharma। कियोस्क पर आपकी General clinical evaluation संबंधी जानकारी और लक्षण सफलतापूर्वक दर्ज कर लिए गए हैं। आपकी पूर्व दवाएं (कोई नहीं) और स्वास्थ्य विवरण डॉक्टर साहब के डैशबोर्ड पर भेज दिए गए हैं। टोकन नंबर पुकारे जाने पर कृपया परामर्श कक्ष में पधारें।",
+        "mr": "नमस्कार Rahul Sharma. किओस्कवर आपली General clinical evaluation बाबतची माहिती आणि लक्षणे नोंदवली गेली आहेत. आपली औषधे (काही नाही) आणि तपासणी तपशील डॉक्टरांच्या स्क्रीनवर पाठवले आहेत. आपला टोकन नंबर पुकारल्यावर कृपया तपासणी कक्षात जावे."
+      },
+      "pertinent_positives": [],
+      "pertinent_negatives": [
+        "Denies syncope or loss of consciousness",
+        "No sudden focal neurological deficit reported"
+      ],
+      "triage_level": "ROUTINE",
+      "red_flags": [],
+      "missing_fields": [
+        "Prior prescription history",
+        "Drug allergy confirmation",
+        "Past chronic medical history"
+      ],
+      "ai_model_used": "MediKiosk Clinical Synthesis Engine (Deterministic v2.1)",
+      "disclaimer": "CONFIDENTIAL MEDICAL SUMMARY (DRAFT) — Generated automatically by MediKiosk AI intake assistance from patient multi-channel inputs and digitized documents. Does NOT constitute a clinical diagnosis. Attending physician verification is mandatory.",
+      "is_verified_by_doctor": false,
+      "verified_by": null,
+      "verified_at": null,
+      "created_at": "2026-09-18T00:15:28.599455+00:00",
+      "updated_at": "2026-09-18T00:15:28.599788+00:00"
+    },
+    "bce632da-7c8c-489a-893a-b6fb48dd0442": {
+      "id": "bce632da-7c8c-489a-893a-b6fb48dd0442",
+      "encounter_id": "0d4e5bef-8730-414b-841a-281bb2d8d3ac",
+      "patient_id": "5595820f-9840-4b22-8aa1-e471bfa69f10",
+      "patient_demographics": {
+        "id": "5595820f-9840-4b22-8aa1-e471bfa69f10",
+        "name": "Rahul Sharma",
+        "age": 35,
+        "gender": "Male",
+        "phone": null,
+        "uhid": "UHID-2026-CE81CC",
+        "abha_id": null,
+        "preferred_language": "en",
+        "metadata": {},
+        "created_at": "2026-09-18T00:22:35.824825+00:00",
+        "updated_at": "2026-09-18T00:22:35.824825+00:00"
+      },
+      "chief_complaint": "Fever",
+      "hpi_narrative": "A 35-year-old Male presents for clinical intake reporting a primary complaint of fever. No secondary focal systemic symptoms volunteered.",
+      "sections": {
+        "chief_complaint": {
+          "title": "Chief Complaint",
+          "content": "Fever",
+          "facts": [
+            {
+              "id": "250dc023-63e6-45bc-accc-6b6783dcfc7a",
+              "category": "symptom",
+              "name": "Chief Complaint",
+              "value": "Fever",
+              "unit": null,
+              "source": "patient_voice",
+              "confidence": 0.95,
+              "verification_status": "PENDING",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": null,
+              "created_at": "2026-09-18T00:22:35.910365+00:00",
+              "updated_at": "2026-09-18T00:22:35.910375+00:00"
+            }
+          ],
+          "confidence": 0.95
+        },
+        "hpi": {
+          "title": "History of Present Illness",
+          "content": "A 35-year-old Male presents for clinical intake reporting a primary complaint of fever. No secondary focal systemic symptoms volunteered.",
+          "facts": [],
+          "confidence": 0.95
+        },
+        "medications": {
+          "title": "Medications & Interventions",
+          "content": "Paracetamol 650mg - 1 tab TDS PRN (Source: ocr)",
+          "facts": [
+            {
+              "id": "4ffb6db2-0d14-45ad-9b10-138202f64422",
+              "category": "medication",
+              "name": "Paracetamol 650mg",
+              "value": "1 tab TDS PRN",
+              "unit": null,
+              "source": "ocr",
+              "confidence": 0.93,
+              "verification_status": "PENDING",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": null,
+              "created_at": "2026-09-18T00:22:36.011678+00:00",
+              "updated_at": "2026-09-18T00:22:36.011688+00:00"
+            }
+          ],
+          "confidence": 0.95
+        },
+        "allergies": {
+          "title": "Allergies & Adverse Reactions",
+          "content": "No known drug allergies (NKDA) recorded.",
+          "facts": [],
+          "confidence": 0.95
+        },
+        "ayush": {
+          "title": "AYUSH & Traditional Home Remedies",
+          "content": "No traditional AYUSH or herbal home remedies reported.",
+          "facts": [],
+          "confidence": 0.95
+        },
+        "investigations": {
+          "title": "Laboratory & Diagnostic Reports",
+          "content": "No laboratory pathology panels attached for this encounter.",
+          "facts": [],
+          "confidence": 0.95
+        }
+      },
+      "soap_sections": {
+        "subjective": {
+          "title": "S - Subjective (HPI & Clinical Narrative)",
+          "content": "CHIEF COMPLAINT:\nFever\n\nHISTORY OF PRESENT ILLNESS:\nA 35-year-old Male presents for clinical intake reporting a primary complaint of fever. No secondary focal systemic symptoms volunteered.\n\nCURRENT MEDICATIONS (TrOCR Digitized / Patient Reported):\nParacetamol 650mg - 1 tab TDS PRN (Source: ocr)\n\nALLERGIES:\nNo known drug allergies (NKDA) recorded.\n\nAYUSH & TRADITIONAL REMEDIES:\nNo traditional AYUSH or herbal home remedies reported.",
+          "facts": [
+            {
+              "id": "250dc023-63e6-45bc-accc-6b6783dcfc7a",
+              "category": "symptom",
+              "name": "Chief Complaint",
+              "value": "Fever",
+              "unit": null,
+              "source": "patient_voice",
+              "confidence": 0.95,
+              "verification_status": "PENDING",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": null,
+              "created_at": "2026-09-18T00:22:35.910365+00:00",
+              "updated_at": "2026-09-18T00:22:35.910375+00:00"
+            }
+          ],
+          "confidence": 0.95
+        },
+        "objective": {
+          "title": "O - Objective (Vitals & Digested Labs)",
+          "content": "VITAL SIGNS:\nPhysical vitals not recorded in current intake session.\n\nDIAGNOSTIC INVESTIGATIONS & DIGITIZED LAB MATRIX:\nNo laboratory pathology panels attached for this encounter.",
+          "facts": [],
+          "confidence": 0.95
+        },
+        "assessment": {
+          "title": "A - Assessment (Triage, Impression & Red Flags)",
+          "content": "TRIAGE PRIORITY: ROUTINE\n\nCLINICAL IMPRESSION (NON-DIAGNOSTIC DRAFT):\nSyndromic impression: Acute undifferentiated febrile illness. Differential includes viral syndrome, tropical infection (dengue, malaria, typhoid based on endemicity), and upper respiratory tract infection.\n\nACTIVE SAFETY RED FLAGS (0):\nNone detected by deterministic safety rules.",
+          "facts": [],
+          "confidence": 0.95
+        },
+        "plan": {
+          "title": "P - Plan (Diagnostics, Questions & Next Steps)",
+          "content": "1. Routine outpatient physician consultation.\n2. Complete Blood Count (CBC) with peripheral smear, Dengue NS1/IgM if fever > 3 days.\n3. Physician verification and confirmation of digitized medications and drug allergies.",
+          "facts": [],
+          "confidence": 0.95
+        }
+      },
+      "patient_vernacular_summary": {
+        "en": "Hello Rahul Sharma. Your clinical intake for fever has been recorded. We have noted your symptoms, recent medications (Paracetamol 650mg), and vitals. This summary has been sent directly to your doctor's screen. Please proceed to the consultation room when your token is called.",
+        "hi": "नमस्ते Rahul Sharma। कियोस्क पर आपकी Fever संबंधी जानकारी और लक्षण सफलतापूर्वक दर्ज कर लिए गए हैं। आपकी पूर्व दवाएं (Paracetamol 650mg) और स्वास्थ्य विवरण डॉक्टर साहब के डैशबोर्ड पर भेज दिए गए हैं। टोकन नंबर पुकारे जाने पर कृपया परामर्श कक्ष में पधारें।",
+        "mr": "नमस्कार Rahul Sharma. किओस्कवर आपली Fever बाबतची माहिती आणि लक्षणे नोंदवली गेली आहेत. आपली औषधे (Paracetamol 650mg) आणि तपासणी तपशील डॉक्टरांच्या स्क्रीनवर पाठवले आहेत. आपला टोकन नंबर पुकारल्यावर कृपया तपासणी कक्षात जावे."
+      },
+      "pertinent_positives": [],
+      "pertinent_negatives": [
+        "Denies petechial rash, gum bleeding, or hematuria",
+        "No neck stiffness or photophobia",
+        "No productive cough or hemoptysis"
+      ],
+      "triage_level": "ROUTINE",
+      "red_flags": [],
+      "missing_fields": [
+        "Drug allergy confirmation",
+        "Past chronic medical history"
+      ],
+      "ai_model_used": "MediKiosk Clinical Synthesis Engine (Deterministic v2.1)",
+      "disclaimer": "CONFIDENTIAL MEDICAL SUMMARY (DRAFT) — Generated automatically by MediKiosk AI intake assistance from patient multi-channel inputs and digitized documents. Does NOT constitute a clinical diagnosis. Attending physician verification is mandatory.",
+      "is_verified_by_doctor": false,
+      "verified_by": null,
+      "verified_at": null,
+      "created_at": "2026-09-18T00:22:36.173833+00:00",
+      "updated_at": "2026-09-18T00:22:36.173833+00:00"
+    },
+    "21822a30-34fa-47cb-99ff-306db93600f0": {
+      "id": "21822a30-34fa-47cb-99ff-306db93600f0",
+      "encounter_id": "99ae2f16-0a73-414d-be27-f1cb852250e5",
+      "patient_id": "9c40ff01-910f-4fdb-a279-0eea4cb6ba45",
+      "patient_demographics": {
+        "id": "9c40ff01-910f-4fdb-a279-0eea4cb6ba45",
+        "name": "Pooja Patil",
+        "age": 28,
+        "gender": "Female",
+        "phone": null,
+        "uhid": "UHID-2026-9A4DBF",
+        "abha_id": null,
+        "preferred_language": "en",
+        "metadata": {},
+        "created_at": "2026-09-18T00:22:37.586157+00:00",
+        "updated_at": "2026-09-18T00:22:37.586157+00:00"
+      },
+      "chief_complaint": "Headache",
+      "hpi_narrative": "A 28-year-old Female presents for clinical intake reporting a primary complaint of headache. SOCRATES symptom assessment reveals: Site: Frontal forehead. Pertinent positive associated features: Pain Site: Frontal forehead, Nausea.",
+      "sections": {
+        "chief_complaint": {
+          "title": "Chief Complaint",
+          "content": "Headache",
+          "facts": [
+            {
+              "id": "4a405cdf-0320-441e-b6c5-39f217096a1f",
+              "category": "symptom",
+              "name": "Chief Complaint",
+              "value": "Headache",
+              "unit": null,
+              "source": "patient_touch",
+              "confidence": 1.0,
+              "verification_status": "PENDING",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": null,
+              "created_at": "2026-09-18T00:22:37.718522+00:00",
+              "updated_at": "2026-09-18T00:22:37.718537+00:00"
+            }
+          ],
+          "confidence": 0.95
+        },
+        "hpi": {
+          "title": "History of Present Illness",
+          "content": "A 28-year-old Female presents for clinical intake reporting a primary complaint of headache. SOCRATES symptom assessment reveals: Site: Frontal forehead. Pertinent positive associated features: Pain Site: Frontal forehead, Nausea.",
+          "facts": [],
+          "confidence": 0.95
+        },
+        "medications": {
+          "title": "Medications & Interventions",
+          "content": "No active prescription medications documented.",
+          "facts": [],
+          "confidence": 0.95
+        },
+        "allergies": {
+          "title": "Allergies & Adverse Reactions",
+          "content": "No known drug allergies (NKDA) recorded.",
+          "facts": [],
+          "confidence": 0.95
+        },
+        "ayush": {
+          "title": "AYUSH & Traditional Home Remedies",
+          "content": "No traditional AYUSH or herbal home remedies reported.",
+          "facts": [],
+          "confidence": 0.95
+        },
+        "investigations": {
+          "title": "Laboratory & Diagnostic Reports",
+          "content": "No laboratory pathology panels attached for this encounter.",
+          "facts": [],
+          "confidence": 0.95
+        }
+      },
+      "soap_sections": {
+        "subjective": {
+          "title": "S - Subjective (HPI & Clinical Narrative)",
+          "content": "CHIEF COMPLAINT:\nHeadache\n\nHISTORY OF PRESENT ILLNESS:\nA 28-year-old Female presents for clinical intake reporting a primary complaint of headache. SOCRATES symptom assessment reveals: Site: Frontal forehead. Pertinent positive associated features: Pain Site: Frontal forehead, Nausea.\n\nCURRENT MEDICATIONS (TrOCR Digitized / Patient Reported):\nNo active prescription medications documented.\n\nALLERGIES:\nNo known drug allergies (NKDA) recorded.\n\nAYUSH & TRADITIONAL REMEDIES:\nNo traditional AYUSH or herbal home remedies reported.",
+          "facts": [
+            {
+              "id": "4a405cdf-0320-441e-b6c5-39f217096a1f",
+              "category": "symptom",
+              "name": "Chief Complaint",
+              "value": "Headache",
+              "unit": null,
+              "source": "patient_touch",
+              "confidence": 1.0,
+              "verification_status": "PENDING",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": null,
+              "created_at": "2026-09-18T00:22:37.718522+00:00",
+              "updated_at": "2026-09-18T00:22:37.718537+00:00"
+            }
+          ],
+          "confidence": 0.95
+        },
+        "objective": {
+          "title": "O - Objective (Vitals & Digested Labs)",
+          "content": "VITAL SIGNS:\nBlood Pressure: 118/76 mmHg\n\nDIAGNOSTIC INVESTIGATIONS & DIGITIZED LAB MATRIX:\nNo laboratory pathology panels attached for this encounter.",
+          "facts": [
+            {
+              "id": "19b1d16b-fed6-4eb8-8b58-5cfc074bc3c2",
+              "category": "vital",
+              "name": "Blood Pressure",
+              "value": "118/76",
+              "unit": "mmHg",
+              "source": "ocr",
+              "confidence": 1.0,
+              "verification_status": "PENDING",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": null,
+              "created_at": "2026-09-18T00:22:37.973985+00:00",
+              "updated_at": "2026-09-18T00:22:37.973994+00:00"
+            }
+          ],
+          "confidence": 0.95
+        },
+        "assessment": {
+          "title": "A - Assessment (Triage, Impression & Red Flags)",
+          "content": "TRIAGE PRIORITY: ROUTINE\n\nCLINICAL IMPRESSION (NON-DIAGNOSTIC DRAFT):\nSyndromic impression: Presenting clinical features of headache require targeted physical examination and diagnostic correlation by attending clinician.\n\nACTIVE SAFETY RED FLAGS (0):\nNone detected by deterministic safety rules.",
+          "facts": [],
+          "confidence": 0.95
+        },
+        "plan": {
+          "title": "P - Plan (Diagnostics, Questions & Next Steps)",
+          "content": "1. Routine outpatient physician consultation.\n2. Physician verification and confirmation of digitized medications and drug allergies.",
+          "facts": [],
+          "confidence": 0.95
+        }
+      },
+      "patient_vernacular_summary": {
+        "en": "Hello Pooja Patil. Your clinical intake for headache has been recorded. We have noted your symptoms, recent medications (none reported), and vitals. This summary has been sent directly to your doctor's screen. Please proceed to the consultation room when your token is called.",
+        "hi": "नमस्ते Pooja Patil। कियोस्क पर आपकी Headache संबंधी जानकारी और लक्षण सफलतापूर्वक दर्ज कर लिए गए हैं। आपकी पूर्व दवाएं (कोई नहीं) और स्वास्थ्य विवरण डॉक्टर साहब के डैशबोर्ड पर भेज दिए गए हैं। टोकन नंबर पुकारे जाने पर कृपया परामर्श कक्ष में पधारें।",
+        "mr": "नमस्कार Pooja Patil. किओस्कवर आपली Headache बाबतची माहिती आणि लक्षणे नोंदवली गेली आहेत. आपली औषधे (काही नाही) आणि तपासणी तपशील डॉक्टरांच्या स्क्रीनवर पाठवले आहेत. आपला टोकन नंबर पुकारल्यावर कृपया तपासणी कक्षात जावे."
+      },
+      "pertinent_positives": [
+        "Pain Site: Frontal forehead",
+        "Nausea",
+        "Localized discomfort at Frontal forehead"
+      ],
+      "pertinent_negatives": [
+        "Denies syncope or loss of consciousness",
+        "No sudden focal neurological deficit reported"
+      ],
+      "triage_level": "ROUTINE",
+      "red_flags": [],
+      "missing_fields": [
+        "Prior prescription history",
+        "Drug allergy confirmation",
+        "Past chronic medical history"
+      ],
+      "ai_model_used": "MediKiosk Clinical Synthesis Engine (Deterministic v2.1)",
+      "disclaimer": "CONFIDENTIAL MEDICAL SUMMARY (DRAFT) — Generated automatically by MediKiosk AI intake assistance from patient multi-channel inputs and digitized documents. Does NOT constitute a clinical diagnosis. Attending physician verification is mandatory.",
+      "is_verified_by_doctor": false,
+      "verified_by": null,
+      "verified_at": null,
+      "created_at": "2026-09-18T00:22:38.080600+00:00",
+      "updated_at": "2026-09-18T00:22:38.080600+00:00"
+    },
+    "d382da72-149e-46b5-9352-b48609b3e21e": {
+      "id": "d382da72-149e-46b5-9352-b48609b3e21e",
+      "encounter_id": "549994c0-7eae-485b-adc8-1527d645c8b5",
+      "patient_id": "63b74536-cabe-4b04-a23b-ea02de9bc596",
+      "patient_demographics": {
+        "id": "63b74536-cabe-4b04-a23b-ea02de9bc596",
+        "name": "Santu Ghorai",
+        "age": 33,
+        "gender": "Male",
+        "phone": null,
+        "uhid": "UHID-2026-E54394",
+        "abha_id": null,
+        "preferred_language": "en",
+        "metadata": {},
+        "created_at": "2026-09-18T00:22:38.122921+00:00",
+        "updated_at": "2026-09-18T00:22:38.122921+00:00"
+      },
+      "chief_complaint": "Vertigo",
+      "hpi_narrative": "A 33-year-old Male presents for clinical intake reporting a primary complaint of vertigo. No secondary focal systemic symptoms volunteered.",
+      "sections": {
+        "chief_complaint": {
+          "title": "Chief Complaint",
+          "content": "Vertigo",
+          "facts": [
+            {
+              "id": "8d191942-ba01-4377-ae3b-991067c92fe8",
+              "category": "symptom",
+              "name": "Chief Complaint",
+              "value": "Vertigo",
+              "unit": null,
+              "source": "patient_touch",
+              "confidence": 1.0,
+              "verification_status": "PENDING",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": null,
+              "created_at": "2026-09-18T00:22:38.204500+00:00",
+              "updated_at": "2026-09-18T00:22:38.204525+00:00"
+            }
+          ],
+          "confidence": 0.95
+        },
+        "hpi": {
+          "title": "History of Present Illness",
+          "content": "A 33-year-old Male presents for clinical intake reporting a primary complaint of vertigo. No secondary focal systemic symptoms volunteered.",
+          "facts": [],
+          "confidence": 0.95
+        },
+        "medications": {
+          "title": "Medications & Interventions",
+          "content": "Vertin 16 - 16mg TDS x 10 days (Source: ocr); Sompraz D 40 - 40mg OD AC (Source: ocr); Ondem 4 - 4mg SOS (Source: ocr)",
+          "facts": [
+            {
+              "id": "0959a689-6b65-449a-9ffe-a4a77a726dae",
+              "category": "medication",
+              "name": "Vertin 16",
+              "value": "16mg TDS x 10 days",
+              "unit": null,
+              "source": "ocr",
+              "confidence": 1.0,
+              "verification_status": "PENDING",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": null,
+              "created_at": "2026-09-18T00:22:38.311838+00:00",
+              "updated_at": "2026-09-18T00:22:38.311853+00:00"
+            },
+            {
+              "id": "e80d1e2b-ae90-4bc2-9aa8-00e701fd57a9",
+              "category": "medication",
+              "name": "Sompraz D 40",
+              "value": "40mg OD AC",
+              "unit": null,
+              "source": "ocr",
+              "confidence": 1.0,
+              "verification_status": "PENDING",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": null,
+              "created_at": "2026-09-18T00:22:38.381948+00:00",
+              "updated_at": "2026-09-18T00:22:38.381958+00:00"
+            },
+            {
+              "id": "22411ad0-1989-424c-9d52-5c1871bd6514",
+              "category": "medication",
+              "name": "Ondem 4",
+              "value": "4mg SOS",
+              "unit": null,
+              "source": "ocr",
+              "confidence": 1.0,
+              "verification_status": "PENDING",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": null,
+              "created_at": "2026-09-18T00:22:38.463683+00:00",
+              "updated_at": "2026-09-18T00:22:38.463700+00:00"
+            }
+          ],
+          "confidence": 0.95
+        },
+        "allergies": {
+          "title": "Allergies & Adverse Reactions",
+          "content": "No known drug allergies (NKDA) recorded.",
+          "facts": [],
+          "confidence": 0.95
+        },
+        "ayush": {
+          "title": "AYUSH & Traditional Home Remedies",
+          "content": "No traditional AYUSH or herbal home remedies reported.",
+          "facts": [],
+          "confidence": 0.95
+        },
+        "investigations": {
+          "title": "Laboratory & Diagnostic Reports",
+          "content": "No laboratory pathology panels attached for this encounter.",
+          "facts": [],
+          "confidence": 0.95
+        }
+      },
+      "soap_sections": {
+        "subjective": {
+          "title": "S - Subjective (HPI & Clinical Narrative)",
+          "content": "CHIEF COMPLAINT:\nVertigo\n\nHISTORY OF PRESENT ILLNESS:\nA 33-year-old Male presents for clinical intake reporting a primary complaint of vertigo. No secondary focal systemic symptoms volunteered.\n\nCURRENT MEDICATIONS (TrOCR Digitized / Patient Reported):\nVertin 16 - 16mg TDS x 10 days (Source: ocr); Sompraz D 40 - 40mg OD AC (Source: ocr); Ondem 4 - 4mg SOS (Source: ocr)\n\nALLERGIES:\nNo known drug allergies (NKDA) recorded.\n\nAYUSH & TRADITIONAL REMEDIES:\nNo traditional AYUSH or herbal home remedies reported.",
+          "facts": [
+            {
+              "id": "8d191942-ba01-4377-ae3b-991067c92fe8",
+              "category": "symptom",
+              "name": "Chief Complaint",
+              "value": "Vertigo",
+              "unit": null,
+              "source": "patient_touch",
+              "confidence": 1.0,
+              "verification_status": "PENDING",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": null,
+              "created_at": "2026-09-18T00:22:38.204500+00:00",
+              "updated_at": "2026-09-18T00:22:38.204525+00:00"
+            }
+          ],
+          "confidence": 0.95
+        },
+        "objective": {
+          "title": "O - Objective (Vitals & Digested Labs)",
+          "content": "VITAL SIGNS:\nBlood Pressure: 131/83 mmHg\n\nDIAGNOSTIC INVESTIGATIONS & DIGITIZED LAB MATRIX:\nNo laboratory pathology panels attached for this encounter.",
+          "facts": [
+            {
+              "id": "96ed5e3e-f869-49c7-82ea-e23478cb8a9d",
+              "category": "vital",
+              "name": "Blood Pressure",
+              "value": "131/83",
+              "unit": "mmHg",
+              "source": "ocr",
+              "confidence": 1.0,
+              "verification_status": "PENDING",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": null,
+              "created_at": "2026-09-18T00:22:38.536755+00:00",
+              "updated_at": "2026-09-18T00:22:38.536764+00:00"
+            }
+          ],
+          "confidence": 0.95
+        },
+        "assessment": {
+          "title": "A - Assessment (Triage, Impression & Red Flags)",
+          "content": "TRIAGE PRIORITY: ROUTINE\n\nCLINICAL IMPRESSION (NON-DIAGNOSTIC DRAFT):\nSyndromic impression: Acute vestibular syndrome / peripheral vertigo. Differential includes benign paroxysmal positional vertigo (BPPV), vestibular neuritis, and labyrinthitis. Active Vertin 16 compliance noted.\n\nACTIVE SAFETY RED FLAGS (0):\nNone detected by deterministic safety rules.",
+          "facts": [],
+          "confidence": 0.95
+        },
+        "plan": {
+          "title": "P - Plan (Diagnostics, Questions & Next Steps)",
+          "content": "1. Routine outpatient physician consultation.\n2. Perform Dix-Hallpike and HINTS bedside examination; review Vertin 16 dosage.\n3. Physician verification and confirmation of digitized medications and drug allergies.",
+          "facts": [],
+          "confidence": 0.95
+        }
+      },
+      "patient_vernacular_summary": {
+        "en": "Hello Santu Ghorai. Your clinical intake for vertigo has been recorded. We have noted your symptoms, recent medications (Vertin 16, Sompraz D 40, Ondem 4), and vitals. This summary has been sent directly to your doctor's screen. Please proceed to the consultation room when your token is called.",
+        "hi": "नमस्ते Santu Ghorai। कियोस्क पर आपकी Vertigo संबंधी जानकारी और लक्षण सफलतापूर्वक दर्ज कर लिए गए हैं। आपकी पूर्व दवाएं (Vertin 16, Sompraz D 40, Ondem 4) और स्वास्थ्य विवरण डॉक्टर साहब के डैशबोर्ड पर भेज दिए गए हैं। टोकन नंबर पुकारे जाने पर कृपया परामर्श कक्ष में पधारें।",
+        "mr": "नमस्कार Santu Ghorai. किओस्कवर आपली Vertigo बाबतची माहिती आणि लक्षणे नोंदवली गेली आहेत. आपली औषधे (Vertin 16, Sompraz D 40, Ondem 4) आणि तपासणी तपशील डॉक्टरांच्या स्क्रीनवर पाठवले आहेत. आपला टोकन नंबर पुकारल्यावर कृपया तपासणी कक्षात जावे."
+      },
+      "pertinent_positives": [],
+      "pertinent_negatives": [
+        "Denies syncope or loss of consciousness",
+        "No sudden focal neurological deficit reported"
+      ],
+      "triage_level": "ROUTINE",
+      "red_flags": [],
+      "missing_fields": [
+        "Drug allergy confirmation",
+        "Past chronic medical history"
+      ],
+      "ai_model_used": "MediKiosk Clinical Synthesis Engine (Deterministic v2.1)",
+      "disclaimer": "CONFIDENTIAL MEDICAL SUMMARY (DRAFT) — Generated automatically by MediKiosk AI intake assistance from patient multi-channel inputs and digitized documents. Does NOT constitute a clinical diagnosis. Attending physician verification is mandatory.",
+      "is_verified_by_doctor": false,
+      "verified_by": null,
+      "verified_at": null,
+      "created_at": "2026-09-18T00:22:38.636701+00:00",
+      "updated_at": "2026-09-18T00:22:38.636701+00:00"
+    },
+    "fa31cecd-2ba6-419c-bbd2-212385738239": {
+      "id": "fa31cecd-2ba6-419c-bbd2-212385738239",
+      "encounter_id": "b8388047-7cea-4f03-95f8-683d3fdbe456",
+      "patient_id": "3ed7fe5d-d227-4252-9c1b-aeb52f69ed4d",
+      "patient_demographics": {
+        "id": "3ed7fe5d-d227-4252-9c1b-aeb52f69ed4d",
+        "name": "Rahul Sharma",
+        "age": 35,
+        "gender": "Male",
+        "phone": "+919876543210",
+        "uhid": "UHID-2026-8941",
+        "abha_id": "rahul.sharma@abdm",
+        "preferred_language": "hi",
+        "metadata": {},
+        "created_at": "2026-09-18T00:22:46.106150+00:00",
+        "updated_at": "2026-09-18T00:22:46.106150+00:00"
+      },
+      "chief_complaint": "Fever",
+      "hpi_narrative": "A 35-year-old Male presents for clinical intake reporting a primary complaint of fever. Progression course: Fever Duration: 3 days, Fever Grade: High grade with chills. Pertinent positive associated features: Headache: Severe frontal throbbing, Body ache: Generalized myalgia, Mosquito exposure: Significant bites in neighborhood.",
+      "sections": {
+        "chief_complaint": {
+          "title": "Chief Complaint",
+          "content": "Fever",
+          "facts": [
+            {
+              "id": null,
+              "category": "symptom",
+              "name": "Chief Complaint",
+              "value": "Fever",
+              "unit": null,
+              "source": "patient_voice",
+              "confidence": 0.96,
+              "verification_status": "PATIENT_CONFIRMED",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": null,
+              "created_at": "2026-09-18T00:22:46.208397+00:00",
+              "updated_at": "2026-09-18T00:22:46.208426+00:00"
+            }
+          ],
+          "confidence": 0.95
+        },
+        "hpi": {
+          "title": "History of Present Illness",
+          "content": "A 35-year-old Male presents for clinical intake reporting a primary complaint of fever. Progression course: Fever Duration: 3 days, Fever Grade: High grade with chills. Pertinent positive associated features: Headache: Severe frontal throbbing, Body ache: Generalized myalgia, Mosquito exposure: Significant bites in neighborhood.",
+          "facts": [
+            {
+              "id": null,
+              "category": "symptom",
+              "name": "Fever Duration",
+              "value": "3 days",
+              "unit": null,
+              "source": "patient_voice",
+              "confidence": 0.95,
+              "verification_status": "PENDING",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": null,
+              "created_at": "2026-09-18T00:22:46.208446+00:00",
+              "updated_at": "2026-09-18T00:22:46.208450+00:00"
+            },
+            {
+              "id": null,
+              "category": "symptom",
+              "name": "Fever Grade",
+              "value": "High grade with chills",
+              "unit": null,
+              "source": "patient_voice",
+              "confidence": 0.94,
+              "verification_status": "PENDING",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": null,
+              "created_at": "2026-09-18T00:22:46.208458+00:00",
+              "updated_at": "2026-09-18T00:22:46.208461+00:00"
+            }
+          ],
+          "confidence": 0.95
+        },
+        "medications": {
+          "title": "Medications & Interventions",
+          "content": "Paracetamol 650mg - 1 tab TDS (Source: ocr)",
+          "facts": [
+            {
+              "id": null,
+              "category": "medication",
+              "name": "Paracetamol 650mg",
+              "value": "1 tab TDS",
+              "unit": null,
+              "source": "ocr",
+              "confidence": 0.94,
+              "verification_status": "PATIENT_CONFIRMED",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": "Extracted from uploaded OPD prescription via PaddleOCR",
+              "created_at": "2026-09-18T00:22:46.208496+00:00",
+              "updated_at": "2026-09-18T00:22:46.208498+00:00"
+            }
+          ],
+          "confidence": 0.95
+        },
+        "allergies": {
+          "title": "Allergies & Adverse Reactions",
+          "content": "No Known Drug Allergies (NKDA) (False)",
+          "facts": [
+            {
+              "id": null,
+              "category": "allergy",
+              "name": "No Known Drug Allergies (NKDA)",
+              "value": false,
+              "unit": null,
+              "source": "patient_touch",
+              "confidence": 0.99,
+              "verification_status": "PENDING",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": null,
+              "created_at": "2026-09-18T00:22:46.208505+00:00",
+              "updated_at": "2026-09-18T00:22:46.208507+00:00"
+            }
+          ],
+          "confidence": 0.95
+        },
+        "ayush": {
+          "title": "AYUSH & Traditional Home Remedies",
+          "content": "Herbal kadha (Giloy & Tulsi decoction twice daily)",
+          "facts": [
+            {
+              "id": null,
+              "category": "ayush",
+              "name": "Herbal kadha",
+              "value": "Giloy & Tulsi decoction twice daily",
+              "unit": null,
+              "source": "patient_voice",
+              "confidence": 0.9,
+              "verification_status": "PENDING",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": null,
+              "created_at": "2026-09-18T00:22:46.208513+00:00",
+              "updated_at": "2026-09-18T00:22:46.208515+00:00"
+            }
+          ],
+          "confidence": 0.95
+        },
+        "investigations": {
+          "title": "Laboratory & Diagnostic Reports",
+          "content": "• Platelet Count: 130,000 /uL\n• Hemoglobin: 13.8 g/dL",
+          "facts": [
+            {
+              "id": null,
+              "category": "investigation",
+              "name": "Platelet Count",
+              "value": "130,000",
+              "unit": "/uL",
+              "source": "ocr",
+              "confidence": 0.96,
+              "verification_status": "PENDING",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": "Mild thrombocytopenia detected in uploaded CBC report",
+              "created_at": "2026-09-18T00:22:46.208523+00:00",
+              "updated_at": "2026-09-18T00:22:46.208525+00:00"
+            },
+            {
+              "id": null,
+              "category": "investigation",
+              "name": "Hemoglobin",
+              "value": "13.8",
+              "unit": "g/dL",
+              "source": "ocr",
+              "confidence": 0.97,
+              "verification_status": "PENDING",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": null,
+              "created_at": "2026-09-18T00:22:46.208537+00:00",
+              "updated_at": "2026-09-18T00:22:46.208540+00:00"
+            }
+          ],
+          "confidence": 0.95
+        }
+      },
+      "soap_sections": {
+        "subjective": {
+          "title": "S - Subjective (HPI & Clinical Narrative)",
+          "content": "CHIEF COMPLAINT:\nFever\n\nHISTORY OF PRESENT ILLNESS:\nA 35-year-old Male presents for clinical intake reporting a primary complaint of fever. Progression course: Fever Duration: 3 days, Fever Grade: High grade with chills. Pertinent positive associated features: Headache: Severe frontal throbbing, Body ache: Generalized myalgia, Mosquito exposure: Significant bites in neighborhood.\n\nCURRENT MEDICATIONS (TrOCR Digitized / Patient Reported):\nParacetamol 650mg - 1 tab TDS (Source: ocr)\n\nALLERGIES:\nNo Known Drug Allergies (NKDA) (False)\n\nAYUSH & TRADITIONAL REMEDIES:\nHerbal kadha (Giloy & Tulsi decoction twice daily)",
+          "facts": [
+            {
+              "id": null,
+              "category": "symptom",
+              "name": "Fever Duration",
+              "value": "3 days",
+              "unit": null,
+              "source": "patient_voice",
+              "confidence": 0.95,
+              "verification_status": "PENDING",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": null,
+              "created_at": "2026-09-18T00:22:46.208446+00:00",
+              "updated_at": "2026-09-18T00:22:46.208450+00:00"
+            },
+            {
+              "id": null,
+              "category": "symptom",
+              "name": "Fever Grade",
+              "value": "High grade with chills",
+              "unit": null,
+              "source": "patient_voice",
+              "confidence": 0.94,
+              "verification_status": "PENDING",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": null,
+              "created_at": "2026-09-18T00:22:46.208458+00:00",
+              "updated_at": "2026-09-18T00:22:46.208461+00:00"
+            },
+            {
+              "id": null,
+              "category": "symptom",
+              "name": "Chief Complaint",
+              "value": "Fever",
+              "unit": null,
+              "source": "patient_voice",
+              "confidence": 0.96,
+              "verification_status": "PATIENT_CONFIRMED",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": null,
+              "created_at": "2026-09-18T00:22:46.208397+00:00",
+              "updated_at": "2026-09-18T00:22:46.208426+00:00"
+            }
+          ],
+          "confidence": 0.95
+        },
+        "objective": {
+          "title": "O - Objective (Vitals & Digested Labs)",
+          "content": "VITAL SIGNS:\nPhysical vitals not recorded in current intake session.\n\nDIAGNOSTIC INVESTIGATIONS & DIGITIZED LAB MATRIX:\n• Platelet Count: 130,000 /uL\n• Hemoglobin: 13.8 g/dL",
+          "facts": [
+            {
+              "id": null,
+              "category": "investigation",
+              "name": "Platelet Count",
+              "value": "130,000",
+              "unit": "/uL",
+              "source": "ocr",
+              "confidence": 0.96,
+              "verification_status": "PENDING",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": "Mild thrombocytopenia detected in uploaded CBC report",
+              "created_at": "2026-09-18T00:22:46.208523+00:00",
+              "updated_at": "2026-09-18T00:22:46.208525+00:00"
+            },
+            {
+              "id": null,
+              "category": "investigation",
+              "name": "Hemoglobin",
+              "value": "13.8",
+              "unit": "g/dL",
+              "source": "ocr",
+              "confidence": 0.97,
+              "verification_status": "PENDING",
+              "amended_value": null,
+              "verified_by": null,
+              "verified_at": null,
+              "notes": null,
+              "created_at": "2026-09-18T00:22:46.208537+00:00",
+              "updated_at": "2026-09-18T00:22:46.208540+00:00"
+            }
+          ],
+          "confidence": 0.95
+        },
+        "assessment": {
+          "title": "A - Assessment (Triage, Impression & Red Flags)",
+          "content": "TRIAGE PRIORITY: URGENT\n\nCLINICAL IMPRESSION (NON-DIAGNOSTIC DRAFT):\nSyndromic impression: Acute undifferentiated febrile illness. Differential includes viral syndrome, tropical infection (dengue, malaria, typhoid based on endemicity), and upper respiratory tract infection.\n\nACTIVE SAFETY RED FLAGS (1):\n⚠️ Acute Febrile Illness with Vector Exposure: Fever with retro-orbital headache and local mosquito vector exposure warrants viral vector serology and platelet monitoring.",
+          "facts": [
+            {
+              "rule_id": "RF-VEC-001",
+              "severity": "MEDIUM",
+              "title": "Acute Febrile Illness with Vector Exposure",
+              "description": "Potential clinical consideration detected — requires clinician review.",
+              "clinical_rationale": "Fever with retro-orbital headache and local mosquito vector exposure warrants viral vector serology and platelet monitoring.",
+              "triggered_facts": [
+                "Fever for 3 days",
+                "Headache",
+                "Mosquito exposure"
+              ],
+              "detected_at": "2026-09-18T00:22:46.416561+00:00"
+            }
+          ],
+          "confidence": 0.95
+        },
+        "plan": {
+          "title": "P - Plan (Diagnostics, Questions & Next Steps)",
+          "content": "1. Prioritize for clinician consultation within 30 minutes.\n2. Repeat baseline vital signs (BP, SpO2, Temperature).\n3. Complete Blood Count (CBC) with peripheral smear, Dengue NS1/IgM if fever > 3 days.\n4. Physician verification and confirmation of digitized medications and drug allergies.",
+          "facts": [],
+          "confidence": 0.95
+        }
+      },
+      "patient_vernacular_summary": {
+        "en": "Hello Rahul Sharma. Your clinical intake for fever has been recorded. We have noted your symptoms, recent medications (Paracetamol 650mg), and vitals. This summary has been sent directly to your doctor's screen. Please proceed to the consultation room when your token is called.",
+        "hi": "नमस्ते Rahul Sharma। कियोस्क पर आपकी Fever संबंधी जानकारी और लक्षण सफलतापूर्वक दर्ज कर लिए गए हैं। आपकी पूर्व दवाएं (Paracetamol 650mg) और स्वास्थ्य विवरण डॉक्टर साहब के डैशबोर्ड पर भेज दिए गए हैं। टोकन नंबर पुकारे जाने पर कृपया परामर्श कक्ष में पधारें।",
+        "mr": "नमस्कार Rahul Sharma. किओस्कवर आपली Fever बाबतची माहिती आणि लक्षणे नोंदवली गेली आहेत. आपली औषधे (Paracetamol 650mg) आणि तपासणी तपशील डॉक्टरांच्या स्क्रीनवर पाठवले आहेत. आपला टोकन नंबर पुकारल्यावर कृपया तपासणी कक्षात जावे."
+      },
+      "pertinent_positives": [
+        "Headache: Severe frontal throbbing",
+        "Body ache: Generalized myalgia",
+        "Mosquito exposure: Significant bites in neighborhood"
+      ],
+      "pertinent_negatives": [
+        "Denies petechial rash, gum bleeding, or hematuria",
+        "No neck stiffness or photophobia",
+        "No productive cough or hemoptysis"
+      ],
+      "triage_level": "URGENT",
+      "red_flags": [
+        "Acute Febrile Illness with Vector Exposure: Fever with retro-orbital headache and local mosquito vector exposure warrants viral vector serology and platelet monitoring."
+      ],
+      "missing_fields": [
+        "Past chronic medical history"
+      ],
+      "ai_model_used": "MediKiosk Clinical Synthesis Engine (Deterministic v2.1)",
+      "disclaimer": "CONFIDENTIAL MEDICAL SUMMARY (DRAFT) — Generated automatically by MediKiosk AI intake assistance from patient multi-channel inputs and digitized documents. Does NOT constitute a clinical diagnosis. Attending physician verification is mandatory.",
+      "is_verified_by_doctor": false,
+      "verified_by": null,
+      "verified_at": null,
+      "created_at": "2026-09-18T00:22:46.451000+00:00",
+      "updated_at": "2026-09-18T00:22:46.451000+00:00"
     }
   },
   "verification_events": {
@@ -16514,6 +19783,30 @@
         "finalized": true
       },
       "timestamp": "2026-09-17T23:15:14.250944+00:00"
+    },
+    "3a6499b1-f9e4-4cb6-ba7c-862ea9731176": {
+      "id": "3a6499b1-f9e4-4cb6-ba7c-862ea9731176",
+      "encounter_id": "4f5ceeee-051a-4887-9112-87bbc4d6e09c",
+      "actor_type": "patient",
+      "actor_id": "e2eacd1a-20c0-410c-b16e-2a0444f72569",
+      "action_type": "PATIENT_CONFIRMATION",
+      "details": {
+        "corrections": [],
+        "confirmed": true
+      },
+      "timestamp": "2026-09-17T23:51:22.647836+00:00"
+    },
+    "4e10dd28-dd8f-4e40-a2a0-b163f19e6305": {
+      "id": "4e10dd28-dd8f-4e40-a2a0-b163f19e6305",
+      "encounter_id": "4f5ceeee-051a-4887-9112-87bbc4d6e09c",
+      "actor_type": "patient",
+      "actor_id": "e2eacd1a-20c0-410c-b16e-2a0444f72569",
+      "action_type": "PATIENT_CONFIRMATION",
+      "details": {
+        "corrections": [],
+        "confirmed": true
+      },
+      "timestamp": "2026-09-17T23:51:38.459758+00:00"
     }
   },
   "audit_logs": {
@@ -16739,6 +20032,28 @@
         "finalized": true
       },
       "timestamp": "2026-09-17T23:15:14.250944+00:00"
+    },
+    "69e5698a-b6a9-4fd9-b44f-8e388d1371ef": {
+      "id": "69e5698a-b6a9-4fd9-b44f-8e388d1371ef",
+      "event_type": "VERIFICATION_PATIENT_CONFIRMATION",
+      "encounter_id": "4f5ceeee-051a-4887-9112-87bbc4d6e09c",
+      "actor": "patient:e2eacd1a-20c0-410c-b16e-2a0444f72569",
+      "details": {
+        "corrections": [],
+        "confirmed": true
+      },
+      "timestamp": "2026-09-17T23:51:22.647836+00:00"
+    },
+    "36957380-6569-4646-83f1-99d484a9ec95": {
+      "id": "36957380-6569-4646-83f1-99d484a9ec95",
+      "event_type": "VERIFICATION_PATIENT_CONFIRMATION",
+      "encounter_id": "4f5ceeee-051a-4887-9112-87bbc4d6e09c",
+      "actor": "patient:e2eacd1a-20c0-410c-b16e-2a0444f72569",
+      "details": {
+        "corrections": [],
+        "confirmed": true
+      },
+      "timestamp": "2026-09-17T23:51:38.459758+00:00"
     }
   }
 }

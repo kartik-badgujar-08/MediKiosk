@@ -177,11 +177,20 @@ export class ApiClient {
     return this.request<any>(`/api/v1/summaries/${encounterId}`);
   }
 
-  async generateSummary(encounterId: string): Promise<any> {
-    return this.request<any>(`/api/v1/summaries/generate/${encounterId}`, {
+  async getSummaryProviders(): Promise<{ active_provider: string; providers: any[] }> {
+    return this.request<{ active_provider: string; providers: any[] }>('/api/v1/summaries/providers');
+  }
+
+  async generateSummary(encounterId: string, options?: { provider?: string; language?: string }): Promise<any> {
+    const params = new URLSearchParams();
+    if (options?.provider) params.append('provider', options.provider);
+    if (options?.language) params.append('language', options.language);
+    const queryString = params.toString() ? `?${params.toString()}` : '';
+    return this.request<any>(`/api/v1/summaries/generate/${encounterId}${queryString}`, {
       method: 'POST',
     });
   }
+
 
   // Verification
   async patientConfirm(data: { encounter_id: string; confirmed: boolean; corrections?: any[] }): Promise<any> {
