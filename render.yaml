@@ -1,4 +1,4 @@
-services:
+﻿services:
   - type: web
     name: medikiosk-backend
     env: python
@@ -6,18 +6,18 @@ services:
     plan: free
     buildCommand: pip install -r backend/requirements.txt
     startCommand: cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT
-    healthCheckPath: /health
+    healthCheckPath: /api/v1/health
     envVars:
       - key: ENVIRONMENT
         value: production
       - key: DEBUG
         value: "false"
-      - key: FRONTEND_URL
-        sync: false
       - key: CORS_ORIGINS
-        sync: false
+        value: "*"
+      - key: FRONTEND_URL
+        value: "*"
       - key: MONGODB_URI
-        sync: false
+        value: "none"
       - key: JWT_SECRET
         generateValue: true
       - key: ASR_MODE
@@ -27,8 +27,12 @@ services:
       - key: CLINICAL_NER_MODE
         value: mock
       - key: LLM_MODE
-        value: mock
+        value: auto
+      - key: LLM_PROVIDER
+        value: engine
       - key: ABDM_MODE
         value: mock
       - key: HIS_MODE
+        value: mock
+      - key: SIGN_RECOGNITION_MODE
         value: mock
