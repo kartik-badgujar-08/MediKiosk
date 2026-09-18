@@ -16,6 +16,16 @@ MediKiosk is an intelligent, multimodal digital clinical case-taking assistant e
 In high-volume public hospitals and primary clinics, physicians face extreme time constraints (often 2–3 minutes per patient), leading to incomplete history taking, missed drug allergies, and unrecorded physical prescriptions. Low-literacy, elderly, and deaf patients face severe accessibility barriers. MediKiosk bridges this gap at the first mile before consultation begins, transforming unstructured patient responses and physical records into structured, doctor-ready clinical insights.
 
 ---
+PROTOTYPE SCREENSHOTS
+<img width="1895" height="857" alt="Screenshot 2026-09-18 085018" src="https://github.com/user-attachments/assets/0fd7e5d7-4cdd-4e89-b792-275a86cf3df4" />
+<img width="1896" height="872" alt="Screenshot 2026-09-18 085543" src="https://github.com/user-attachments/assets/e2c73f19-eef5-409d-89b6-671d8846eb33" />
+<img width="1877" height="867" alt="image" src="https://github.com/user-attachments/assets/a6fbc976-32e1-4284-a7b2-5ecb665a1125" />
+<img width="686" height="702" alt="image" src="https://github.com/user-attachments/assets/30d242d6-91f2-4069-97e4-267d20881124" />
+<img width="1883" height="855" alt="image" src="https://github.com/user-attachments/assets/98a11b69-d771-4526-aba6-d77976547a52" />
+
+
+
+
 
 ## 🏗️ High-Level System Architecture
 
@@ -238,3 +248,4 @@ See [Deployment Guide](docs/deployment.md) for full instructions:
 
 ## 📄 License
 Licensed under the Apache License, Version 2.0.
+
