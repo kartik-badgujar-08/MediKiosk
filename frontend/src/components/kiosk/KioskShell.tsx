@@ -114,8 +114,26 @@ export const KioskShell: React.FC<KioskShellProps> = ({
         </div>
       </div>
 
+      {/* Active ISL Accessibility Banner */}
+      {isISLEnabled && (
+        <div className="bg-gradient-to-r from-teal-700 via-teal-800 to-slate-900 text-white px-4 sm:px-8 py-2.5 shadow-sm border-b border-teal-600/40">
+          <div className="max-w-6xl mx-auto flex items-center justify-between text-xs font-bold">
+            <div className="flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-teal-300 animate-ping" />
+              <Hand className="w-4 h-4 text-teal-300" />
+              <span>ISL Accessibility Mode Active: Certified Sign Language Interpreter Avatar & Visual Guidance Enabled</span>
+            </div>
+            <span className="hidden md:inline-block px-2.5 py-0.5 rounded-full bg-teal-900/80 border border-teal-400/40 text-[11px] text-teal-200 font-semibold">
+              ISLRTC Medical Dictionary
+            </span>
+          </div>
+        </div>
+      )}
+
       {/* Main Interactive Work Area */}
-      <div className="flex-1 max-w-4xl w-full mx-auto p-4 sm:p-8 flex flex-col justify-center">
+      <div className={`flex-1 w-full mx-auto p-4 sm:p-8 flex flex-col justify-center transition-all ${
+        isISLEnabled ? 'max-w-6xl' : 'max-w-4xl'
+      }`}>
         {children}
       </div>
 

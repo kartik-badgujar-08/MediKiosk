@@ -7,6 +7,8 @@ import { SocratesBodyMap } from '../components/kiosk/SocratesBodyMap';
 import { PainSeveritySlider } from '../components/kiosk/PainSeveritySlider';
 import { DocumentScannerModal } from '../components/kiosk/DocumentScannerModal';
 import { OcrResultPreview, type OcrExtractionData } from '../components/kiosk/OcrResultPreview';
+import { IslAvatar } from '../components/kiosk/IslAvatar';
+import { IslGestureCameraModal } from '../components/kiosk/IslGestureCameraModal';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
 import { api } from '../services/api';
@@ -19,7 +21,9 @@ import {
   Check,
   RotateCcw,
   Sparkles,
-  Stethoscope
+  Stethoscope,
+  Camera,
+  Hand
 } from 'lucide-react';
 
 interface QuestionOption {
@@ -40,6 +44,8 @@ interface ClinicalQuestion {
   audio_prompt_en?: string;
   audio_prompt_hi?: string;
   audio_prompt_mr?: string;
+  isl_gloss?: string;
+  isl_video_url?: string;
   options?: QuestionOption[];
   min_value?: number;
   max_value?: number;
@@ -65,6 +71,7 @@ export const KioskPage: React.FC = () => {
   const [isListening, setIsListening] = useState(false);
   const [speechTranscript, setSpeechTranscript] = useState('');
   const [isAnalyzingAI, setIsAnalyzingAI] = useState(false);
+  const [isSignCameraOpen, setIsSignCameraOpen] = useState(false);
   
   const { patientProfile } = useAuth();
   
@@ -96,7 +103,7 @@ export const KioskPage: React.FC = () => {
           const sum = await api.generateSummary(encounterId, { language });
           setKioskSummary(sum);
           const vernacularText = sum?.patient_vernacular_summary?.[language] || sum?.patient_vernacular_summary?.['en'];
-          if (vernacularText) {
+          if (vernacularText && !isISL) {
             speak(vernacularText);
           }
         } catch (e) {
@@ -107,12 +114,14 @@ export const KioskPage: React.FC = () => {
       };
       fetchSummary();
     }
-  }, [currentStep, encounterId, language]);
+  }, [currentStep, encounterId, language, isISL]);
 
   // Audio welcome on initial mount
   useEffect(() => {
-    speak(t('audio.kioskWelcome'));
-  }, [language]);
+    if (!isISL) {
+      speak(t('audio.kioskWelcome'));
+    }
+  }, [language, isISL]);
 
 
   useEffect(() => {
@@ -162,15 +171,17 @@ export const KioskPage: React.FC = () => {
         lastSpokenQuestionId.current = q.id;
         // Reset multi selection
         setSelectedMultiOptions([]);
-        // Small delay to allow UI transition then speak loudly
-        const timer = setTimeout(() => {
-          const prompt = getQuestionAudioPrompt(q);
-          speak(prompt);
-        }, 300);
-        return () => clearTimeout(timer);
+        if (!isISL) {
+          // Small delay to allow UI transition then speak loudly
+          const timer = setTimeout(() => {
+            const prompt = getQuestionAudioPrompt(q);
+            speak(prompt);
+          }, 300);
+          return () => clearTimeout(timer);
+        }
       }
     }
-  }, [currentStep, interviewState?.current_question?.id, language]);
+  }, [currentStep, interviewState?.current_question?.id, language, isISL]);
 
   const [patientId, setPatientId] = useState<string>('');
   const [patientUhid, setPatientUhid] = useState<string>('UHID-2026-PENDING');
@@ -225,20 +236,26 @@ export const KioskPage: React.FC = () => {
     }
   };
 
-  // Handle single option selection with loud audio confirmation
-  const handleSelectSingleOption = async (val: string, label: string) => {
+  // Handle single option selection with audio or visual sign confirmation
+  const handleSelectSingleOption = async (
+    val: string,
+    label: string,
+    inputChannel: 'touch' | 'sign' = isISL ? 'sign' : 'touch'
+  ) => {
     if (!interviewState?.current_question) return;
 
-    // Speak loudly confirmation of what was selected
-    const confirmPrefix = t('kiosk.selectedOption') || 'Selected';
-    speak(`${confirmPrefix}: ${label}`);
+    if (!isISL) {
+      // Speak loudly confirmation of what was selected
+      const confirmPrefix = t('kiosk.selectedOption') || 'Selected';
+      speak(`${confirmPrefix}: ${label}`);
+    }
 
     try {
       setIsLoadingInterview(true);
       const updated = await api.submitAnswer(encounterId, {
         question_id: interviewState.current_question.id,
         answer_value: val,
-        input_channel: 'touch',
+        input_channel: inputChannel,
         confidence: 1.0,
       });
       setInterviewState(updated);
@@ -445,13 +462,26 @@ export const KioskPage: React.FC = () => {
     >
       {/* STEP 1: Patient Registration & Consent */}
       {currentStep === 1 && (
-        <Card variant="kiosk" padding="kiosk">
-          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2 text-center">
-            Patient Identification & Health Account
-          </h2>
-          <p className="text-slate-600 text-sm text-center mb-6">
-            Please confirm your identity details to proceed to the clinical history interview.
-          </p>
+        <div className={isISL ? 'grid grid-cols-1 lg:grid-cols-12 gap-6 items-start' : ''}>
+          {isISL && (
+            <div className="lg:col-span-5">
+              <IslAvatar
+                currentStep={1}
+                questionText="Welcome to MediKiosk. Please verify your identification details and ABHA digital health account."
+                questionGloss="WELCOME PATIENT ABHA IDENTITY DETAILS CONFIRM"
+                language={language}
+              />
+            </div>
+          )}
+
+          <div className={isISL ? 'lg:col-span-7' : 'w-full'}>
+            <Card variant="kiosk" padding="kiosk">
+              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2 text-center">
+                Patient Identification & Health Account
+              </h2>
+              <p className="text-slate-600 text-sm text-center mb-6">
+                Please confirm your identity details to proceed to the clinical history interview.
+              </p>
 
           {/* Government ABHA Identity Card or Login prompt */}
           {patientProfile ? (
@@ -548,37 +578,86 @@ export const KioskPage: React.FC = () => {
             </div>
           </div>
         </Card>
-      )}
+      </div>
+    </div>
+  )}
 
       {/* STEP 2: AI Clinical Interview (SOCRATES Engine) */}
       {currentStep === 2 && (
-        <Card variant="kiosk" padding="kiosk">
-          {/* Audio Guidance Bar & Replay */}
-          <div className="max-w-2xl mx-auto mb-6 p-3.5 bg-gradient-to-r from-sky-50 via-teal-50 to-indigo-50 border-2 border-sky-200 rounded-2xl flex items-center justify-between shadow-2xs">
-            <div className="flex items-center gap-3">
-              <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold ${
-                isSpeaking ? 'bg-amber-500 text-white animate-pulse' : 'bg-sky-600 text-white'
-              }`}>
-                <Volume2 className="w-5 h-5" />
-              </div>
-              <div>
-                <span className="text-xs font-bold text-slate-900 block">
-                  {isSpeaking ? '🔊 Audio Speaking Loudly...' : '🔊 Audio Guided Clinical Interview'}
-                </span>
-                <span className="text-[11px] text-slate-500">
-                  Every question and your selection will speak aloud automatically.
-                </span>
-              </div>
+        <div className={isISL && !isInterviewComplete ? 'grid grid-cols-1 lg:grid-cols-12 gap-6 items-start' : ''}>
+          {isISL && !isInterviewComplete && (
+            <div className="lg:col-span-5 sticky top-4">
+              <IslAvatar
+                currentStep={2}
+                questionId={currentQ?.id}
+                questionText={currentQ ? getQuestionText(currentQ) : ''}
+                questionGloss={currentQ?.isl_gloss || ''}
+                options={currentQ?.options?.map((opt) => ({
+                  value: opt.value,
+                  label: getOptionLabel(opt),
+                }))}
+                onSelectOption={(val, label) => handleSelectSingleOption(val, label, 'sign')}
+                onOpenSignCamera={() => setIsSignCameraOpen(true)}
+                language={language}
+              />
             </div>
-            <button
-              type="button"
-              onClick={replayCurrentQuestionAudio}
-              className="px-3.5 py-2 rounded-xl bg-white border-2 border-sky-300 hover:bg-sky-50 text-sky-800 font-bold text-xs flex items-center gap-1.5 shadow-2xs cursor-pointer transition-all active:scale-95"
-            >
-              <RotateCcw className="w-3.5 h-3.5 text-sky-600" />
-              {t('kiosk.replayQuestion') || 'Replay Voice'}
-            </button>
-          </div>
+          )}
+
+          <div className={isISL && !isInterviewComplete ? 'lg:col-span-7' : 'w-full'}>
+            <Card variant="kiosk" padding="kiosk">
+              {/* Guidance Bar: ISL Visual vs Audio */}
+              {isISL ? (
+                <div className="max-w-2xl mx-auto mb-6 p-3.5 bg-gradient-to-r from-teal-50 via-emerald-50 to-sky-50 border-2 border-teal-300 rounded-2xl flex items-center justify-between shadow-2xs">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-teal-600 text-white flex items-center justify-center font-bold">
+                      <Hand className="w-5 h-5 animate-pulse" />
+                    </div>
+                    <div>
+                      <span className="text-xs font-bold text-slate-900 block flex items-center gap-1.5">
+                        <span>🧏 Visual Indian Sign Language Guidance Active</span>
+                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-teal-100 text-teal-800 font-extrabold">ISLRTC</span>
+                      </span>
+                      <span className="text-[11px] text-slate-500">
+                        Watch interpreter signing on the avatar or sign with webcam camera.
+                      </span>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setIsSignCameraOpen(true)}
+                    className="px-3.5 py-2 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-2xs cursor-pointer transition-all active:scale-95"
+                  >
+                    <Camera className="w-3.5 h-3.5" />
+                    <span>Sign via Camera</span>
+                  </button>
+                </div>
+              ) : (
+                <div className="max-w-2xl mx-auto mb-6 p-3.5 bg-gradient-to-r from-sky-50 via-teal-50 to-indigo-50 border-2 border-sky-200 rounded-2xl flex items-center justify-between shadow-2xs">
+                  <div className="flex items-center gap-3">
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold ${
+                      isSpeaking ? 'bg-amber-500 text-white animate-pulse' : 'bg-sky-600 text-white'
+                    }`}>
+                      <Volume2 className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <span className="text-xs font-bold text-slate-900 block">
+                        {isSpeaking ? '🔊 Audio Speaking Loudly...' : '🔊 Audio Guided Clinical Interview'}
+                      </span>
+                      <span className="text-[11px] text-slate-500">
+                        Every question and your selection will speak aloud automatically.
+                      </span>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={replayCurrentQuestionAudio}
+                    className="px-3.5 py-2 rounded-xl bg-white border-2 border-sky-300 hover:bg-sky-50 text-sky-800 font-bold text-xs flex items-center gap-1.5 shadow-2xs cursor-pointer transition-all active:scale-95"
+                  >
+                    <RotateCcw className="w-3.5 h-3.5 text-sky-600" />
+                    {t('kiosk.replayQuestion') || 'Replay Voice'}
+                  </button>
+                </div>
+              )}
 
           {/* Red Flag Warning Banner */}
           {interviewState?.red_flags && interviewState.red_flags.length > 0 && (
@@ -794,14 +873,29 @@ export const KioskPage: React.FC = () => {
             </div>
           )}
         </Card>
-      )}
+      </div>
+    </div>
+  )}
 
       {/* STEP 3: Document Upload */}
       {currentStep === 3 && (
-        <Card variant="kiosk" padding="kiosk">
-          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2 text-center">
-            Upload Prior Prescriptions or Lab Reports
-          </h2>
+        <div className={isISL ? 'grid grid-cols-1 lg:grid-cols-12 gap-6 items-start' : ''}>
+          {isISL && (
+            <div className="lg:col-span-5">
+              <IslAvatar
+                currentStep={3}
+                questionText="Upload or scan prior doctor prescriptions or diagnostic pathology reports."
+                questionGloss="PRESCRIPTION LAB REPORT DOCUMENT SCAN DIGITIZE"
+                language={language}
+              />
+            </div>
+          )}
+
+          <div className={isISL ? 'lg:col-span-7' : 'w-full'}>
+            <Card variant="kiosk" padding="kiosk">
+              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2 text-center">
+                Upload Prior Prescriptions or Lab Reports
+              </h2>
           <p className="text-slate-600 text-sm text-center mb-8 max-w-xl mx-auto">
             Digitize previous medical prescriptions (via TrOCR) or diagnostic pathology reports (CBC, Sugar, Lipid) for physician review.
           </p>
@@ -854,10 +948,33 @@ export const KioskPage: React.FC = () => {
             </div>
           )}
         </Card>
+      </div>
+    </div>
+  )}
+
+  {/* STEP 4: Review & Submit */}
+  {currentStep === 4 && (
+    <div className={isISL ? 'grid grid-cols-1 lg:grid-cols-12 gap-6 items-start' : ''}>
+      {isISL && (
+        <div className="lg:col-span-5 sticky top-4">
+          <IslAvatar
+            currentStep={4}
+            questionText={
+              submissionSuccess
+                ? `Clinical intake submitted! Your token is #${tokenNumber}. Please go to Doctor Consultation Room 3.`
+                : 'Please review your recorded clinical intake summary before transmitting to the doctor.'
+            }
+            questionGloss={
+              submissionSuccess
+                ? 'INTAKE COMPLETE TOKEN NUMBER CONSULTATION DOCTOR ROOM'
+                : 'REVIEW CLINICAL INTAKE SUMMARY TRANSMIT DOCTOR'
+            }
+            language={language}
+          />
+        </div>
       )}
 
-      {/* STEP 4: Review & Submit */}
-      {currentStep === 4 && (
+      <div className={isISL ? 'lg:col-span-7' : 'w-full'}>
         <Card variant="kiosk" padding="kiosk">
           {submissionSuccess ? (
             <div className="max-w-2xl mx-auto py-4 space-y-6 animate-in fade-in">
@@ -1180,6 +1297,25 @@ export const KioskPage: React.FC = () => {
             </>
           )}
         </Card>
+      </div>
+    </div>
+  )}
+
+      {/* ISL Camera Gesture Recognition Modal */}
+      {currentQ && (
+        <IslGestureCameraModal
+          isOpen={isSignCameraOpen}
+          onClose={() => setIsSignCameraOpen(false)}
+          encounterId={encounterId}
+          questionId={currentQ.id}
+          availableOptions={currentQ.options?.map((opt) => ({
+            value: opt.value,
+            label: getOptionLabel(opt),
+          }))}
+          onConfirmSignAnswer={(val, label) => {
+            handleSelectSingleOption(val, label, 'sign');
+          }}
+        />
       )}
     </KioskShell>
   );

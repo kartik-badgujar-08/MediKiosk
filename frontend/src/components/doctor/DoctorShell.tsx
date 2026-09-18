@@ -12,6 +12,7 @@ import {
   Search
 } from 'lucide-react';
 import { Badge, type VerificationStatusType } from '../ui/Badge';
+import { api } from '../../services/api';
 
 export interface PatientEncounterSummary {
   id: string;
@@ -59,7 +60,6 @@ export const DoctorShell: React.FC<DoctorShellProps> = ({
     { id: 'meds', label: 'Meds & Allergies', icon: <ShieldCheck className="w-4 h-4" /> },
     { id: 'docs', label: 'Documents & OCR', icon: <FileText className="w-4 h-4" /> },
     { id: 'timeline', label: 'Patient Timeline', icon: <History className="w-4 h-4" /> },
-    { id: 'fhir', label: 'FHIR R4 / ABDM', icon: <Share2 className="w-4 h-4" /> },
   ];
 
   return (
@@ -78,6 +78,19 @@ export const DoctorShell: React.FC<DoctorShellProps> = ({
 
         {selectedEncounter && (
           <div className="flex items-center gap-3">
+            {/* Link to FHIR R4 Bundle */}
+            <a
+              href={`${api.getBaseUrl()}/api/v1/fhir/bundle/${selectedEncounter.id}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 text-xs font-bold transition-all shadow-2xs"
+              title="Open HL7 FHIR R4 Bundle in new tab"
+            >
+              <Share2 className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">FHIR R4 Bundle</span>
+              <span className="text-[10px]">↗</span>
+            </a>
+
             <div className="text-right hidden sm:block">
               <div className="text-xs font-semibold text-slate-900">{selectedEncounter.patientName}</div>
               <div className="text-[11px] text-slate-500">

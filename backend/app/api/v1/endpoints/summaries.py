@@ -55,10 +55,10 @@ async def get_encounter_summary(
     provider: str = Query("auto"),
 ):
     existing = await summary_repo.get_by_encounter(encounter_id)
-    if existing:
+    if existing and existing.get("standard_clinical_format"):
         return existing
 
-    # Auto-generate if not yet persisted
+    # Auto-generate if not yet persisted or missing standard clinical format
     return await generate_encounter_summary(encounter_id=encounter_id, provider=provider)
 
 
@@ -69,7 +69,7 @@ async def update_encounter_summary_draft(
 ):
     """
     Save or update an editable physician clinical summary draft.
-    Allows attending clinicians to amend SOAP sections, HPI, impressions, plans, and notes.
+    Allows attending clinicians to amend standard clinical format, SOAP sections, HPI, impressions, plans, and notes.
     """
     existing = await summary_repo.get_by_encounter(encounter_id)
     if not existing:
@@ -81,7 +81,7 @@ async def update_encounter_summary_draft(
     data_dict = update_data.model_dump(exclude_unset=True)
     for key, value in data_dict.items():
         if value is not None:
-            if key == "soap_sections" and isinstance(value, dict) and "soap_sections" in existing:
+            if key == "soap_sections" and isinstance(value, dict):
                 # Deep merge soap sections
                 curr_soap = existing.get("soap_sections") or {}
                 for s_key, s_val in value.items():
@@ -90,8 +90,18 @@ async def update_encounter_summary_draft(
                     else:
                         curr_soap[s_key] = s_val
                 existing["soap_sections"] = curr_soap
+            elif key == "standard_clinical_format" and isinstance(value, dict):
+                # Deep merge standard clinical format sections
+                curr_std = existing.get("standard_clinical_format") or {}
+                for s_key, s_val in value.items():
+                    if isinstance(s_val, dict) and s_key in curr_std:
+                        curr_std[s_key].update(s_val)
+                    else:
+                        curr_std[s_key] = s_val
+                existing["standard_clinical_format"] = curr_std
             else:
                 existing[key] = value
+
 
     saved = await summary_repo.save_or_update(existing)
     return saved

@@ -6,7 +6,6 @@ import { Badge } from '../components/ui/Badge';
 import { useAuth } from '../context/AuthContext';
 import { 
   FileText, 
-  Share2, 
   CheckCircle2, 
   Layers,
   Loader2,
@@ -30,7 +29,6 @@ export const DoctorPage: React.FC = () => {
   // Encounter detailed data from backend
   const [clinicalState, setClinicalState] = useState<any | null>(null);
   const [summary, setSummary] = useState<any | null>(null);
-  const [fhirBundle, setFhirBundle] = useState<any | null>(null);
   const [timelineEvents, setTimelineEvents] = useState<any[]>([]);
   const [documents, setDocuments] = useState<any[]>([]);
 
@@ -114,16 +112,14 @@ export const DoctorPage: React.FC = () => {
 
     const loadEncounterDetails = async () => {
       try {
-        const [st, sum, bundle, docs] = await Promise.all([
+        const [st, sum, docs] = await Promise.all([
           api.getClinicalState(selectedEncounterId).catch(() => null),
           api.getSummary(selectedEncounterId).catch(() => null),
-          api.getFHIRBundle(selectedEncounterId).catch(() => null),
           api.getEncounterDocuments(selectedEncounterId).catch(() => []),
         ]);
 
         setClinicalState(st);
         setSummary(sum);
-        setFhirBundle(bundle);
         setDocuments(docs || []);
 
         // Load timeline if patient_id is available
@@ -599,24 +595,6 @@ export const DoctorPage: React.FC = () => {
               </div>
             ))}
           </div>
-        </Card>
-      )}
-
-      {/* Tab: FHIR R4 Bundle Preview */}
-      {activeTab === 'fhir' && (
-        <Card>
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
-              <Share2 className="w-5 h-5 text-indigo-600" />
-              <span>HL7 FHIR R4 Resource Bundle</span>
-            </h3>
-            <span className="text-xs font-semibold px-2.5 py-1 rounded bg-indigo-50 text-indigo-700 border border-indigo-200">
-              ABDM & HIS Interoperable
-            </span>
-          </div>
-          <pre className="p-4 bg-slate-900 text-emerald-400 rounded-2xl text-xs overflow-x-auto font-mono max-h-96">
-            {fhirBundle ? JSON.stringify(fhirBundle, null, 2) : '// Loading FHIR R4 Bundle...'}
-          </pre>
         </Card>
       )}
     </DoctorShell>

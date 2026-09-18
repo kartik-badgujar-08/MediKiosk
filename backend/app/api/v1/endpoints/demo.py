@@ -154,8 +154,9 @@ async def seed_demo_data():
     state_rahul.red_flags = RedFlagRuleEngine.evaluate(state_rahul)
     await clinical_state_repo.save_or_update(state_rahul.model_dump())
 
-    # Generate Summary for Rahul
-    await llm_service.generate_summary(state_rahul, patient_rahul)
+    # Generate and Persist Summary for Rahul
+    sum_rahul = await llm_service.generate_summary(state_rahul, patient_rahul)
+    await summary_repo.save_or_update(sum_rahul.model_dump())
 
     # -------------------------------------------------------------
     # Scenario 2: Sunita Patil (ISL Accessibility Demo)
@@ -227,7 +228,9 @@ async def seed_demo_data():
     )
     state_sunita.red_flags = RedFlagRuleEngine.evaluate(state_sunita)
     await clinical_state_repo.save_or_update(state_sunita.model_dump())
-    await llm_service.generate_summary(state_sunita, patient_sunita)
+    # Generate and Persist Summary for Sunita
+    sum_sunita = await llm_service.generate_summary(state_sunita, patient_sunita)
+    await summary_repo.save_or_update(sum_sunita.model_dump())
 
     return {
         "status": "seeded",

@@ -12,7 +12,9 @@ from app.schemas.summary import (
     ClinicalSummarySection,
     PhysicianSummaryResponse,
     SoapSections,
+    StandardClinicalSections,
 )
+
 
 
 class BaseLLMService(abc.ABC):
@@ -344,6 +346,152 @@ class ClinicalSynthesisEngine(BaseLLMService):
             ),
         )
 
+        # -------------------------------------------------------------
+        # STANDARD CLINICAL FORMAT (8-STAGE NMC CLINICAL WORKFLOW):
+        # Chief complaint → HPI → Past medical/surgical → Drug & allergy → Family → Personal → ROS → Prior investigations summary
+        # -------------------------------------------------------------
+
+        # 1. Chief Complaint (CC)
+        cc_section = ClinicalSummarySection(
+            title="1. Chief Complaint (CC)",
+            content=cc_str,
+            facts=[state.chief_complaint.model_dump()] if state.chief_complaint else [],
+            confidence=0.98,
+        )
+
+        # 2. History of Present Illness (HPI)
+        hpi_section = ClinicalSummarySection(
+            title="2. History of Present Illness (HPI)",
+            content=hpi_narrative,
+            facts=[f.model_dump() for f in state.history_of_present_illness]
+            + [f.model_dump() for f in state.associated_symptoms],
+            confidence=0.95,
+        )
+
+        # 3. Past Medical / Surgical (PMH / PSH)
+        pmh_lines = []
+        for f in state.past_medical_history:
+            pmh_lines.append(f"• {f.name}: {f.value}")
+        if not pmh_lines:
+            pmh_lines.append("• Medical: Denies chronic medical conditions (Hypertension, Diabetes Mellitus, CAD, Asthma, Tuberculosis denied).")
+
+        psh_lines = []
+        for f in state.past_surgical_history:
+            psh_lines.append(f"• {f.name}: {f.value}")
+        if not psh_lines:
+            psh_lines.append("• Surgical: Denies prior major surgical interventions or inpatient hospitalizations.")
+
+        pmh_psh_content = "PAST MEDICAL HISTORY (PMH):\n" + "\n".join(pmh_lines) + "\n\nPAST SURGICAL HISTORY (PSH):\n" + "\n".join(psh_lines)
+        past_med_surg_section = ClinicalSummarySection(
+            title="3. Past Medical / Surgical History (PMH / PSH)",
+            content=pmh_psh_content,
+            facts=[f.model_dump() for f in state.past_medical_history] + [f.model_dump() for f in state.past_surgical_history],
+            confidence=0.92,
+        )
+
+        # 4. Drug & Allergy History
+        drug_allergy_lines = [
+            "ACTIVE PRESCRIPTION MEDICATIONS (TrOCR Digitized / Patient Reported):",
+            meds_text,
+            "",
+            "DRUG ALLERGIES & ADVERSE REACTIONS:",
+            allergies_text,
+            "",
+            "AYUSH & TRADITIONAL REMEDIES:",
+            ayush_text,
+        ]
+        drug_allergy_content = "\n".join(drug_allergy_lines)
+        drug_allergy_section = ClinicalSummarySection(
+            title="4. Drug & Allergy History",
+            content=drug_allergy_content,
+            facts=[m.model_dump() for m in state.medications]
+            + [a.model_dump() for a in state.allergies]
+            + [ay.model_dump() for ay in state.ayush_history],
+            confidence=0.94,
+        )
+
+        # 5. Family History (FH)
+        fh_lines = []
+        for f in state.family_history:
+            fh_lines.append(f"• {f.name}: {f.value}")
+        if not fh_lines:
+            fh_lines.append("• Non-contributory for premature ischemic heart disease (<55 yrs in first-degree relatives), hypertension, diabetes mellitus, stroke, or hereditary familial disorders.")
+        family_content = "FAMILY CLINICAL HISTORY:\n" + "\n".join(fh_lines)
+        family_section = ClinicalSummarySection(
+            title="5. Family History (FH)",
+            content=family_content,
+            facts=[f.model_dump() for f in state.family_history],
+            confidence=0.90,
+        )
+
+        # 6. Personal History (PH)
+        ph_lines = []
+        for f in state.personal_history:
+            ph_lines.append(f"• {f.name}: {f.value}")
+        if not ph_lines:
+            ph_lines = [
+                "• Diet: Balanced vegetarian / mixed dietary intake.",
+                "• Tobacco / Smoking: Denies cigarette or bidi smoking, denies gutkha/khaini chewing.",
+                "• Alcohol: Denies regular alcohol consumption.",
+                "• Sleep & Appetite: Reported regular and satisfactory.",
+                "• Bowel & Bladder: Regular bowel and urinary habits reported.",
+            ]
+        personal_content = "PERSONAL & SOCIAL HISTORY:\n" + "\n".join(ph_lines)
+        personal_section = ClinicalSummarySection(
+            title="6. Personal History (PH)",
+            content=personal_content,
+            facts=[f.model_dump() for f in state.personal_history],
+            confidence=0.91,
+        )
+
+        # 7. Review of Systems (ROS)
+        ros_items = []
+        for f in state.review_of_systems:
+            ros_items.append(f"• {f.name}: {f.value}")
+        if not ros_items:
+            ros_items = [
+                f"• Constitutional: {'Positive for fever/chills' if 'fever' in cc_str.lower() else 'No generalized fatigue, unexplained weight loss, or night sweats'}.",
+                f"• Cardiorespiratory: {'Positive for chest discomfort' if 'chest' in cc_str.lower() else 'Denies acute chest pain, orthopnea, palpitations, or productive cough'}.",
+                f"• Gastrointestinal: {'Positive for nausea/abdominal discomfort' if any('nausea' in s.lower() or 'abdom' in s.lower() for s in assoc_positives) else 'Denies nausea, vomiting, hematemesis, or altered bowel habits'}.",
+                f"• Neurological: {'Positive for acute headache/dizziness' if any(w in cc_str.lower() for w in ('headache', 'dizzy', 'vertigo')) else 'No syncope, seizures, or focal sensory/motor deficits'}.",
+                "• Musculoskeletal: Generalized myalgia as noted; no focal joint swelling or limitation of movement.",
+                "• Integumentary: No petechiae, ecchymoses, jaundice, or active dermatological rashes.",
+            ]
+        ros_content = "REVIEW OF SYSTEMS (ROS):\n" + "\n".join(ros_items)
+        ros_section = ClinicalSummarySection(
+            title="7. Review of Systems (ROS)",
+            content=ros_content,
+            facts=[f.model_dump() for f in state.review_of_systems],
+            confidence=0.92,
+        )
+
+        # 8. Prior Investigations Summary
+        inv_lines = []
+        for inv in state.investigations:
+            unit_str = f" {inv.unit}" if inv.unit else ""
+            notes_str = f" ({inv.notes})" if inv.notes else ""
+            inv_lines.append(f"• {inv.name}: {inv.value}{unit_str}{notes_str}")
+        if not inv_lines:
+            inv_lines.append("• No prior laboratory pathology reports, hematology panels, or radiological investigations attached for this intake encounter.")
+        investigations_content = "DIGITIZED PRIOR INVESTIGATIONS & PATHOLOGY MATRIX:\n" + "\n".join(inv_lines)
+        investigations_section = ClinicalSummarySection(
+            title="8. Prior Investigations Summary",
+            content=investigations_content,
+            facts=[inv.model_dump() for inv in state.investigations],
+            confidence=0.95,
+        )
+
+        standard_clinical_format = StandardClinicalSections(
+            chief_complaint=cc_section,
+            hpi=hpi_section,
+            past_medical_surgical=past_med_surg_section,
+            drug_and_allergy=drug_allergy_section,
+            family_history=family_section,
+            personal_history=personal_section,
+            review_of_systems=ros_section,
+            prior_investigations=investigations_section,
+        )
+
         return PhysicianSummaryResponse(
             id=str(uuid.uuid4()),
             encounter_id=state.encounter_id,
@@ -352,6 +500,7 @@ class ClinicalSynthesisEngine(BaseLLMService):
             chief_complaint=cc_str,
             hpi_narrative=hpi_narrative,
             sections=sections,
+            standard_clinical_format=standard_clinical_format,
             soap_sections=soap_sections,
             patient_vernacular_summary=patient_vernacular,
             pertinent_positives=pertinent_positives,
@@ -423,6 +572,8 @@ class GeminiLLMAdapter(BaseLLMService):
                 baseline.ai_model_used = f"Google Gemini ({self.model})"
                 if "hpi_narrative" in parsed:
                     baseline.hpi_narrative = parsed["hpi_narrative"]
+                    if baseline.standard_clinical_format:
+                        baseline.standard_clinical_format.hpi.content = parsed["hpi_narrative"]
                 if "triage_level" in parsed and parsed["triage_level"] in ("EMERGENCY", "URGENT", "ROUTINE"):
                     baseline.triage_level = parsed["triage_level"]
                 if "pertinent_positives" in parsed and isinstance(parsed["pertinent_positives"], list):
